@@ -9,7 +9,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
 using APIBlueprintParser.Models;
 
 namespace APIBlueprintParser.Parsers {
@@ -18,7 +17,7 @@ namespace APIBlueprintParser.Parsers {
 	/// Parse overview section.
 	/// <see cref="https://github.com/apiaryio/api-blueprint/blob/master/API%20Blueprint%20Specification.md#api-name--overview-section/>
 	/// </summary>
-	public class OverviewParser {
+    public class OverviewParser: BaseParser {
 
         #region Nested
 
@@ -31,14 +30,10 @@ namespace APIBlueprintParser.Parsers {
 
         #endregion
 
-        private Stream _stream;
-
-        public OverviewParser(Stream stream) {
-            this._stream = stream;
-        }
+        public OverviewParser(Stream stream): base(stream) { }
 
         public OverviewNode Parse() {
-			var streamReader = new StreamReader(this._stream);
+			var streamReader = new StreamReader(base.stream);
 			var sectionCharArr = new List<char>();
 
             if (!streamReader.EndOfStream && streamReader.Peek()!= Tokens.StartOfSection) {

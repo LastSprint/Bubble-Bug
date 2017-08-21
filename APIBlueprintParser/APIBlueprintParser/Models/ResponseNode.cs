@@ -5,13 +5,31 @@
 // sprintend@gmail.com
 //
 //
-using System;
-namespace APIBlueprintParser.Models
-{
-    public class Response
-    {
-        public Response()
-        {
+
+namespace APIBlueprintParser.Models {
+
+    public class ResponseNode {
+
+        /// <summary>
+        /// Response code.
+        /// </summary>
+        public int Code { get; }
+
+        /// <summary>
+        /// Type of the response body. For example 'application/json'
+        /// </summary>
+        public BodyType BodyType { get; }
+
+        /// <summary>
+        /// Body of the response.
+        /// </summary>
+        public string Body { get; }
+
+        public ResponseNode(int code, BodyType bodyType, string body) {
+            this.Code = code;
+            this.BodyType = bodyType;
+            this.Body = body;
         }
+
     }
 }

@@ -6,9 +6,56 @@
 //
 //
 using System;
-namespace APIBlueprintParser.Models
-{
-    public struct AttributeNode
-    {
+namespace APIBlueprintParser.Models {
+
+    /// <summary>
+    /// Type of the attribute.
+    /// </summary>
+    public enum NeededType {
+        Optional,
+        Required
+    }
+
+    /// <summary>
+    /// Value type of the attribute.
+    /// </summary>
+    public enum ValueType {
+        Object,
+        String,
+        Number,
+        Bool
+    }
+
+    /// <summary>
+    /// Attribute node.
+    /// </summary>
+    public class AttributeNode {
+
+        /// <summary>
+        /// Attribute name.
+        /// </summary>
+        public string Name { get; }
+
+        /// <summary>
+        /// Neededtype of the attribute.
+        /// </summary>
+        public NeededType NeededType { get; }
+
+        /// <summary>
+        /// Value type of the attribute.
+        /// </summary>
+        public ValueType ValueType { get; }
+
+        /// <summary>
+        /// Description of the attribute.
+        /// </summary>
+        public string Description { get; }
+
+        public AttributeNode(string name, string description, NeededType neededType = NeededType.Required, ValueType valueType = ValueType.Object) {
+            this.Name = name;
+            this.NeededType = NeededType;
+            this.ValueType = valueType;
+            this.Description = description;
+        }
     }
 }

@@ -5,13 +5,22 @@
 // sprintend@gmail.com
 //
 //
-using System;
-namespace APIBlueprintParser.Models
-{
-    public class RequestNode
-    {
-        public RequestNode()
-        {
+
+namespace APIBlueprintParser.Models {
+
+    public enum BodyType {
+        Json
+    }
+
+    public class RequestNode {
+
+        public BodyType BodyType { get; }
+
+        public string Body { get; }
+
+        public RequestNode(BodyType bodyType, string body) {
+            this.BodyType = bodyType;
+            this.Body = body;
         }
     }
 }

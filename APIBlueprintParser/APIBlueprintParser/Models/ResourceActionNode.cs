@@ -5,10 +5,17 @@
 // sprintend@gmail.com
 //
 //
-using System;
-namespace APIBlueprintParser.Models
-{
-    public struct ResourceActionNode
-    {
+
+using System.Collections.Generic;
+
+namespace APIBlueprintParser.Models {
+
+    public class ResourceActionNode {
+
+        public string Identifier { get; }
+        public IReadOnlyCollection<AttributeNode> Attributes { get; }
+        public IReadOnlyCollection<AttributeNode> Parameters { get; }
+
+        public IReadOnlyCollection<RequestPair> RequestPairs { get; }
     }
 }

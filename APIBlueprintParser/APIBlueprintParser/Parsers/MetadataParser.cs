@@ -15,7 +15,7 @@ namespace APIBlueprintParser.Parsers {
     /// Parse metadata section.
     /// <see cref="https://github.com/apiaryio/api-blueprint/blob/master/API%20Blueprint%20Specification.md#metadata-section"/>
     /// </summary>
-    public class MetadataParser {
+    public class MetadataParser: BaseParser {
 
         #region Nested
 
@@ -33,19 +33,15 @@ namespace APIBlueprintParser.Parsers {
 
         #endregion
 
-        private Stream _stream;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="T:APIBlueprintParser.MetadataParser"/> class.
         /// </summary>
         /// <param name="stream">Stream which contains API specifications writing on APIBlueprint</param>
-        public MetadataParser(Stream stream) {
-            this._stream = stream;
-        }
+        public MetadataParser(Stream stream): base(stream) { }
 
         public Dictionary<string, string> Parse() {
 
-            var streamReader = new StreamReader(this._stream);
+            var streamReader = new StreamReader(base.stream);
             var sectionCharArr = new List<char>();
 
             while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection) {

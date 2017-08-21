@@ -9,6 +9,14 @@
 using System.Collections.Generic;
 using System; 
 
+public enum HttpMethod {
+    Get,
+    Post,
+    Put,
+    Update,
+    Delete
+}
+
 public static class HeaderKeywords {
     
     public const string Group = "Group";

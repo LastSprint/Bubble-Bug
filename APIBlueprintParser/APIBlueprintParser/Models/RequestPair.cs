@@ -6,12 +6,19 @@
 //
 //
 using System;
-namespace APIBlueprintParser.Models
-{
-    public class RequestPair
-    {
-        public RequestPair()
-        {
+namespace APIBlueprintParser.Models {
+
+    /// <summary>
+    /// Object, that contain request and response for it.
+    /// </summary>
+    public class RequestPair {
+
+        public RequestNode Request { get; }
+        public ResponseNode Response { get; }
+
+        public RequestPair(RequestNode request, ResponseNode response) {
+            this.Request = request;
+            this.Response = response;
         }
     }
 }

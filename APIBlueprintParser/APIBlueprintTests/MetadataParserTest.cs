@@ -6,7 +6,6 @@
 //
 //
 using NUnit.Framework;
-using System.IO;
 using APIBlueprintParser.Parsers;
 using System.Collections.Generic;
 using System;
