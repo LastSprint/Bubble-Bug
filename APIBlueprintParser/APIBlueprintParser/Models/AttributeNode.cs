@@ -35,7 +35,7 @@ namespace APIBlueprintParser.Models {
 
         public AttributeNode(string name, string description, NeededType neededType = NeededType.Required, ValueType valueType = ValueType.Object) {
             this.Name = name;
-            this.NeededType = NeededType;
+            this.NeededType = neededType;
             this.ValueType = valueType;
             this.Description = description;
         }

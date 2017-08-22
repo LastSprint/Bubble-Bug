@@ -97,7 +97,7 @@ namespace APIBlueprintParser.Parsers {
 			type = new String(type.Reverse().ToArray());
 			var bodyType = Support.StringToBodyType(type.Trim());
 
-			if (bodyType == null) {
+            if (!bodyType.HasValue) {
 				throw new FormatException($"Content type string have invalid format");
 			}
 

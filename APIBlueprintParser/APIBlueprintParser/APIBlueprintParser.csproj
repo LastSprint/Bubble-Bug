@@ -53,6 +53,7 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Parsers\Constants.cs" />
     <Compile Include="Parsers\ResponseParser.cs" />
+    <Compile Include="Parsers\AttributeParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />
