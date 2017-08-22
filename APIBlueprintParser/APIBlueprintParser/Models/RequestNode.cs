@@ -8,10 +8,6 @@
 
 namespace APIBlueprintParser.Models {
 
-    public enum BodyType {
-        Json
-    }
-
     public class RequestNode {
 
         public BodyType BodyType { get; }

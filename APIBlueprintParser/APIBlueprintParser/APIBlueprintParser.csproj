@@ -49,6 +49,9 @@
     <Compile Include="Parsers\RequestParser.cs" />
     <Compile Include="Parsers\BaseParser.cs" />
     <Compile Include="Constants\Keywords.cs" />
+    <Compile Include="Parsers\Support.cs" />
+    <Compile Include="Models\Enums.cs" />
+    <Compile Include="Parsers\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />

@@ -6,7 +6,9 @@
 //
 //
 using System;
+using System.Linq;
 using System.IO;
+using System.Text;
 using System.Collections.Generic;
 using APIBlueprintParser.Models;
 using APIBlueprintParser.Constants;
@@ -21,6 +23,8 @@ namespace APIBlueprintParser.Parsers {
             public static string Separator = Environment.NewLine;
             public const char EndOfSection = '+';
             public const char StartOfSection = '+';
+            public const char StartOfTypeSection = '(';
+            public const char EndOfTypeSection = ')';
         }
 
         #endregion
@@ -38,6 +42,7 @@ namespace APIBlueprintParser.Parsers {
                 throw new FormatException($"First element is not a \'{Tokens.StartOfSection}\'");
 			}
 
+            // miss first symbol +
 			streamReader.Read();
 
 			while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection) {
@@ -46,7 +51,8 @@ namespace APIBlueprintParser.Parsers {
 
 			var stringView = new String(sectionCharArr.ToArray());
 
-            var indexOfSeparator = stringView.IndexOf(Tokens.Separator, StringComparison.InvariantCulture);
+			// separate  Request (<type>) {NewLine} Body by {NewLine}
+			var indexOfSeparator = stringView.IndexOf(Tokens.Separator, StringComparison.InvariantCulture);
 
             if (indexOfSeparator == -1) {
                 throw new FormatException($"Cant separate request header form it body");
@@ -54,14 +60,42 @@ namespace APIBlueprintParser.Parsers {
 
             var header = "";
 
-            for (int i = 0; i < indexOfSeparator; i++) {
+			// read all symbols before {NewLine}
+
+			for (int i = 0; i < indexOfSeparator; i++) {
                 header += stringView[i];
             }
 
-            if (!header.Contains(Keywords.Request)) {
-                throw new FormatException($"Request must contains keyword {Keywords.Request}");
+            header = header.Trim();
+
+            // if last symbol of Request (<type>) not a ')' than throws
+            if (header.Last() != Tokens.EndOfTypeSection) {
+                throw new FormatException($"Header of this section not end on the \'{Tokens.EndOfTypeSection}\'");
             }
 
+            // if header deasnt contains '(' then throws
+            if (!header.Contains(Tokens.StartOfTypeSection.ToString())) {
+                throw new FormatException($"Header of this section not contains \'{Tokens.StartOfTypeSection}\'");
+            }
+
+            var type = "";
+
+            // read string between '(' and ')'
+            for (int i = header.Length - 2; i >= 0 && header[i] != Tokens.StartOfTypeSection; i-- ) {
+                type += header[i];
+            }
+
+            type = new String(type.Reverse().ToArray());
+            var bodyType = Support.StringToBodyType(type.Trim());
+
+            if (bodyType == null) {
+                throw new FormatException($"Content type string have invalid format");
+            }
+
+            // execute request body - its a string after {NewLine}
+            var body = stringView.Substring(indexOfSeparator).Trim();
+
+            return new RequestNode(bodyType.Value, body);
         }
     }
 }

@@ -9,24 +9,6 @@ using System;
 namespace APIBlueprintParser.Models {
 
     /// <summary>
-    /// Type of the attribute.
-    /// </summary>
-    public enum NeededType {
-        Optional,
-        Required
-    }
-
-    /// <summary>
-    /// Value type of the attribute.
-    /// </summary>
-    public enum ValueType {
-        Object,
-        String,
-        Number,
-        Bool
-    }
-
-    /// <summary>
     /// Attribute node.
     /// </summary>
     public class AttributeNode {
