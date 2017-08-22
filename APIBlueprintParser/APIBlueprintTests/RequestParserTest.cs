@@ -18,7 +18,7 @@ namespace APIBlueprintTests {
         [Test]
         public void ValidRequestTest() {
             // given
-            var stream = Extensions.CreatFromString($"+ Request( application/json) {Environment.NewLine} body+");
+            var stream = Extensions.CreatFromString($"( application/json) {Environment.NewLine} body+");
 
             // when
             var result = new RequestParser(stream).Parse();
@@ -31,7 +31,7 @@ namespace APIBlueprintTests {
         [Test]
         public void InvalidRequestTypeTest() {
 			// given
-			var stream = Extensions.CreatFromString($"+ Request( applic) {Environment.NewLine} body+");
+			var stream = Extensions.CreatFromString($"( applic) {Environment.NewLine} body+");
 
             // when then
             Assert.Throws<FormatException>(() => new RequestParser(stream).Parse());
@@ -40,8 +40,8 @@ namespace APIBlueprintTests {
         [Test]
         public void InvalidFormatTypeDeclTest() {
 			// given
-			var stream1 = Extensions.CreatFromString($"+ Request (/json){Environment.NewLine} body+");
-            var stream2 = Extensions.CreatFromString($"+ Request( apicat) {Environment.NewLine} body+");
+			var stream1 = Extensions.CreatFromString($"(/json){Environment.NewLine} body+");
+            var stream2 = Extensions.CreatFromString($"( apicat) {Environment.NewLine} body+");
 
 			// when then
 			Assert.Throws<FormatException>(() => new RequestParser(stream1).Parse());
@@ -51,7 +51,7 @@ namespace APIBlueprintTests {
         [Test]
         public void InvalidFormatWithoutBodyTest() {
 			// given
-			var stream = Extensions.CreatFromString($"+ Request (application/json){Environment.NewLine}+");
+			var stream = Extensions.CreatFromString($"(application/json){Environment.NewLine}+");
 
             // when
             var result = new RequestParser(stream).Parse();
@@ -60,6 +60,5 @@ namespace APIBlueprintTests {
             Assert.AreEqual(result.BodyType, BodyType.Json);
             Assert.AreEqual(result.Body, "");
         }
-
     }
 }

@@ -14,8 +14,13 @@ using APIBlueprintParser.Models;
 using APIBlueprintParser.Constants;
 
 namespace APIBlueprintParser.Parsers {
-    
-    public class RequestParser: BaseParser {
+
+	/// <summary>
+	/// Response parser.
+	/// Really format: ... + Request (<type>) <newline> Body + ...
+	/// Input format: (<type>) <newline> Body + ...
+	/// </summary>
+	public class RequestParser: BaseParser {
 
         #region Nested
 
@@ -33,17 +38,10 @@ namespace APIBlueprintParser.Parsers {
 
         public RequestNode Parse() {
 
-            // + Request (<type>) {NewLine} Body
+            //  (<type>) {NewLine} Body
 
 			var streamReader = new StreamReader(base.stream);
 			var sectionCharArr = new List<char>();
-
-			if (!streamReader.EndOfStream && streamReader.Peek() != Tokens.StartOfSection) {
-                throw new FormatException($"First element is not a \'{Tokens.StartOfSection}\'");
-			}
-
-            // miss first symbol +
-			streamReader.Read();
 
 			while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection) {
 				sectionCharArr.Add((char)streamReader.Read());
@@ -51,7 +49,7 @@ namespace APIBlueprintParser.Parsers {
 
 			var stringView = new String(sectionCharArr.ToArray());
 
-			// separate  Request (<type>) {NewLine} Body by {NewLine}
+			// separate  (<type>) {NewLine} Body by {NewLine}
 			var indexOfSeparator = stringView.IndexOf(Tokens.Separator, StringComparison.InvariantCulture);
 
             if (indexOfSeparator == -1) {

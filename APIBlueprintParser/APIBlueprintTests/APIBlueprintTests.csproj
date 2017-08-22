@@ -36,6 +36,7 @@
     <Compile Include="ValidationTest.cs" />
     <Compile Include="OverviewParserTest.cs" />
     <Compile Include="RequestParserTest.cs" />
+    <Compile Include="ResponseParserTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
