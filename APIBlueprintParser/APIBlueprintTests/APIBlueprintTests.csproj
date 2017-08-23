@@ -38,6 +38,7 @@
     <Compile Include="RequestParserTest.cs" />
     <Compile Include="ResponseParserTest.cs" />
     <Compile Include="AttributeParserTest.cs" />
+    <Compile Include="SupportTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
