@@ -25,7 +25,7 @@ namespace APIBlueprintParser.Parsers {
             public static char[] PairsSeparator = Environment.NewLine.ToCharArray();
             public const int CountOfContentInPair = 2;
 
-            public enum PairTokens: int {
+            public enum PairTokens {
                 Key,
                 Value
             }

@@ -51,9 +51,10 @@
     <Compile Include="Constants\Keywords.cs" />
     <Compile Include="Parsers\Support.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Parsers\Constants.cs" />
     <Compile Include="Parsers\ResponseParser.cs" />
     <Compile Include="Parsers\AttributeParser.cs" />
+    <Compile Include="Parsers\ResourceActionParser.cs" />
+    <Compile Include="Constants\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />

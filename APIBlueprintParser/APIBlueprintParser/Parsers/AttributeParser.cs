@@ -45,8 +45,6 @@ namespace APIBlueprintParser.Parsers {
 
         public AttributeNode Parse() {
 
-            // TODO: write comments
-
 			// (<neededType>, <valueType>) - <descriptionText> <newline>
 
 			var streamReader = new StreamReader(base.stream);
@@ -71,6 +69,7 @@ namespace APIBlueprintParser.Parsers {
 
             content = content.Trim();
 
+			// split <neededType>, <valueType> by ','
             var splited = content.Split(Tokens.TypeSeparator);
 
             if (splited.Length != Tokens.TypesCount) {

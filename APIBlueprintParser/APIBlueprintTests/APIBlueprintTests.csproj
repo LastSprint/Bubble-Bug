@@ -29,6 +29,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="UriTemplate.Core">
+      <HintPath>..\packages\UriTemplate.Core.1.0.2\lib\net461\UriTemplate.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MetadataParserTest.cs" />
@@ -39,6 +42,7 @@
     <Compile Include="ResponseParserTest.cs" />
     <Compile Include="AttributeParserTest.cs" />
     <Compile Include="SupportTest.cs" />
+    <Compile Include="ResourceActionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

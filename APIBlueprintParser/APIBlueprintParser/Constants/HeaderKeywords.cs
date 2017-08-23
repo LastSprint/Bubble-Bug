@@ -9,16 +9,12 @@
 using System.Collections.Generic;
 using System; 
 
-public enum HttpMethod {
-    Get,
-    Post,
-    Put,
-    Update,
-    Delete
-}
+
 
 public static class HeaderKeywords {
     
+	// TODO: Refactor this file. Validation method need sends to Support.cs
+
     public const string Group = "Group";
     public const string DataStructures = "Data Structures";
 

@@ -13,7 +13,7 @@ using APIBlueprintParser.Models;
 using ValueType = APIBlueprintParser.Models.ValueType;
 
 namespace APIBlueprintTests {
-	// TODO: Write tests for APIBlueprintParser.Support
+	
 	[TestFixture]
     public class AttributeParserTest {
 

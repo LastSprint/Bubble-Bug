@@ -13,9 +13,18 @@ namespace APIBlueprintParser.Models {
     public class ResourceActionNode {
 
         public string Identifier { get; }
+		public UriTemplate.Core.UriTemplate Template { get; }
+		public HttpMethod HttpMethod { get; }
+
         public IReadOnlyCollection<AttributeNode> Attributes { get; }
         public IReadOnlyCollection<AttributeNode> Parameters { get; }
 
         public IReadOnlyCollection<RequestPair> RequestPairs { get; }
+
+		internal ResourceActionNode(string identifier, UriTemplate.Core.UriTemplate template, HttpMethod httpMethod) {
+			this.Identifier = identifier;
+			this.Template = template;
+			this.HttpMethod = HttpMethod;
+		}
     }
 }

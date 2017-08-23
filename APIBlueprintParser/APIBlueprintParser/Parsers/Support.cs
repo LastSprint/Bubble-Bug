@@ -48,17 +48,34 @@ namespace APIBlueprintParser.Parsers {
         /// <summary>
         /// Try to convert string to <see cref="T:APIBlueprintParser.Models.NeededType"/>
         /// </summary>
-        /// <returns>Needed type or null of parse failed.</returns>
-        /// <param name="neededType">String view of needed type</param>
+        /// <returns>Needed type or null if parse failed.</returns>
+        /// <param name="neededType">String view of needed type.</param>
         public static NeededType? StringToNeededType(string neededType) {
 			var lower = neededType.ToLower();
 
 			switch (lower) {
-                case Constants.NeededType.Optional: return NeededType.Optional;
-                case Constants.NeededType.Required: return NeededType.Required;
+                case Constants.NeededTypes.Optional: return NeededType.Optional;
+                case Constants.NeededTypes.Required: return NeededType.Required;
 				default: return null;
 			}
         }
+
+		/// <summary>
+		/// Try to convert string to <see cref="T:APIBlueprintParser.Models.HttpMethod"/>
+		/// </summary>
+		/// <returns>Http method type or null if parse failed.</returns>
+		/// <param name="httpMethod">String view of http method.</param>
+		public static HttpMethod? StringToHttpMethod(string httpMethod) {
+			var lower = httpMethod.ToLower();
+
+			switch (lower) {
+				case Constants.HttpMethods.Get: return HttpMethod.Get;
+				case Constants.HttpMethods.Post: return HttpMethod.Post;
+				case Constants.HttpMethods.Put: return HttpMethod.Put;
+				case Constants.HttpMethods.Delete: return HttpMethod.Delete;
+				default: return null;
+			}
+		}
 
     }
 }

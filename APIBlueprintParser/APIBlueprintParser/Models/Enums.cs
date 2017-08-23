@@ -31,4 +31,15 @@ namespace APIBlueprintParser.Models {
 	public enum BodyType {
 		Json
 	}
+
+	/// <summary>
+	/// Type of HttpMethods.
+	/// </summary>
+	public enum HttpMethod {
+		Get,
+		Post,
+		Put,
+		Update,
+		Delete
+	}
 }
