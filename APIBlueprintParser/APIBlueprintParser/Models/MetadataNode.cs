@@ -13,7 +13,7 @@ namespace APIBlueprintParser.Models {
     /// <summary>
     /// Present metadata section.
     /// </summary>
-    public class MetadataNode {
+	public class MetadataNode: BaseNode {
 
         public IReadOnlyDictionary<string, string> Metadata;
 

@@ -13,7 +13,7 @@ namespace APIBlueprintParser.Models {
     /// <summary>
     /// Present resource section.
     /// </summary>
-    public class ResourceNode {
+	public class ResourceNode: BaseNode {
 
         /// <summary>
         /// Gets the identifier of this resource

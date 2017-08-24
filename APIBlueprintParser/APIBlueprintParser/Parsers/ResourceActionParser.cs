@@ -21,7 +21,17 @@ namespace APIBlueprintParser.Parsers {
 
 		#region Nested
 
+		private enum State {
+			None,
+			Attributes,
+			Parameters,
+			Response,
+			Request
+		}
+
+
 		public struct Tokens {
+			public const char EndOfSection = '#';
 			public const char EndOfHeader = '+';
 			public const char StartOfTypeSection = '[';
 			public const char EndOfTypeSection = ']';
@@ -29,6 +39,12 @@ namespace APIBlueprintParser.Parsers {
 
 			public const int HttpMethodTypeIndex = 0;
 			public const int URITemplateTypeIndex = 1;
+
+			public const string Attributes = "Attributes";
+			public const string Parameters = "Parameters";
+
+			public const string Request = "Request";
+			public const string Response = "Response";
 		}
 
   		#endregion
@@ -40,7 +56,8 @@ namespace APIBlueprintParser.Parsers {
 		/// Implement for testable.
 		/// </summary>
 		/// <returns>ResourceActionNode without nested nodes</returns>
-		public ResourceActionNode ParseWithoutNestenNodes() {
+		public ResourceActionNode ParseWithoutNestenNodes()
+		{
 
 			// <identifier> [<httpmeth>, <URITempl>] .... +
 			// read to '+'
@@ -68,7 +85,7 @@ namespace APIBlueprintParser.Parsers {
 
 			var identifier = "";
 
-			for (int i = 0; i < stringView.Length && stringView[i] != Tokens.StartOfTypeSection; i++ ) {
+			for (int i = 0; i < stringView.Length && stringView[i] != Tokens.StartOfTypeSection; i++) {
 				identifier += stringView[i];
 			}
 
@@ -113,6 +130,85 @@ namespace APIBlueprintParser.Parsers {
 			}
 
 			return new ResourceActionNode(identifier, new UriTemplate.Core.UriTemplate(URITemplStringView), httpMeth.Value);
+
+		}
+
+		public void ParseSubnodes() {
+
+			// TODO: Make commants
+
+			// + Attributes
+			//		+ parameter1
+			//		+ parameter2
+			// + Parameters
+			//		+ parameter1
+			//		+ parameter2
+			// + Request
+			// + Response
+			// + Request
+			// + Response
+			// ...
+			// #...
+			var parameter = new List<AttributeNode>();
+			var attributes = new List<AttributeNode>();
+			var requesrPairs = new List<RequestPair>();
+
+			RequestNode currentRequest = null;
+
+			var streamReader = new StreamReader(base.stream);
+			var sectionCharArr = new List<char>();
+			var parseState = State.None;
+			while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection) {
+				var readed = (char)streamReader.Read();
+
+				if (readed == Tokens.EndOfHeader) {
+					var str = streamReader.ReadLine();
+
+					switch (str) {
+						case Tokens.Parameters: 
+							parseState = State.Parameters;
+							continue;
+						case Tokens.Attributes:
+							parseState = State.Attributes;
+							continue;
+					}
+
+					if (str.Contains(Tokens.Request)) {
+
+						if (parseState == State.Request) {
+							throw new FormatException("After request need implement response for this request");
+						}
+
+						currentRequest = new RequestParser(base.stream).Parse();
+						parseState = State.Request;
+						continue;
+
+					} else if (str.Contains(Tokens.Response)) {
+
+						if (parseState == State.Response) {
+							throw new FormatException("After response need implement new request");
+						}
+
+						var response = new ResponseParser(base.stream).Parse();
+						requesrPairs.Add(new RequestPair(currentRequest, response));
+						parseState = State.Response;
+						continue;
+					}
+
+					switch (parseState) {
+						case State.Attributes:
+							attributes.Add(new AttributeParser(base.stream).Parse());
+							continue;
+						case State.Parameters:
+							parameter.Add(new AttributeParser(base.stream).Parse());
+							continue;
+
+					}
+				}
+			}
+
+			//return new ResourceActionNode("",null, HttpMethod.Get)
+
 		}
 	}
 }

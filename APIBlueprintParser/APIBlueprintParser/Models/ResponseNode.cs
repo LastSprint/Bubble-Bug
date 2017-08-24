@@ -8,7 +8,7 @@
 
 namespace APIBlueprintParser.Models {
 
-    public class ResponseNode {
+	public class ResponseNode: BaseNode {
 
         /// <summary>
         /// Response code.

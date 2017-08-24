@@ -16,7 +16,7 @@ using APIBlueprintParser.Constants;
 namespace APIBlueprintParser.Parsers {
 
 	/// <summary>
-	/// Response parser.
+	/// Request parser.
 	/// Really format: ... + Request (<type>) <newline> Body + ...
 	/// Input format: (<type>) <newline> Body + ...
 	/// </summary>

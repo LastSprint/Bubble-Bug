@@ -21,10 +21,10 @@ namespace APIBlueprintTests {
         public void TestWithValidAttribute() {
             // given
             var name = "sample";
-            var stream = Extensions.CreatFromString($"(optional, object) - description {Environment.NewLine}");
+			var stream = Extensions.CreatFromString($"{name}(optional, object) - description {Environment.NewLine}");
 
 			// when
-            var result = new AttributeParser(stream, name).Parse();
+            var result = new AttributeParser(stream).Parse();
 
             // then
             Assert.AreEqual(result.Name, name);
@@ -37,30 +37,30 @@ namespace APIBlueprintTests {
 		public void InvalidNeededTypeTest() {
 			// given
 			var name = "sample";
-			var stream = Extensions.CreatFromString($"(6rtyw, string) - description {Environment.NewLine}");
+			var stream = Extensions.CreatFromString($"{name}(6rtyw, string) - description {Environment.NewLine}");
 
 			// when then
-            Assert.Throws<FormatException>(() => new AttributeParser(stream, name).Parse());
+            Assert.Throws<FormatException>(() => new AttributeParser(stream).Parse());
 		}
 
 		[Test]
 		public void InvalidValueTypeTest() {
 			// given
 			var name = "sample";
-			var stream = Extensions.CreatFromString($" (optional, 23wef) - description {Environment.NewLine}");
+			var stream = Extensions.CreatFromString($" {name}(optional, 23wef) - description {Environment.NewLine}");
 
 			// when then
-			Assert.Throws<FormatException>(() => new AttributeParser(stream, name).Parse());
+			Assert.Throws<FormatException>(() => new AttributeParser(stream).Parse());
 		}
 
 		[Test]
 		public void WithoutDescriptionTest() {
 			// given
 			var name = "sample";
-			var stream = Extensions.CreatFromString($" (Required, bool) {Environment.NewLine}");
+			var stream = Extensions.CreatFromString($" {name} (Required, bool) {Environment.NewLine}");
 
 			// when
-			var result = new AttributeParser(stream, name).Parse();
+			var result = new AttributeParser(stream).Parse();
 
 			// then
 			Assert.AreEqual(result.Name, name);

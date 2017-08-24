@@ -55,6 +55,7 @@
     <Compile Include="Parsers\AttributeParser.cs" />
     <Compile Include="Parsers\ResourceActionParser.cs" />
     <Compile Include="Constants\Constants.cs" />
+    <Compile Include="Models\BaseNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />

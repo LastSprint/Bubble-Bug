@@ -12,7 +12,7 @@ namespace APIBlueprintParser.Models {
     /// <summary>
     /// Present resource group section.
     /// </summary>
-    public class GroupNode {
+	public class GroupNode: BaseNode {
 
         /// <summary>
         /// Name of group.

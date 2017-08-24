@@ -11,7 +11,7 @@ namespace APIBlueprintParser.Models {
     /// <summary>
     /// Present overview section
     /// </summary>
-    public class OverviewNode {
+	public class OverviewNode: BaseNode {
 
         /// <summary>
         /// Name of API.

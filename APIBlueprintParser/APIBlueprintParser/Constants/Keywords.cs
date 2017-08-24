@@ -6,10 +6,38 @@
 //
 //
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace APIBlueprintParser.Constants {
     
     public static class Keywords {
         public const string Request = "Request";
     }
+}
+
+namespace System {
+
+	public static class StringExtension {
+
+		public static IEnumerable<string> Words(this string source) {
+			char[] wordSeparators = { ' ', '\t', '\n', '\r' ,'(',')','!', ',' };
+
+			var trimed = source.Trim();
+
+			var currentWord = "";
+
+			for (int i = 0; i < source.Length; i++) {
+				if(wordSeparators.Contains(source[i])) {
+					yield return currentWord;
+					currentWord = "";
+				} else {
+					currentWord += source[i];
+				}
+			}
+			
+		}
+
+	}
+
 }

@@ -8,7 +8,7 @@
 
 namespace APIBlueprintParser.Models {
 
-    public class RequestNode {
+	public class RequestNode: BaseNode {
 
         public BodyType BodyType { get; }
 

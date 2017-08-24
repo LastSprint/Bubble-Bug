@@ -11,7 +11,7 @@ namespace APIBlueprintParser.Models {
     /// <summary>
     /// Attribute node.
     /// </summary>
-    public class AttributeNode {
+	public class AttributeNode: BaseNode {
 
         /// <summary>
         /// Attribute name.

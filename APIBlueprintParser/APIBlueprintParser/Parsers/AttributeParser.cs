@@ -37,21 +37,21 @@ namespace APIBlueprintParser.Parsers {
 
         #endregion
 
-        private readonly string _identifier;
-
-        public AttributeParser(Stream stream, string identifier): base(stream) {
-            this._identifier = identifier;
-        }
+        public AttributeParser(Stream stream): base(stream) { }
 
         public AttributeNode Parse() {
 
-			// (<neededType>, <valueType>) - <descriptionText> <newline>
+			// <identifier> (<neededType>, <valueType>) - <descriptionText> <newline>
 
 			var streamReader = new StreamReader(base.stream);
 
-            // now: (<neededType>, <valueType>) - <descriptionText>
+            // now: <identifier> (<neededType>, <valueType>) - <descriptionText>
 
             var stringView = streamReader.ReadLine().Trim();
+
+			var identifier = stringView.Words().First();
+
+			stringView = stringView.Substring(identifier.Length).Trim();
 
             if (stringView.First() != Tokens.StartOfTypeSection) {
                 throw new FormatException($"Doesnt contains \'{Tokens.StartOfTypeSection}\'");
@@ -92,7 +92,7 @@ namespace APIBlueprintParser.Parsers {
 
             var description = stringView.Substring(indexOfEndTypeSection + 1).Trim();
 
-            var result = new AttributeNode(this._identifier, description, neededType.Value, valueType.Value);
+            var result = new AttributeNode(identifier, description, neededType.Value, valueType.Value);
             return result;
         }
 

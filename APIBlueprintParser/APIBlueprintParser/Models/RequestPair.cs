@@ -11,7 +11,7 @@ namespace APIBlueprintParser.Models {
     /// <summary>
     /// Object, that contain request and response for it.
     /// </summary>
-    public class RequestPair {
+	public class RequestPair: BaseNode {
 
         public RequestNode Request { get; }
         public ResponseNode Response { get; }
