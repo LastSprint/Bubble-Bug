@@ -11,7 +11,7 @@ using System.IO;
 using System.Collections.Generic;
 using APIBlueprintParser.Models;
 
-namespace APIBlueprintParser.Parsers.Request {
+namespace APIBlueprintParser.Parsers.Action.Request {
 
 	/// <summary>
 	/// Request parser.
@@ -67,14 +67,17 @@ namespace APIBlueprintParser.Parsers.Request {
             request.Identifier = parsedDeclaration.indentifier;
 
             do {
-                lastReadedString = streamReader.ReadLine().Replace(Tokens.EndOfSection.ToString(), "").Trim();
+                lastReadedString = streamReader.ReadLine();
+                var current = lastReadedString.Replace(Tokens.EndOfSection.ToString(), "").Trim();
 
-                if (!Tokens.NestedKeywords.Contains(lastReadedString)) {
-                    streamReader.BaseStream.Position = streamReader.BaseStream.Position - streamReader.BaseStream.Position;
+                if (!Tokens.NestedKeywords.Contains(current)) {
+                    streamReader.BaseStream.Flush();
+                    streamReader.BaseStream.Position = streamReader.BaseStream.Position - lastReadedString.Length - 1;
+                    streamReader.DiscardBufferedData();
                     return request;
                 }
 
-                switch (lastReadedString) {
+                switch (current) {
                     case Tokens.BodyKeyword:
                         request.Body = new BodyParser(base.streamReader).Parse();
                         break;

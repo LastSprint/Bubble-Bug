@@ -35,7 +35,7 @@ namespace APIBlueprintParser.Parsers {
 
         #endregion
 
-        public ResponseParser(StreamReader stream): base(stream) { }
+        public ResponseParser(StreamReader stream, ): base(stream) { }
 
         public ResponseNode Parse() {
 

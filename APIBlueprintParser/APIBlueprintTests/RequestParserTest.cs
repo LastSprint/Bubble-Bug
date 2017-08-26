@@ -8,7 +8,7 @@
 using System;
 using NUnit.Framework;
 using APIBlueprintParser.Models;
-using APIBlueprintParser.Parsers.Request;
+using APIBlueprintParser.Parsers.Action.Request;
 
 namespace APIBlueprintTests {
 
@@ -46,6 +46,7 @@ namespace APIBlueprintTests {
             Assert.AreEqual(result.BodyType, BodyType.Json);
             Assert.AreEqual(result.Headers[headerKey1], headerValue1);
             Assert.AreEqual(result.Headers[headerKey2], headerValue2);
+            Assert.AreEqual(stream.Peek(), '+');
         }
 
         [Test]
@@ -78,6 +79,7 @@ namespace APIBlueprintTests {
 			Assert.AreEqual(result.BodyType, BodyType.Json);
 			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
 			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
+            Assert.AreEqual(stream.Peek(), '+');
         }
 
 		[Test]
@@ -104,6 +106,7 @@ namespace APIBlueprintTests {
 			Assert.AreEqual(result.Schema, schema);
 			Assert.AreEqual(result.BodyType, BodyType.Json);
             Assert.IsNull(result.Headers);
+            Assert.AreEqual(stream.Peek(), '+');
 		}
 
 		[Test]
@@ -134,6 +137,7 @@ namespace APIBlueprintTests {
 			Assert.AreEqual(result.BodyType, BodyType.Json);
 			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
 			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
+            Assert.AreEqual(stream.Peek(), '+');
 		}
 
 		[Test]
@@ -164,6 +168,7 @@ namespace APIBlueprintTests {
 			Assert.AreEqual(result.BodyType, BodyType.Json);
 			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
 			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
+            Assert.AreEqual(stream.Peek(), '+');
 		}
 
     }

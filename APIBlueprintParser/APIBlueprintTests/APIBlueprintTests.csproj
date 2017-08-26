@@ -45,6 +45,7 @@
     <Compile Include="ResourceActionTest.cs" />
     <Compile Include="HeaderParserTest.cs" />
     <Compile Include="BodyParserTest.cs" />
+    <Compile Include="AttributesParserTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -8,9 +8,9 @@
 
 using System;
 using NUnit.Framework;
-using APIBlueprintParser.Parsers;
 using APIBlueprintParser.Models;
 using ValueType = APIBlueprintParser.Models.ValueType;
+using APIBlueprintParser.Parsers.Action.Attributes;
 
 namespace APIBlueprintTests {
 	
@@ -21,14 +21,14 @@ namespace APIBlueprintTests {
         public void TestWithValidAttribute() {
             // given
             var name = "sample";
-			var stream = Extensions.CreatFromString($"{name}(optional, object) - description {Environment.NewLine}");
+			var stream = $"{name}(optional, object) - description {Environment.NewLine}";
 
 			// when
-            var result = new AttributeParser(stream).Parse();
+            var result = new AttributeParser().Parse(stream);
 
             // then
             Assert.AreEqual(result.Name, name);
-            Assert.AreEqual(result.Description, "- description");
+            Assert.AreEqual(result.Description, "description");
             Assert.AreEqual(result.ValueType, ValueType.Object);
             Assert.AreEqual(result.NeededType, NeededType.Optional);
         }
@@ -37,30 +37,30 @@ namespace APIBlueprintTests {
 		public void InvalidNeededTypeTest() {
 			// given
 			var name = "sample";
-			var stream = Extensions.CreatFromString($"{name}(6rtyw, string) - description {Environment.NewLine}");
+			var stream = $"{name}(6rtyw, string) - description {Environment.NewLine}";
 
 			// when then
-            Assert.Throws<FormatException>(() => new AttributeParser(stream).Parse());
+            Assert.Throws<FormatException>(() => new AttributeParser().Parse(stream));
 		}
 
 		[Test]
 		public void InvalidValueTypeTest() {
 			// given
 			var name = "sample";
-			var stream = Extensions.CreatFromString($" {name}(optional, 23wef) - description {Environment.NewLine}");
+			var stream = $" {name}(optional, 23wef) - description {Environment.NewLine}";
 
 			// when then
-			Assert.Throws<FormatException>(() => new AttributeParser(stream).Parse());
+			Assert.Throws<FormatException>(() => new AttributeParser().Parse(stream));
 		}
 
 		[Test]
 		public void WithoutDescriptionTest() {
 			// given
 			var name = "sample";
-			var stream = Extensions.CreatFromString($" {name} (Required, bool) {Environment.NewLine}");
+			var stream = $" {name} (Required, bool) {Environment.NewLine}";
 
 			// when
-			var result = new AttributeParser(stream).Parse();
+			var result = new AttributeParser().Parse(stream);
 
 			// then
 			Assert.AreEqual(result.Name, name);

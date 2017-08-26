@@ -54,20 +54,23 @@
     <Compile Include="Constants\Keywords.cs" />
     <Compile Include="Parsers\Support.cs" />
     <Compile Include="Models\Enums.cs" />
-    <Compile Include="Parsers\ResponseParser.cs" />
-    <Compile Include="Parsers\AttributeParser.cs" />
-    <Compile Include="Parsers\ResourceActionParser.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Models\BaseNode.cs" />
-    <Compile Include="Parsers\Request\RequestParser.cs" />
-    <Compile Include="Parsers\Request\HeadersParser.cs" />
-    <Compile Include="Parsers\Request\BodyParser.cs" />
+    <Compile Include="Parsers\Action\Request\BodyParser.cs" />
+    <Compile Include="Parsers\Action\Request\HeadersParser.cs" />
+    <Compile Include="Parsers\Action\Request\RequestParser.cs" />
+    <Compile Include="Parsers\Action\Request\ResponseParser.cs" />
+    <Compile Include="Parsers\Action\Attributes\AttributeParser.cs" />
+    <Compile Include="Parsers\Action\ResourceActionParser.cs" />
+    <Compile Include="Parsers\Action\Attributes\AttributesParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />
     <Folder Include="Models\" />
     <Folder Include="Parsers\" />
-    <Folder Include="Parsers\Request\" />
+    <Folder Include="Parsers\Action\" />
+    <Folder Include="Parsers\Action\Request\" />
+    <Folder Include="Parsers\Action\Attributes\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

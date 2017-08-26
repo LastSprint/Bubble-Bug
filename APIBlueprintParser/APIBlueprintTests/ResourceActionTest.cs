@@ -7,7 +7,7 @@
 
 using System;
 using NUnit.Framework;
-using APIBlueprintParser.Parsers;
+using APIBlueprintParser.Parsers.Action;
 using APIBlueprintParser.Models;
 using UriTemplate.Core;
 

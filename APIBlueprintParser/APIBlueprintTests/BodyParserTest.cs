@@ -8,7 +8,7 @@
 
 using System;
 using NUnit.Framework;
-using APIBlueprintParser.Parsers.Request;
+using APIBlueprintParser.Parsers.Action.Request;
 
 namespace APIBlueprintTests {
 

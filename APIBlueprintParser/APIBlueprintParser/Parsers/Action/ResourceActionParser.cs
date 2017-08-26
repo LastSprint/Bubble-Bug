@@ -10,8 +10,10 @@ using System.Linq;
 using System.IO;
 using System.Collections.Generic;
 using APIBlueprintParser.Models;
+using APIBlueprintParser.Parsers.Action.Request;
+using APIBlueprintParser.Parsers.Action.Attributes;
 
-namespace APIBlueprintParser.Parsers {
+namespace APIBlueprintParser.Parsers.Action {
 
     /// <summary>
     /// Realy format: ### <identifier> [<httpMethod>,<URITemplate>] ...
@@ -186,7 +188,7 @@ namespace APIBlueprintParser.Parsers {
                             throw new FormatException("After response need implement new request");
                         }
 
-                        var response = new ResponseParser(base.streamReader).Parse();
+                        var response = new ResponseParser(base.streamReader, str).Parse();
                         requesrPairs.Add(new RequestPair(currentRequest, response));
                         parseState = State.Response;
                         continue;
@@ -194,10 +196,10 @@ namespace APIBlueprintParser.Parsers {
 
                     switch (parseState) {
                         case State.Attributes:
-                            attributes.Add(new AttributeParser(base.streamReader).Parse());
+                            //attributes.Add(new AttributeParser(base.streamReader).Parse());
                             continue;
                         case State.Parameters:
-                            parameter.Add(new AttributeParser(base.streamReader).Parse());
+                            //parameter.Add(new AttributeParser(base.streamReader).Parse());
                             continue;
 
                     }

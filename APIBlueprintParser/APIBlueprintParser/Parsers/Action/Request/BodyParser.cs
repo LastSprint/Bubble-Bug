@@ -10,7 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 
-namespace APIBlueprintParser.Parsers.Request {
+namespace APIBlueprintParser.Parsers.Action.Request {
     
     public class BodyParser: BaseParser {
         

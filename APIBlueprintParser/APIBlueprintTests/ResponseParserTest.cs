@@ -8,7 +8,7 @@
 
 using System;
 using NUnit.Framework;
-using APIBlueprintParser.Parsers;
+using APIBlueprintParser.Parsers.Action.Request;
 using APIBlueprintParser.Models;
 
 namespace APIBlueprintTests {
@@ -17,68 +17,86 @@ namespace APIBlueprintTests {
     public class ResponseParserTest {
 
 		[Test]
-		public void ValidResponseTest() {
-			// given
-			var stream = Extensions.CreatFromString($"1234( application/json) {Environment.NewLine} body+");
+		public void FullDeclarationTest()
+		{
+			var statusCode = 200;
+			var mediaType = "application/json";
+			var headerKey1 = "key";
+			var headerValue1 = "value";
+			var headerKey2 = "key1";
+			var headerValue2 = "value2";
+			var body = "body";
 
-			// when
-			var result = new ResponseParser(stream).Parse();
+			var declaration = $"Response {statusCode} ({mediaType})";
+			var bodyRequst = $"+ Headers {Environment.NewLine}" +
+				$"{headerKey1}:{headerValue1}{Environment.NewLine}" +
+				$"{headerKey2} : {headerValue2} {Environment.NewLine}" +
+				$"+ Body {Environment.NewLine}" +
+				$"{body}{Environment.NewLine}" +
+				"+ Request";
 
-			// then
-            Assert.AreEqual(result.Code, 1234);
+			var stream = Extensions.CreatFromString(bodyRequst);
+
+            var result = new ResponseParser(stream, declaration).Parse();
+
+			Assert.AreEqual(result.Code, statusCode);
+			Assert.AreEqual(result.Body, body);
 			Assert.AreEqual(result.BodyType, BodyType.Json);
-			Assert.AreEqual(result.Body, "body");
+			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
+			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
+            Assert.AreEqual(stream.Peek(), '+');
 		}
 
 		[Test]
-		public void InvalidResponseTypeTest() {
-			// given
-			var stream = Extensions.CreatFromString($"123( applic) {Environment.NewLine} body+");
+		public void WithoutHeadersTest()
+		{
+			var statusCode = 200;
+			var mediaType = "application/json";
+			var body = "body";
 
-			// when then
-			Assert.Throws<FormatException>(() => new ResponseParser(stream).Parse());
-		}
+			var declaration = $"Response {statusCode} ({mediaType})";
+			var bodyRequst = 
+				$"+ Body {Environment.NewLine}" +
+				$"{body}{Environment.NewLine}" +
+				"+ Request";
 
-		[Test]
-		public void InvalidFormatTypeDeclTest() {
-			// given
-			var stream1 = Extensions.CreatFromString($"123 (/json){Environment.NewLine} body+");
-			var stream2 = Extensions.CreatFromString($"123 ( apicat) {Environment.NewLine} body+");
+			var stream = Extensions.CreatFromString(bodyRequst);
 
-			// when then
-			Assert.Throws<FormatException>(() => new ResponseParser(stream1).Parse());
-			Assert.Throws<FormatException>(() => new ResponseParser(stream2).Parse());
-		}
+			var result = new ResponseParser(stream, declaration).Parse();
 
-		[Test]
-		public void InvalidFormatWithoutBodyTest() {
-			// given
-			var stream = Extensions.CreatFromString($"123 (application/json){Environment.NewLine}+");
-
-			// when
-			var result = new ResponseParser(stream).Parse();
-
-			//then
+			Assert.AreEqual(result.Code, statusCode);
+			Assert.AreEqual(result.Body, body);
 			Assert.AreEqual(result.BodyType, BodyType.Json);
-			Assert.AreEqual(result.Body, "");
+            Assert.IsNull(result.Headers);
+            Assert.AreEqual(stream.Peek(), '+');
 		}
 
-        [Test]
-        public void InvalidFormatWitoutCode() {
-			// given
-			var stream = Extensions.CreatFromString($"(application/json){Environment.NewLine} body+");
+		[Test]
+		public void WithoutBodyTest()
+		{
+			var statusCode = 200;
+			var mediaType = "application/json";
+			var headerKey1 = "key";
+			var headerValue1 = "value";
+			var headerKey2 = "key1";
+			var headerValue2 = "value2";
 
-			// when then
-			Assert.Throws<FormatException>(() => new ResponseParser(stream).Parse());
-        }
+			var declaration = $"Response {statusCode} ({mediaType})";
+			var bodyRequst = $"+ Headers {Environment.NewLine}" +
+				$"{headerKey1}:{headerValue1}{Environment.NewLine}" +
+				$"{headerKey2} : {headerValue2} {Environment.NewLine}" +
+				"+ Request";
 
-        [Test]
-        public void InvalidFormatWithIvalidCode() {
-			// given
-			var stream = Extensions.CreatFromString($"fr45fet(application/json){Environment.NewLine} body+");
+			var stream = Extensions.CreatFromString(bodyRequst);
 
-			// when then
-			Assert.Throws<FormatException>(() => new ResponseParser(stream).Parse());
-        }
+			var result = new ResponseParser(stream, declaration).Parse();
+
+			Assert.AreEqual(result.Code, statusCode);
+            Assert.IsNull(result.Body);
+			Assert.AreEqual(result.BodyType, BodyType.Json);
+			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
+			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
+            Assert.AreEqual(stream.Peek(), '+');
+		}
     }
 }

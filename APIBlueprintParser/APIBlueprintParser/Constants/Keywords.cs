@@ -29,13 +29,13 @@ namespace System {
 
 			for (int i = 0; i < source.Length; i++) {
 				if(wordSeparators.Contains(source[i])) {
-					yield return currentWord;
+                    yield return currentWord.Trim();
 					currentWord = "";
 				} else {
 					currentWord += source[i];
 				}
 			}
-			
+            yield return currentWord.Trim();
 		}
 
 	}

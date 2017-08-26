@@ -5,7 +5,7 @@
 // sprintend@gmail.com
 //
 //
-
+using System.Collections.Generic;
 namespace APIBlueprintParser.Models {
 
 	public class ResponseNode: BaseNode {
@@ -13,17 +13,19 @@ namespace APIBlueprintParser.Models {
         /// <summary>
         /// Response code.
         /// </summary>
-        public int Code { get; }
+        public int Code { get; internal set; }
 
         /// <summary>
         /// Type of the response body. For example 'application/json'
         /// </summary>
-        public BodyType BodyType { get; }
+        public BodyType BodyType { get; internal set; }
 
         /// <summary>
         /// Body of the response.
         /// </summary>
-        public string Body { get; }
+        public string Body { get; internal set; }
+
+        public IReadOnlyDictionary<string, string> Headers { get; internal set; }
 
         public ResponseNode(int code, BodyType bodyType, string body) {
             this.Code = code;
@@ -31,5 +33,6 @@ namespace APIBlueprintParser.Models {
             this.Body = body;
         }
 
+        public ResponseNode() { }
     }
 }

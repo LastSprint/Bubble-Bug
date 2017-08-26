@@ -10,7 +10,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace APIBlueprintParser.Parsers.Request {
+namespace APIBlueprintParser.Parsers.Action.Request {
     
     public class HeadersParser: BaseParser {
 
