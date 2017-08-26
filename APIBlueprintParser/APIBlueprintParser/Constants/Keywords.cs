@@ -21,7 +21,7 @@ namespace System {
 	public static class StringExtension {
 
 		public static IEnumerable<string> Words(this string source) {
-			char[] wordSeparators = { ' ', '\t', '\n', '\r' ,'(',')','!', ',' };
+			char[] wordSeparators = { ' ', '\t', '\n', '\r' ,'(',')','!', ',','[',']' };
 
 			var trimed = source.Trim();
 

@@ -77,5 +77,18 @@ namespace APIBlueprintParser.Parsers {
 			}
 		}
 
+		public static bool IsURI(string str) {
+			if (str[0] != '/') {
+				return false;
+			}
+
+			try {
+				var t = new UriTemplate.Core.UriTemplate(str);
+			}
+			catch {
+				return false;
+			}
+			return true;
+		}
     }
 }

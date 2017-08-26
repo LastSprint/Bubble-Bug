@@ -23,7 +23,7 @@ namespace APIBlueprintIntegrationTests.ResourceAction {
 
             var stream = File.OpenRead("/Users/aleksandrkravcenkov/Repo/APIBlueprintParser/APIBlueprintParser/APIBlueprintIntegrationTests/ResourceAction/valid.apib");
 
-            var result = new ResourceActionParser(new StreamReader(stream)).Parse();
+            var result = new ResourceActionParser(new StreamReader(stream), "### sample [get, /name]").Parse();
 
             Assert.IsNull(null);
         }

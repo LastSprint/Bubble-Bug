@@ -23,14 +23,14 @@ namespace APIBlueprintTests {
 			var httpMethod = HttpMethod.Get;
 			var template = "/samplePath/method";
 			var identifier = "SampleResourceAction";
-			var action = $"{identifier} [GET, {template}]{Environment.NewLine} " +
+			var action = 
 				$"This is sample action for unit test. Fuck off {Environment.NewLine}" +
 				$"+ Attributes {Environment.NewLine}\t" +
 				"+ la-la-la";
 			var stream = Extensions.CreatFromString(action);
 
 			// when
-			var result = new ResourceActionParser(stream).ParseWithoutNestenNodes();
+            var result = new ResourceActionParser(stream, $"{identifier} [GET, {template}]").ParseWithoutNestenNodes();
 
 			// then
 
@@ -46,14 +46,14 @@ namespace APIBlueprintTests {
 			// given
 			var template = "/samplePath/method";
 			var identifier = "SampleResourceAction";
-			var action = $"{identifier} [NuGet, {template}]{Environment.NewLine} " +
+			var action =
 				$"This is sample action for unit test. Fuck off {Environment.NewLine}" +
 				$"+ Attributes {Environment.NewLine}\t" +
 				"+ la-la-la";
 			var stream = Extensions.CreatFromString(action);
 
 			// when then
-			Assert.Throws<FormatException>(() => new ResourceActionParser(stream).ParseWithoutNestenNodes());
+			Assert.Throws<FormatException>(() => new ResourceActionParser(stream, $"{identifier} [NuGet, {template}]").ParseWithoutNestenNodes());
 		}
 
 		[Test]
@@ -62,14 +62,14 @@ namespace APIBlueprintTests {
 			// given
 			var template = "/samplePath/met hod";
 			var identifier = "SampleResourceAction";
-			var action = $"{identifier} [GET, {template}]{Environment.NewLine} " +
+			var action =
 				$"This is sample action for unit test. Fuck off {Environment.NewLine}" +
 				$"+ Attributes {Environment.NewLine}\t" +
 				"+ la-la-la";
 			var stream = Extensions.CreatFromString(action);
 
 			// when then
-			Assert.Throws<FormatException>(() => new ResourceActionParser(stream).ParseWithoutNestenNodes());
+			Assert.Throws<FormatException>(() => new ResourceActionParser(stream, $"{identifier} [NuGet, {template}]").ParseWithoutNestenNodes());
 		}
 
 	}

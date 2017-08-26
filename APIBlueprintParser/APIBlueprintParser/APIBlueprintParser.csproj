@@ -63,6 +63,7 @@
     <Compile Include="Parsers\Action\Attributes\AttributeParser.cs" />
     <Compile Include="Parsers\Action\ResourceActionParser.cs" />
     <Compile Include="Parsers\Action\Attributes\AttributesParser.cs" />
+    <Compile Include="Parsers\ResourceParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />

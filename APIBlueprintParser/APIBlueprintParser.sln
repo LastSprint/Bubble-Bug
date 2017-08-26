@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIBlueprintUnitTests", "AP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIBlueprintIntegrationTests", "APIBlueprintIntegrationTests\APIBlueprintIntegrationTests.csproj", "{943D4192-B79E-47A3-BE2F-8BAD97D1DCE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIBlueprintParserExec", "APIBlueprintParserExec\APIBlueprintParserExec.csproj", "{F65E2823-F103-4D47-8857-431D62CAD129}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,5 +27,9 @@ Global
 		{943D4192-B79E-47A3-BE2F-8BAD97D1DCE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{943D4192-B79E-47A3-BE2F-8BAD97D1DCE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{943D4192-B79E-47A3-BE2F-8BAD97D1DCE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65E2823-F103-4D47-8857-431D62CAD129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65E2823-F103-4D47-8857-431D62CAD129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65E2823-F103-4D47-8857-431D62CAD129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65E2823-F103-4D47-8857-431D62CAD129}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

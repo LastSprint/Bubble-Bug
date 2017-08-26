@@ -49,9 +49,13 @@ namespace APIBlueprintParser.Parsers.Action {
             public const string Response = "Response";
         }
 
-          #endregion
+        #endregion
 
-        public ResourceActionParser(StreamReader stream): base(stream) { }
+        private string _declaration;
+
+        public ResourceActionParser(StreamReader stream, string declaration): base(stream) {
+            this._declaration = declaration;
+        }
 
         /// <summary>
         /// Parses the without nesten nodes.
@@ -61,16 +65,8 @@ namespace APIBlueprintParser.Parsers.Action {
         public ResourceActionNode ParseWithoutNestenNodes()
         {
 
-            // <identifier> [<httpmeth>, <URITempl>] .... +
-            // read to '+'
-            var sectionCharArr = new List<char>();
-
-            while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.StartOfSubsection) {
-                sectionCharArr.Add((char)streamReader.Read());
-            }
-
             // <identifier> [<httpmeth>, <URITempl>] ....
-            var stringView = new String(sectionCharArr.ToArray()).Replace("#","").Trim();
+            var stringView = this._declaration.Replace("#","").Trim();
 
             // check format
 
@@ -134,22 +130,8 @@ namespace APIBlueprintParser.Parsers.Action {
 
         }
 
-        public ResourceActionNode Parse() {
+        public (ResourceActionNode resourceAction, string lastReaded) Parse() {
 
-            // TODO: Make commants
-
-            // + Attributes
-            //        + parameter1
-            //        + parameter2
-            // + Parameters
-            //        + parameter1
-            //        + parameter2
-            // + Request
-            // + Response
-            // + Request
-            // + Response
-            // ...
-            // #...
             var requesrPairs = new List<RequestPair>();
 
             var result = this.ParseWithoutNestenNodes();
@@ -161,15 +143,21 @@ namespace APIBlueprintParser.Parsers.Action {
 			do {
 
                 if (base.streamReader.Peek() == Tokens.EndOfSection) {
-                    return result;
+                    return (result, streamReader.ReadLine());
                 }
 
-                line = base.streamReader.ReadLine().Replace(Tokens.StartOfSubsection.ToString(), "").Trim();
+                do {
+                    line = base.streamReader.ReadLine().Replace(Tokens.StartOfSubsection.ToString(), "").Trim();
+                } while (line == "");
 
                 if (line.Contains("Attributes")) {
 					var res = new AttributesParser(base.streamReader).Parse();
 					line = res.lastReadedLine;
 					result.Attributes = res.attributes.ToList();
+                }
+
+                while (line.Trim() == "") {
+                    line = base.streamReader.ReadLine().Replace(Tokens.StartOfSubsection.ToString(), "").Trim();
                 }
 
                 if (line.Contains("Parameters")) {
@@ -180,11 +168,6 @@ namespace APIBlueprintParser.Parsers.Action {
 
                 while (true)
                 {
-
-                    if (line.Trim() == "") {
-                        result.RequestPairs = requesrPairs.ToList();
-                        return result;
-                    }
 
                     if (line.Contains("Request"))
                     {
@@ -199,6 +182,14 @@ namespace APIBlueprintParser.Parsers.Action {
                         var response = res.response;
                         line = res.lastReaded;
                         requesrPairs.Add(new RequestPair(currentRequest, response));
+                    }
+
+					if (line.Trim().Contains("##") || line.Trim().Contains("###"))
+					{
+						result.RequestPairs = requesrPairs.ToList();
+                        return (result, line);
+                    } else if (!line.Contains("Response") && !line.Contains("Request")){
+                        line = streamReader.ReadLine();
                     }
                 }
 
