@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIBlueprintParser", "APIBlueprintParser\APIBlueprintParser.csproj", "{72739657-B1E8-4F17-AE13-602159696C5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIBlueprintTests", "APIBlueprintTests\APIBlueprintTests.csproj", "{22FAFB9E-3249-4D9B-BF61-044F75D97FE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIBlueprintUnitTests", "APIBlueprintTests\APIBlueprintUnitTests.csproj", "{22FAFB9E-3249-4D9B-BF61-044F75D97FE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIBlueprintIntegrationTests", "APIBlueprintIntegrationTests\APIBlueprintIntegrationTests.csproj", "{943D4192-B79E-47A3-BE2F-8BAD97D1DCE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,5 +21,9 @@ Global
 		{22FAFB9E-3249-4D9B-BF61-044F75D97FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22FAFB9E-3249-4D9B-BF61-044F75D97FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22FAFB9E-3249-4D9B-BF61-044F75D97FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{943D4192-B79E-47A3-BE2F-8BAD97D1DCE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{943D4192-B79E-47A3-BE2F-8BAD97D1DCE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{943D4192-B79E-47A3-BE2F-8BAD97D1DCE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{943D4192-B79E-47A3-BE2F-8BAD97D1DCE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

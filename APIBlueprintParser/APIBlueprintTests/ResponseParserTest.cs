@@ -33,18 +33,17 @@ namespace APIBlueprintTests {
 				$"{headerKey2} : {headerValue2} {Environment.NewLine}" +
 				$"+ Body {Environment.NewLine}" +
 				$"{body}{Environment.NewLine}" +
-				"+ Request";
+				"###";
 
 			var stream = Extensions.CreatFromString(bodyRequst);
 
-            var result = new ResponseParser(stream, declaration).Parse();
+            var result = new ResponseParser(stream, declaration).Parse().response;
 
 			Assert.AreEqual(result.Code, statusCode);
 			Assert.AreEqual(result.Body, body);
 			Assert.AreEqual(result.BodyType, BodyType.Json);
 			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
 			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
-            Assert.AreEqual(stream.Peek(), '+');
 		}
 
 		[Test]
@@ -62,13 +61,12 @@ namespace APIBlueprintTests {
 
 			var stream = Extensions.CreatFromString(bodyRequst);
 
-			var result = new ResponseParser(stream, declaration).Parse();
+			var result = new ResponseParser(stream, declaration).Parse().response;
 
 			Assert.AreEqual(result.Code, statusCode);
 			Assert.AreEqual(result.Body, body);
 			Assert.AreEqual(result.BodyType, BodyType.Json);
             Assert.IsNull(result.Headers);
-            Assert.AreEqual(stream.Peek(), '+');
 		}
 
 		[Test]
@@ -89,14 +87,13 @@ namespace APIBlueprintTests {
 
 			var stream = Extensions.CreatFromString(bodyRequst);
 
-			var result = new ResponseParser(stream, declaration).Parse();
+			var result = new ResponseParser(stream, declaration).Parse().response;
 
 			Assert.AreEqual(result.Code, statusCode);
             Assert.IsNull(result.Body);
 			Assert.AreEqual(result.BodyType, BodyType.Json);
 			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
 			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
-            Assert.AreEqual(stream.Peek(), '+');
 		}
     }
 }

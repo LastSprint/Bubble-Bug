@@ -1,0 +1,31 @@
+﻿//
+// Test.cs
+// 26.08.2017
+// Created by Kravchenkov Alexander
+// sprintend@gmail.com
+//
+//
+using NUnit.Framework;
+using System;
+using APIBlueprintParser.Parsers.Action;
+using APIBlueprintParser.Models;
+using System.IO;
+
+namespace APIBlueprintIntegrationTests.ResourceAction {
+
+    // TODO: Write full integration test
+
+    [TestFixture]
+    public class ResourceActionParserTest {
+        
+        [Test]
+        public void ValidDataParsingTest() {
+
+            var stream = File.OpenRead("/Users/aleksandrkravcenkov/Repo/APIBlueprintParser/APIBlueprintParser/APIBlueprintIntegrationTests/ResourceAction/valid.apib");
+
+            var result = new ResourceActionParser(new StreamReader(stream)).Parse();
+
+            Assert.IsNull(null);
+        }
+    }
+}

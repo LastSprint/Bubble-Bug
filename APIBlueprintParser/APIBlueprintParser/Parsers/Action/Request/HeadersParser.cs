@@ -35,7 +35,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 
 			var sectionCharArr = new List<char>();
 
-			while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection)
+            while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection && streamReader.Peek() != '#')
 			{
 				sectionCharArr.Add((char)streamReader.Read());
 			}

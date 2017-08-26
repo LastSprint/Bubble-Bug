@@ -46,7 +46,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
             this._declaration = decl;
         }
 
-        public RequestNode Parse() {
+        public (RequestNode request, string lastReaded) Parse() {
 
             // Request <identifier>? (<media type>) <new line> -> this._declaration
             //  + Headers?
@@ -71,10 +71,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
                 var current = lastReadedString.Replace(Tokens.EndOfSection.ToString(), "").Trim();
 
                 if (!Tokens.NestedKeywords.Contains(current)) {
-                    streamReader.BaseStream.Flush();
-                    streamReader.BaseStream.Position = streamReader.BaseStream.Position - lastReadedString.Length - 1;
-                    streamReader.DiscardBufferedData();
-                    return request;
+                    return (request, lastReadedString);
                 }
 
                 switch (current) {
@@ -97,7 +94,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 				throw new FormatException($"Request parser cant find media type section");
 			}
 
-            var words = this._declaration.Words().Where(x => x.Length != 0).ToArray();
+            var words = this._declaration.Words().Where(x => x.Length != 0 && x.Length != 1).ToArray();
 
             if (words[0].Trim() != Tokens.KeyWord) {
                 throw new FormatException($"Request parser cant find {Tokens.KeyWord} keyword");

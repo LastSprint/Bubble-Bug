@@ -39,7 +39,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 			this._declaration = decl;
 		}
 
-        public ResponseNode Parse()
+        public (ResponseNode response, string lastReaded)Parse()
 		{
 
 			// Request <identifier>? (<media type>) <new line> -> this._declaration
@@ -62,16 +62,17 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 
 			do
 			{
+                if (streamReader.Peek() == '#') {
+                    return (response, "");
+                }
+                
 				lastReadedString = streamReader.ReadLine();
 
                 var current = lastReadedString.Replace(Tokens.EndOfSection.ToString(), "").Trim();
 
 				if (!Tokens.NestedKeywords.Contains(current))
 				{
-                    streamReader.BaseStream.Flush();
-                    streamReader.BaseStream.Position = streamReader.BaseStream.Position - lastReadedString.Length - 1;
-                    streamReader.DiscardBufferedData();
-					return response;
+                    return (response, lastReadedString);
 				}
 
 				switch (current) {
@@ -93,7 +94,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 				throw new FormatException($"Response parser cant find media type section");
 			}
 
-			var words = this._declaration.Words().Where(x => x.Length != 0).ToArray();
+            var words = this._declaration.Words().Where(x => x.Length != 0 && x != Tokens.EndOfSection.ToString()).ToArray();
 
             if (words.Length != 3) {
                 throw new FormatException($"Response declaration cant contains 3 section");

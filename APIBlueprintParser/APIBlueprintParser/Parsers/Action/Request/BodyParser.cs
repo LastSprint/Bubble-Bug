@@ -8,6 +8,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace APIBlueprintParser.Parsers.Action.Request {
@@ -15,7 +16,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
     public class BodyParser: BaseParser {
         
         public struct Tokens {
-            public const char EndOfSection = '+';
+            public static char[] EndOfSection = { '+', '-', '#' };
         }
 
         public BodyParser(StreamReader stream): base(stream) { }
@@ -23,7 +24,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
         public string Parse() {
 			var sectionCharArr = new List<char>();
 
-			while (!base.streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection) {
+            while (!base.streamReader.EndOfStream && !Tokens.EndOfSection.Contains((char)base.streamReader.Peek())) {
 				sectionCharArr.Add((char)streamReader.Read());
 			}
 

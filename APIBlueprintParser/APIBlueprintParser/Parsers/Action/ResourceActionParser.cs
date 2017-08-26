@@ -34,7 +34,7 @@ namespace APIBlueprintParser.Parsers.Action {
 
         public struct Tokens {
             public const char EndOfSection = '#';
-            public const char EndOfHeader = '+';
+            public const char StartOfSubsection = '+';
             public const char StartOfTypeSection = '[';
             public const char EndOfTypeSection = ']';
             public const char TypeSectionSeparator = ',';
@@ -65,12 +65,12 @@ namespace APIBlueprintParser.Parsers.Action {
             // read to '+'
             var sectionCharArr = new List<char>();
 
-            while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfHeader) {
+            while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.StartOfSubsection) {
                 sectionCharArr.Add((char)streamReader.Read());
             }
 
             // <identifier> [<httpmeth>, <URITempl>] ....
-            var stringView = new String(sectionCharArr.ToArray()).Trim();
+            var stringView = new String(sectionCharArr.ToArray()).Replace("#","").Trim();
 
             // check format
 
@@ -134,7 +134,7 @@ namespace APIBlueprintParser.Parsers.Action {
 
         }
 
-        public void ParseSubnodes() {
+        public ResourceActionNode Parse() {
 
             // TODO: Make commants
 
@@ -150,64 +150,59 @@ namespace APIBlueprintParser.Parsers.Action {
             // + Response
             // ...
             // #...
-            var parameter = new List<AttributeNode>();
-            var attributes = new List<AttributeNode>();
             var requesrPairs = new List<RequestPair>();
+
+            var result = this.ParseWithoutNestenNodes();
 
             RequestNode currentRequest = null;
 
-            var parseState = State.None;
-            while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection) {
-                var readed = (char)streamReader.Read();
+            var line = "";
 
-                if (readed == Tokens.EndOfHeader) {
-                    var str = streamReader.ReadLine();
+			do {
 
-                    switch (str) {
-                        case Tokens.Parameters: 
-                            parseState = State.Parameters;
-                            continue;
-                        case Tokens.Attributes:
-                            parseState = State.Attributes;
-                            continue;
+                if (base.streamReader.Peek() == Tokens.EndOfSection) {
+                    return result;
+                }
+
+                line = base.streamReader.ReadLine().Replace(Tokens.StartOfSubsection.ToString(), "").Trim();
+
+                if (line.Contains("Attributes")) {
+					var res = new AttributesParser(base.streamReader).Parse();
+					line = res.lastReadedLine;
+					result.Attributes = res.attributes.ToList();
+                }
+
+                if (line.Contains("Parameters")) {
+					var res = new AttributesParser(base.streamReader).Parse();
+					line = res.lastReadedLine;
+                    result.Parameters = res.attributes.ToList();
+                }
+
+                while (true)
+                {
+
+                    if (line.Trim() == "") {
+                        result.RequestPairs = requesrPairs.ToList();
+                        return result;
                     }
 
-                    if (str.Contains(Tokens.Request)) {
+                    if (line.Contains("Request"))
+                    {
+                        var res = new RequestParser(base.streamReader, line).Parse();
+                        currentRequest = res.request;
+                        line = res.lastReaded;
+                    }
 
-                        if (parseState == State.Request) {
-                            throw new FormatException("After request need implement response for this request");
-                        }
-
-                        //currentRequest = new RequestParser(base.stream).Parse();
-                        parseState = State.Request;
-                        continue;
-
-                    } else if (str.Contains(Tokens.Response)) {
-
-                        if (parseState == State.Response) {
-                            throw new FormatException("After response need implement new request");
-                        }
-
-                        var response = new ResponseParser(base.streamReader, str).Parse();
+                    if (line.Contains("Response"))
+                    {
+                        var res = new ResponseParser(base.streamReader, line).Parse();
+                        var response = res.response;
+                        line = res.lastReaded;
                         requesrPairs.Add(new RequestPair(currentRequest, response));
-                        parseState = State.Response;
-                        continue;
-                    }
-
-                    switch (parseState) {
-                        case State.Attributes:
-                            //attributes.Add(new AttributeParser(base.streamReader).Parse());
-                            continue;
-                        case State.Parameters:
-                            //parameter.Add(new AttributeParser(base.streamReader).Parse());
-                            continue;
-
                     }
                 }
-            }
 
-            //return new ResourceActionNode("",null, HttpMethod.Get)
-
+            } while (true);
         }
     }
 }

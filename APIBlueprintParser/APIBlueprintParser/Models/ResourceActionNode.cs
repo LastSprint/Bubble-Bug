@@ -12,14 +12,14 @@ namespace APIBlueprintParser.Models {
 
 	public class ResourceActionNode: BaseNode {
 
-        public string Identifier { get; }
-		public UriTemplate.Core.UriTemplate Template { get; }
-		public HttpMethod HttpMethod { get; }
+        public string Identifier { get; internal set;}
+		public UriTemplate.Core.UriTemplate Template { get; internal set; }
+		public HttpMethod HttpMethod { get; internal set; }
 
-        public IReadOnlyCollection<AttributeNode> Attributes { get; }
-        public IReadOnlyCollection<AttributeNode> Parameters { get; }
+        public IReadOnlyCollection<AttributeNode> Attributes { get; internal set; }
+        public IReadOnlyCollection<AttributeNode> Parameters { get; internal set; }
 
-        public IReadOnlyCollection<RequestPair> RequestPairs { get; }
+        public IReadOnlyCollection<RequestPair> RequestPairs { get; internal set; }
 
 		internal ResourceActionNode(string identifier, UriTemplate.Core.UriTemplate template, HttpMethod httpMethod) {
 			this.Identifier = identifier;
@@ -35,5 +35,7 @@ namespace APIBlueprintParser.Models {
 			this.Parameters = new List<AttributeNode>(parameters);
 			this.RequestPairs = new List<RequestPair>(requestPairs);
 		}
+
+        internal ResourceActionNode() { } 
     }
 }
