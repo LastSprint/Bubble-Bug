@@ -17,12 +17,12 @@ namespace APIBlueprintParser.Models {
         /// <summary>
         /// Name of group.
         /// </summary>
-        public string Name { get; }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// Collection of the resources of this group.
         /// </summary>
-        public IReadOnlyCollection<ResourceNode> Resources { get; }
+        public IReadOnlyCollection<ResourceNode> Resources { get; internal set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:APIBlueprintParser.Models.GroupNode"/> class.
@@ -32,5 +32,6 @@ namespace APIBlueprintParser.Models {
             this.Resources = new List<ResourceNode>(resources);
         }
 
+        internal GroupNode() { }
     }
 }
