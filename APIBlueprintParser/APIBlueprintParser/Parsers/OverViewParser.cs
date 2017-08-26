@@ -64,7 +64,6 @@ namespace APIBlueprintParser.Parsers {
                 overview.AppendLine(splited[i].Trim());
             }
 
-            streamReader.Close();
             return new OverviewNode(name, overview.ToString().Trim());
 
         }

@@ -6,6 +6,7 @@
 //
 //
 
+using System;
 using System.Collections.Generic;
 
 namespace APIBlueprintParser.Models {
@@ -19,6 +20,11 @@ namespace APIBlueprintParser.Models {
 
         internal MetadataNode(IDictionary<string, string> metadata) {
             this.Metadata = new Dictionary<string, string>(metadata);
+        }
+
+        public static implicit operator MetadataNode(Dictionary<string, string> v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

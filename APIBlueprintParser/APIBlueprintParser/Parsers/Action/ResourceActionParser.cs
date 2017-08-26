@@ -185,10 +185,11 @@ namespace APIBlueprintParser.Parsers.Action {
                     }
 
                     if (line == null) {
+                        result.RequestPairs = requesrPairs;
                         return (result, line);
                     }
 
-					if (line.Trim().Contains("##") || line.Trim().Contains("###"))
+                    if (line.Contains("#"))
 					{
 						result.RequestPairs = requesrPairs.ToList();
                         return (result, line);

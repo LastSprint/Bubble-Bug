@@ -70,8 +70,6 @@ namespace APIBlueprintParser.Parsers {
                 result.Add(keyValue[(int)Tokens.PairTokens.Key].Trim(), keyValue[(int)Tokens.PairTokens.Value].Trim());
             }
 
-            streamReader.Close();
-
             return result;
         }
 

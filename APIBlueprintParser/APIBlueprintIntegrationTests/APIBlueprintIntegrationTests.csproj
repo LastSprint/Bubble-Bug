@@ -38,12 +38,14 @@
     <Compile Include="ResourceAction\ResourceActionParserTest.cs" />
     <Compile Include="ResourceSection\ResourceSectionTest.cs" />
     <Compile Include="GroupSection\GroupParserTest.cs" />
+    <Compile Include="ApiDescription\ApiDescriptionParserTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="ResourceAction\valid.apib" />
     <None Include="ResourceSection\valid.apib" />
     <None Include="GroupSection\valid.apib" />
+    <None Include="ApiDescription\valid.apib" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\APIBlueprintParser\APIBlueprintParser.csproj">
@@ -55,6 +57,7 @@
     <Folder Include="ResourceAction\" />
     <Folder Include="ResourceSection\" />
     <Folder Include="GroupSection\" />
+    <Folder Include="ApiDescription\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
