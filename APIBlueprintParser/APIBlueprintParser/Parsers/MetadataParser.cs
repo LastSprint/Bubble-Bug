@@ -37,14 +37,13 @@ namespace APIBlueprintParser.Parsers {
         /// Initializes a new instance of the <see cref="T:APIBlueprintParser.MetadataParser"/> class.
         /// </summary>
         /// <param name="stream">Stream which contains API specifications writing on APIBlueprint</param>
-        public MetadataParser(Stream stream): base(stream) { }
+        public MetadataParser(StreamReader stream): base(stream) { }
 
         public Dictionary<string, string> Parse() {
 
-            var streamReader = new StreamReader(base.stream);
             var sectionCharArr = new List<char>();
 
-            while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection) {
+            while (!base.streamReader.EndOfStream && base.streamReader.Peek() != Tokens.EndOfSection) {
                 sectionCharArr.Add((char)streamReader.Read());
             }
 

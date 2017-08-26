@@ -35,11 +35,10 @@ namespace APIBlueprintParser.Parsers {
 
         #endregion
 
-        public ResponseParser(Stream stream): base(stream) { }
+        public ResponseParser(StreamReader stream): base(stream) { }
 
         public ResponseNode Parse() {
 
-			var streamReader = new StreamReader(base.stream);
 			var sectionCharArr = new List<char>();
 
 			while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection) {

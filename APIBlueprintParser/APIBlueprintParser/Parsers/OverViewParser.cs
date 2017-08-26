@@ -30,10 +30,9 @@ namespace APIBlueprintParser.Parsers {
 
         #endregion
 
-        public OverviewParser(Stream stream): base(stream) { }
+        public OverviewParser(StreamReader stream): base(stream) { }
 
         public OverviewNode Parse() {
-			var streamReader = new StreamReader(base.stream);
 			var sectionCharArr = new List<char>();
 
             if (!streamReader.EndOfStream && streamReader.Peek()!= Tokens.StartOfSection) {

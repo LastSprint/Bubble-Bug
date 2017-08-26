@@ -6,17 +6,30 @@
 //
 //
 
+using System.Collections.Generic;
+
 namespace APIBlueprintParser.Models {
 
-	public class RequestNode: BaseNode {
+    public class RequestNode : BaseNode {
 
-        public BodyType BodyType { get; }
+        public IReadOnlyDictionary<string, string> Headers { get; internal set; }
 
-        public string Body { get; }
+        public BodyType BodyType { get; internal set; }
 
-        public RequestNode(BodyType bodyType, string body) {
+        public string Identifier { get; internal set; }
+
+        public string Body { get; internal set; }
+
+        public string Schema { get; internal set; }
+
+        public RequestNode(BodyType bodyType, string body, IDictionary<string, string> headers, string schema, string identifier) {
             this.BodyType = bodyType;
             this.Body = body;
+            this.Headers = new Dictionary<string, string>(headers);
+            this.Schema = schema;
+            this.Identifier = identifier;
         }
+
+        internal RequestNode() {}
     }
 }

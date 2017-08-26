@@ -33,7 +33,7 @@ namespace APIBlueprintParser.Models {
 		                          ICollection<RequestPair> requestPairs): this(identifier, template, httpMethod) {
 			this.Attributes = new List<AttributeNode>(attributes);
 			this.Parameters = new List<AttributeNode>(parameters);
-			this.RequestPairs = new List<AttributeNode>(requestPairs);
+			this.RequestPairs = new List<RequestPair>(requestPairs);
 		}
     }
 }

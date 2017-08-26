@@ -7,8 +7,8 @@
 //
 using System;
 using NUnit.Framework;
-using APIBlueprintParser.Parsers;
 using APIBlueprintParser.Models;
+using APIBlueprintParser.Parsers.Request;
 
 namespace APIBlueprintTests {
 
@@ -16,49 +16,155 @@ namespace APIBlueprintTests {
     public class RequestParserTest {
 
         [Test]
-        public void ValidRequestTest() {
-            // given
-            var stream = Extensions.CreatFromString($"( application/json) {Environment.NewLine} body+");
+        public void FullDeclarationTest() {
+            var identifier = "identifier";
+            var mediaType = "application/json";
+            var headerKey1 = "key";
+            var headerValue1 = "value";
+			var headerKey2 = "key1";
+			var headerValue2 = "value2";
+            var body = "body";
+            var schema = "schema";
 
-            // when
-            var result = new RequestParser(stream).Parse();
+            var declaration = $"Request {identifier} ({mediaType})";
+            var bodyRequst = $"+ Headers {Environment.NewLine}" +
+                $"{headerKey1}:{headerValue1}{Environment.NewLine}" +
+                $"{headerKey2} : {headerValue2} {Environment.NewLine}" +
+                $"+ Body {Environment.NewLine}" +
+                $"{body}{Environment.NewLine}" +
+                $"+ Schema {Environment.NewLine}" +
+                $"{schema}{Environment.NewLine}" +
+                "+ Response";
 
-            // then
+            var stream = Extensions.CreatFromString(bodyRequst);
+
+            var result = new RequestParser(stream, declaration).Parse();
+
+            Assert.AreEqual(result.Identifier, identifier);
+            Assert.AreEqual(result.Body, body);
+            Assert.AreEqual(result.Schema, schema);
             Assert.AreEqual(result.BodyType, BodyType.Json);
-            Assert.AreEqual(result.Body, "body");
+            Assert.AreEqual(result.Headers[headerKey1], headerValue1);
+            Assert.AreEqual(result.Headers[headerKey2], headerValue2);
         }
 
         [Test]
-        public void InvalidRequestTypeTest() {
-			// given
-			var stream = Extensions.CreatFromString($"( applic) {Environment.NewLine} body+");
+        public void WithoutIdentifierTest() {
+			var mediaType = "application/json";
+			var headerKey1 = "key";
+			var headerValue1 = "value";
+			var headerKey2 = "key1";
+			var headerValue2 = "value2";
+			var body = "body";
+			var schema = "schema";
 
-            // when then
-            Assert.Throws<FormatException>(() => new RequestParser(stream).Parse());
+			var declaration = $"Request({mediaType})";
+			var bodyRequst = $"+ Headers {Environment.NewLine}" +
+				$"{headerKey1}:{headerValue1}{Environment.NewLine}" +
+				$"{headerKey2} : {headerValue2} {Environment.NewLine}" +
+				$"+ Body {Environment.NewLine}" +
+				$"{body}{Environment.NewLine}" +
+				$"+ Schema {Environment.NewLine}" +
+				$"{schema}{Environment.NewLine}" +
+				"+ Response";
+
+			var stream = Extensions.CreatFromString(bodyRequst);
+
+			var result = new RequestParser(stream, declaration).Parse();
+
+			Assert.AreEqual(result.Identifier, "");
+			Assert.AreEqual(result.Body, body);
+			Assert.AreEqual(result.Schema, schema);
+			Assert.AreEqual(result.BodyType, BodyType.Json);
+			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
+			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
         }
 
-        [Test]
-        public void InvalidFormatTypeDeclTest() {
-			// given
-			var stream1 = Extensions.CreatFromString($"(/json){Environment.NewLine} body+");
-            var stream2 = Extensions.CreatFromString($"( apicat) {Environment.NewLine} body+");
+		[Test]
+		public void WithoutheadersTest() {
+			var identifier = "identifier";
+			var mediaType = "application/json";
+			var body = "body";
+			var schema = "schema";
 
-			// when then
-			Assert.Throws<FormatException>(() => new RequestParser(stream1).Parse());
-            Assert.Throws<FormatException>(() => new RequestParser(stream2).Parse());
-        }
+			var declaration = $"Request {identifier} ({mediaType})";
+			var bodyRequst = 
+				$"+ Body {Environment.NewLine}" +
+				$"{body}{Environment.NewLine}" +
+				$"+ Schema {Environment.NewLine}" +
+				$"{schema}{Environment.NewLine}" +
+				"+ Response";
 
-        [Test]
-        public void InvalidFormatWithoutBodyTest() {
-			// given
-			var stream = Extensions.CreatFromString($"(application/json){Environment.NewLine}+");
+			var stream = Extensions.CreatFromString(bodyRequst);
 
-            // when
-            var result = new RequestParser(stream).Parse();
+			var result = new RequestParser(stream, declaration).Parse();
 
-            //then
-            Assert.AreEqual(result.BodyType, BodyType.Json);
-            Assert.AreEqual(result.Body, "");
-        }
+			Assert.AreEqual(result.Identifier, identifier);
+			Assert.AreEqual(result.Body, body);
+			Assert.AreEqual(result.Schema, schema);
+			Assert.AreEqual(result.BodyType, BodyType.Json);
+            Assert.IsNull(result.Headers);
+		}
+
+		[Test]
+		public void WithoutBodyTest() {
+			var identifier = "identifier";
+			var mediaType = "application/json";
+			var headerKey1 = "key";
+			var headerValue1 = "value";
+			var headerKey2 = "key1";
+			var headerValue2 = "value2";
+			var schema = "schema";
+
+			var declaration = $"Request {identifier} ({mediaType})";
+			var bodyRequst = $"+ Headers {Environment.NewLine}" +
+				$"{headerKey1}:{headerValue1}{Environment.NewLine}" +
+				$"{headerKey2} : {headerValue2} {Environment.NewLine}" +
+				$"+ Schema {Environment.NewLine}" +
+				$"{schema}{Environment.NewLine}" +
+				"+ Response";
+
+			var stream = Extensions.CreatFromString(bodyRequst);
+
+			var result = new RequestParser(stream, declaration).Parse();
+
+			Assert.AreEqual(result.Identifier, identifier);
+            Assert.IsNull(result.Body);
+			Assert.AreEqual(result.Schema, schema);
+			Assert.AreEqual(result.BodyType, BodyType.Json);
+			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
+			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
+		}
+
+		[Test]
+		public void WithoutSchemaTest() {
+			var identifier = "identifier";
+			var mediaType = "application/json";
+			var headerKey1 = "key";
+			var headerValue1 = "value";
+			var headerKey2 = "key1";
+			var headerValue2 = "value2";
+			var body = "body";
+
+			var declaration = $"Request {identifier} ({mediaType})";
+			var bodyRequst = $"+ Headers {Environment.NewLine}" +
+				$"{headerKey1}:{headerValue1}{Environment.NewLine}" +
+				$"{headerKey2} : {headerValue2} {Environment.NewLine}" +
+				$"+ Body {Environment.NewLine}" +
+				$"{body}{Environment.NewLine}" +
+				"+ Response";
+
+			var stream = Extensions.CreatFromString(bodyRequst);
+
+			var result = new RequestParser(stream, declaration).Parse();
+
+			Assert.AreEqual(result.Identifier, identifier);
+			Assert.AreEqual(result.Body, body);
+            Assert.IsNull(result.Schema);
+			Assert.AreEqual(result.BodyType, BodyType.Json);
+			Assert.AreEqual(result.Headers[headerKey1], headerValue1);
+			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
+		}
+
     }
 }

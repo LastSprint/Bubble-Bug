@@ -31,6 +31,10 @@
     <Reference Include="UriTemplate.Core">
       <HintPath>..\packages\UriTemplate.Core.1.0.2\lib\net461\UriTemplate.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -46,7 +50,6 @@
     <Compile Include="Models\ResourceActionNode.cs" />
     <Compile Include="Models\AttributeNode.cs" />
     <Compile Include="Models\RequestPair.cs" />
-    <Compile Include="Parsers\RequestParser.cs" />
     <Compile Include="Parsers\BaseParser.cs" />
     <Compile Include="Constants\Keywords.cs" />
     <Compile Include="Parsers\Support.cs" />
@@ -56,11 +59,15 @@
     <Compile Include="Parsers\ResourceActionParser.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Models\BaseNode.cs" />
+    <Compile Include="Parsers\Request\RequestParser.cs" />
+    <Compile Include="Parsers\Request\HeadersParser.cs" />
+    <Compile Include="Parsers\Request\BodyParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Constants\" />
     <Folder Include="Models\" />
     <Folder Include="Parsers\" />
+    <Folder Include="Parsers\Request\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

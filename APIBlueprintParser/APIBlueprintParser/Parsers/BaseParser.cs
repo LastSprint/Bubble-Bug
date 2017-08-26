@@ -13,10 +13,10 @@ namespace APIBlueprintParser.Parsers {
     
     public abstract class BaseParser {
 
-        protected Stream stream;
+        protected StreamReader streamReader;
 
-        protected BaseParser(Stream stream) {
-            this.stream = stream;
+        protected BaseParser(StreamReader streamReader) {
+            this.streamReader = streamReader;
         }
     }
 }

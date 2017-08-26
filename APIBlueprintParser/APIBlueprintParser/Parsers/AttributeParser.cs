@@ -37,13 +37,11 @@ namespace APIBlueprintParser.Parsers {
 
         #endregion
 
-        public AttributeParser(Stream stream): base(stream) { }
+        public AttributeParser(StreamReader stream): base(stream) { }
 
         public AttributeNode Parse() {
 
 			// <identifier> (<neededType>, <valueType>) - <descriptionText> <newline>
-
-			var streamReader = new StreamReader(base.stream);
 
             // now: <identifier> (<neededType>, <valueType>) - <descriptionText>
 
