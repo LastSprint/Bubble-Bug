@@ -166,5 +166,25 @@ namespace APIBlueprintTests {
 			Assert.AreEqual(result.Headers[headerKey2], headerValue2);
 		}
 
+        [Test]
+        public void EmptyRequestTest() {
+			var identifier = "identifier";
+			var mediaType = "application/json";
+
+			var declaration = $"Request {identifier} ({mediaType})";
+			var bodyRequst =
+				"+ Response";
+
+			var stream = Extensions.CreatFromString(bodyRequst);
+
+			var result = new RequestParser(stream, declaration).Parse().request;
+
+			Assert.AreEqual(result.Identifier, identifier);
+			Assert.AreEqual(result.Body, null);
+			Assert.IsNull(result.Schema);
+			Assert.AreEqual(result.BodyType, BodyType.Json);
+            Assert.IsNull(result.Headers);
+        }
+
     }
 }

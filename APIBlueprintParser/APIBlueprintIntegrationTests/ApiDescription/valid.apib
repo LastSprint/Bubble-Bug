@@ -1,156 +1,38 @@
 ﻿
-HOST: I AM
-DADDY: I AM
+FORMAT: 1A
+HOST: lama.apiary.io
 
-# YEAH
-THIS IS A OVERVIEW BLYAT
+# Users
 
-# Group Test1
+Api for users
 
-## resource1 [/aa]
+# Group Users
 
-### sample [get, /name]
+## CurrentUserResources [/user]
 
-    + Attributes
-        + name1 (optional, number) - descr1
-    + Parameters
-        + name1 (optional, bool) - descr1
-    + Request request1 (application/json)
-        + Headers
-            key1: value1
-        + Body
-            {
-                value: {
-                    json: type
-                }
-            }
-        + Schema
-            SCHEMA
-
-    + Response 200 (application/json)
-        + Headers
-            key1: value1
-        + Body
-            BODY
-    
-    + Request (application/json)
-        + Headers
-            key1: value1
-        + Body
-            BODY
-    + Response 200 (application/json)
-        + Headers
-            key1: value1
-
-    
-### lololol [get, /name]
+### GetUser [GET, /user]
 
     + Attributes
-        + name1 (optional, number) - descr1
-        + name2 (required, object)
-    + Parameters
-        + name1 (optional, bool) - descr1
-        + name2 (required, string) - descr2
-    + Request request1 (application/json)
-        + Headers
-            key1: value1
-        + Body
-            {
-                value: {
-                    json: type
-                }
-            }
-        + Schema
-            SCHEMA
+        + id (required, string)
+        + firstName (required, string)
+        + lastName (required, string)
+        + email (required, string)
+        + phone (required, string)
 
-    + Response 200 (application/json)
-        + Headers
-            key1: value1
-        + Body
-            BODY
-    
     + Request (application/json)
         + Headers
-            key1: value1
-        + Body
-            BODY
+            Auth-token: string
+
     + Response 200 (application/json)
-        + Headers
-            key1: value1
 
-## resource2 [/bb]
-
-### dadada [get, /name]
-
-    + Attributes
-        + name1 (optional, number) - descr1
-        + name2 (required, object)
-    + Parameters
-        + name1 (optional, bool) - descr1
-        + name2 (required, string) - descr2
-    + Request request1 (application/json)
-        + Headers
-            key1: value1
         + Body
             {
-                value: {
-                    json: type
-                }
+                "id": "XXYYZZ",
+                "firstName": "FirstName",
+                "lastName": "LastName",
+                "email": "email@user.com",
+                "phone": "79992223344"
             }
-        + Schema
-            SCHEMA
 
-    + Response 200 (application/json)
-        + Headers
-            key1: value1
-        + Body
-            BODY
-    
     + Request (application/json)
-        + Headers
-            key1: value1
-        + Body
-            BODY
-    + Response 200 (application/json)
-        + Headers
-            key1: value1
-
-
-
-# Group Test2
-## rt1 [/bb]
-
-### d1 [get, /name]
-
-    + Attributes
-        + name1 (optional, number) - descr1
-        + name2 (required, object)
-    + Parameters
-        + name1 (optional, bool) - descr1
-        + name2 (required, string) - descr2
-    + Request request1 (application/json)
-        + Headers
-            key1: value1
-        + Body
-            {
-                value: {
-                    json: type
-                }
-            }
-        + Schema
-            SCHEMA
-
-    + Response 200 (application/json)
-        + Headers
-            key1: value1
-        + Body
-            BODY
-    
-    + Request (application/json)
-        + Headers
-            key1: value1
-        + Body
-            BODY
-    + Response 200 (application/json)
-        + Headers
-            key1: value1
+    + Response 401 (application/json)
