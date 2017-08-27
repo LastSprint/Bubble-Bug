@@ -186,5 +186,35 @@ namespace APIBlueprintTests {
             Assert.IsNull(result.Headers);
         }
 
+		[Test]
+		public void WithParametersTest()
+		{
+			var identifier = "identifier";
+			var mediaType = "application/json";
+			var body = "body";
+			var schema = "schema";
+
+			var declaration = $"Request {identifier} ({mediaType})";
+			var bodyRequst =
+                $"+ Parameters {Environment.NewLine}"+
+                $"val:val{Environment.NewLine}"+
+				$"+ Body {Environment.NewLine}" +
+				$"{body}{Environment.NewLine}" +
+				$"+ Schema {Environment.NewLine}" +
+				$"{schema}{Environment.NewLine}" +
+				"+ Response";
+
+			var stream = Extensions.CreatFromString(bodyRequst);
+
+			var result = new RequestParser(stream, declaration).Parse().request;
+
+			Assert.AreEqual(result.Identifier, identifier);
+			Assert.AreEqual(result.Body, body);
+			Assert.AreEqual(result.Schema, schema);
+			Assert.AreEqual(result.BodyType, BodyType.Json);
+            Assert.IsNull(result.Headers);
+            Assert.AreEqual(result.Parameters["val"], "val");
+		}
+
     }
 }

@@ -22,6 +22,8 @@ namespace APIBlueprintParser.Models {
 
         public string Schema { get; internal set; }
 
+        public IReadOnlyDictionary<string, string> Parameters { get; internal set; }
+
         public RequestNode(BodyType bodyType, string body, IDictionary<string, string> headers, string schema, string identifier) {
             this.BodyType = bodyType;
             this.Body = body;
