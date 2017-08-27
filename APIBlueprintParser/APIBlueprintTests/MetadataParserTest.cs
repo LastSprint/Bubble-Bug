@@ -104,7 +104,7 @@ namespace APIBlueprintTests {
         public void ParseWithInvalidPairsSeparator() {
 			// given
 
-			var stream = Extensions.CreatFromString($"VERSION: 1AHOST:www.dfsdf.sdfs/sdfsdf/sdf{System.Environment.NewLine}#");
+			var stream = Extensions.CreatFromString($"VERSION 1AHOSTwww.dfsdf.sdfs/sdfsdf/sdf{System.Environment.NewLine}#");
 
             // then
 

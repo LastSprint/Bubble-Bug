@@ -8,6 +8,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace APIBlueprintParser.Parsers {
     
@@ -61,13 +62,21 @@ namespace APIBlueprintParser.Parsers {
                     continue;
                 }
 
-                var keyValue = trimmed.Split(Tokens.KeyValueSeparator);
+                // need reed to first KeyValueSeparator
+                var keyValue = trimmed.Split(Tokens.KeyValueSeparator).ToList();
 
-                if (keyValue.Length != Tokens.CountOfContentInPair) {
+                var resultSplited = new List<string>();
+
+                if (keyValue.Count < Tokens.CountOfContentInPair) {
                     throw new ArgumentException("MetadataParser cant parse content bacouse it contains bad key:value pairs");
                 }
 
-                result.Add(keyValue[(int)Tokens.PairTokens.Key].Trim(), keyValue[(int)Tokens.PairTokens.Value].Trim());
+                resultSplited.Add(keyValue.First());
+                keyValue.RemoveAt(0);
+                resultSplited.Add(keyValue.Aggregate( (x,y) => x + y));
+
+
+                result.Add(resultSplited[(int)Tokens.PairTokens.Key].Trim(), resultSplited[(int)Tokens.PairTokens.Value].Trim());
             }
 
             return result;
