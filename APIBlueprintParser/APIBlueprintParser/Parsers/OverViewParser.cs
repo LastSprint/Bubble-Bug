@@ -65,8 +65,6 @@ namespace APIBlueprintParser.Parsers {
             }
 
             return new OverviewNode(name, overview.ToString().Trim());
-
         }
-
     }
 }

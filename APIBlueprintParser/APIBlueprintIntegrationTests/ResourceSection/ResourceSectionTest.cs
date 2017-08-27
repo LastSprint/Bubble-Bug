@@ -25,5 +25,14 @@ namespace APIBlueprintIntegrationTests {
 
 			Assert.IsNull(null);
         }
+
+		[Test]
+		public void WithMuiltiWordsIdentifierTest() {
+			var stream = File.OpenRead("/Users/aleksandrkravcenkov/Repo/APIBlueprintParser/APIBlueprintParser/APIBlueprintIntegrationTests/ResourceSection/valid.apib");
+
+			var result = new ResourceParser(new StreamReader(stream), "## identifier yeah identifier true [/resource]").Parse();
+
+            Assert.AreEqual(result.resource.Identifier.Trim(), "identifier yeah identifier true");
+		}
     }
 }
