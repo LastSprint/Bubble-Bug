@@ -7,6 +7,7 @@
 //
 using System;
 using APIBlueprintParser.Models;
+using ValueType = APIBlueprintParser.Models.ValueType;
 
 namespace ApiGeneratorTest {
     public static class Extensions {
@@ -24,5 +25,20 @@ namespace ApiGeneratorTest {
                     throw new ArgumentOutOfRangeException(nameof(method), "Cant convert current http method to string");
             }
         }
+
+        public static string TypeToString(this ValueType valueType) {
+            switch (valueType) {
+                case ValueType.Bool:
+                    return "bool";
+                case ValueType.Number:
+                    return "double";
+                case ValueType.Object:
+                    return "object";
+                case ValueType.String:
+                    return "string";
+                default: throw new ArgumentOutOfRangeException(nameof(valueType), "Cant convert value type to string");
+            }
+        }
+
     }
 }
