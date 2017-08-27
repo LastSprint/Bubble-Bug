@@ -28,6 +28,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="UriTemplate.Core">
+      <HintPath>..\packages\UriTemplate.Core.1.0.2\lib\net461\UriTemplate.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -35,6 +42,11 @@
     <Compile Include="Generators\FolderStructureGenerator.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Generators\GenerateBaseFiles.cs" />
+    <Compile Include="Generators\SourceGenerators\MethodGenerator.cs" />
+    <Compile Include="Generators\SourceGenerators\SourceTemplatesPathes.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Generators\SourceGenerators\ControllerGenerator.cs" />
+    <Compile Include="Generators\SourceGenerators\ApiGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\APIBlueprintParser\APIBlueprintParser.csproj">
@@ -44,6 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Generators\" />
+    <Folder Include="Generators\SourceGenerators\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

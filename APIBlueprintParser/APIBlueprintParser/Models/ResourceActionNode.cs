@@ -24,7 +24,7 @@ namespace APIBlueprintParser.Models {
 		internal ResourceActionNode(string identifier, UriTemplate.Core.UriTemplate template, HttpMethod httpMethod) {
 			this.Identifier = identifier;
 			this.Template = template;
-			this.HttpMethod = HttpMethod;
+			this.HttpMethod = httpMethod;
 		}
 
 		public ResourceActionNode(string identifier, UriTemplate.Core.UriTemplate template, 

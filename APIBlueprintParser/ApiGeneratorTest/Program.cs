@@ -9,6 +9,7 @@ using System;
 using System.IO;
 using APIBlueprintParser.Parsers;
 using ApiGeneratorTest.Generators;
+using ApiGeneratorTest.Generators.SourceGenerators;
 using System.Diagnostics;
 
 namespace ApiGeneratorTest {
@@ -57,30 +58,42 @@ namespace ApiGeneratorTest {
 
             Console.WriteLine("File strcture generation finished");
 
-            Console.WriteLine("You want to build and deply this project? (y/n)");
+            Console.WriteLine("Start generate source code");
 
-            var answer = Console.ReadLine();
+            new ApiGenerator(parser, descriptor).Generate();
 
-            if (answer.Trim().ToLower() != "y") {
-                return;
-            }
+            Console.WriteLine("Source code generation finished");
 
-            var consoleStandartIn = Console.In;
-            var consoleStandartOut = Console.Out;
+            Deploy(descriptor);
+		}
+
+        private static void Deploy(FolderStructureGenerator.FolderStrucureDescriptior descriptor) {
+            
+			Console.WriteLine("You want to build and deply this project? (y/n)");
+
+			var answer = Console.ReadLine();
+
+			if (answer.Trim().ToLower() != "y")
+			{
+				return;
+			}
+
+			var consoleStandartIn = Console.In;
+			var consoleStandartOut = Console.Out;
 
 			Process proc = new Process();
-            proc.StartInfo = new ProcessStartInfo("dotnet");
-            proc.StartInfo.WorkingDirectory = descriptor.MainDirectory;
-            proc.StartInfo.CreateNoWindow = true;
-            proc.StartInfo.UseShellExecute = false;
-            proc.StartInfo.RedirectStandardInput = true;
-            proc.StartInfo.Arguments = "restore";
+			proc.StartInfo = new ProcessStartInfo("dotnet");
+			proc.StartInfo.WorkingDirectory = descriptor.MainDirectory;
+			proc.StartInfo.CreateNoWindow = true;
+			proc.StartInfo.UseShellExecute = false;
+			proc.StartInfo.RedirectStandardInput = true;
+			proc.StartInfo.Arguments = "restore";
 			proc.Start();
-            Console.SetOut(proc.StandardInput);
+			Console.SetOut(proc.StandardInput);
 
-            proc.WaitForExit();
+			proc.WaitForExit();
 
-            Console.SetOut(consoleStandartOut);
+			Console.SetOut(consoleStandartOut);
 
 			proc = new Process();
 			proc.StartInfo = new ProcessStartInfo("dotnet");
@@ -98,11 +111,11 @@ namespace ApiGeneratorTest {
 
 			proc = new Process();
 			proc.StartInfo = new ProcessStartInfo("dotnet");
-            proc.StartInfo.WorkingDirectory = descriptor.ProjectDirectory + "/bin/Debug/netcoreapp2.0";
+			proc.StartInfo.WorkingDirectory = descriptor.ProjectDirectory + "/bin/Debug/netcoreapp2.0";
 			proc.StartInfo.CreateNoWindow = true;
 			proc.StartInfo.UseShellExecute = false;
 			proc.StartInfo.RedirectStandardInput = true;
-            proc.StartInfo.Arguments = $"{descriptor.ProjectName}.dll";
+			proc.StartInfo.Arguments = $"{descriptor.ProjectName}.dll";
 			proc.Start();
 			Console.SetOut(proc.StandardInput);
 
@@ -113,6 +126,6 @@ namespace ApiGeneratorTest {
 			Console.WriteLine("END AHA");
 
 			Console.ReadKey();
-		}
+        }
     }
 }
