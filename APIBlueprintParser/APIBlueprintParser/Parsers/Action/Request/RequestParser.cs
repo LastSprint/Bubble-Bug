@@ -34,8 +34,9 @@ namespace APIBlueprintParser.Parsers.Action.Request {
             public const string HeadersKeyword = "Headers";
             public const string BodyKeyword = "Body";
             public const string SchemaKeyword = "Schema";
+            public const string ParameterKeyWord = "Parameters";
 
-            public static string[] NestedKeywords = { HeadersKeyword, BodyKeyword, SchemaKeyword };
+            public static string[] NestedKeywords = { HeadersKeyword, BodyKeyword, SchemaKeyword, ParameterKeyWord };
         }
 
         #endregion
@@ -83,6 +84,9 @@ namespace APIBlueprintParser.Parsers.Action.Request {
                         break;
                     case Tokens.HeadersKeyword:
                         request.Headers = new Dictionary<string, string>(new HeadersParser(base.streamReader).Parse());
+                        break;
+                    case Tokens.ParameterKeyWord:
+                        request.Parameters = new Dictionary<string, string>(new ParametersParser(base.streamReader).Parse());
                         break;
                 }
             } while (true);
