@@ -62,21 +62,24 @@ namespace APIBlueprintParser.Parsers {
                     continue;
                 }
 
-                // need reed to first KeyValueSeparator
-                var keyValue = trimmed.Split(Tokens.KeyValueSeparator).ToList();
+                var indexOfSeparator = trimmed.IndexOf(Tokens.KeyValueSeparator);
 
-                var resultSplited = new List<string>();
-
-                if (keyValue.Count < Tokens.CountOfContentInPair) {
+                if (indexOfSeparator == -1 || indexOfSeparator == trimmed.Length - 1) {
                     throw new ArgumentException("MetadataParser cant parse content bacouse it contains bad key:value pairs");
                 }
 
-                resultSplited.Add(keyValue.First());
-                keyValue.RemoveAt(0);
-                resultSplited.Add(keyValue.Aggregate( (x,y) => x + y));
+				var key = "";
+				var value = "";
 
+                for (int i = 0; i < indexOfSeparator; i++) {
+                    key += trimmed[i];
+                }
 
-                result.Add(resultSplited[(int)Tokens.PairTokens.Key].Trim(), resultSplited[(int)Tokens.PairTokens.Value].Trim());
+                for (int i = indexOfSeparator + 1 ; i < trimmed.Length; i++) {
+                    value += trimmed[i];
+				}
+
+                result.Add(key.Trim(), value.Trim());
             }
 
             return result;

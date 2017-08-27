@@ -169,6 +169,12 @@ namespace APIBlueprintParser.Parsers.Action {
                 while (true)
                 {
 
+					if (line == null)
+					{
+						result.RequestPairs = requesrPairs;
+						return (result, line);
+					}
+
                     if (line.Contains("Request"))
                     {
                         var res = new RequestParser(base.streamReader, line).Parse();
