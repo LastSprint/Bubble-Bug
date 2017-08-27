@@ -23,5 +23,14 @@ namespace APIBlueprintIntegrationTests.GroupSection
 
 			Assert.IsNull(null);
         }
+
+        [Test]
+        public void GroupWithMultiWordsNameTest() {
+			var stream = File.OpenRead("/Users/aleksandrkravcenkov/Repo/APIBlueprintParser/APIBlueprintParser/APIBlueprintIntegrationTests/GroupSection/valid.apib");
+
+			var result = new GroupParser(new StreamReader(stream), "# Group name of fucking principle").Parse();
+
+            Assert.AreEqual(result.groupNode.Name, "name of fucking principle");
+        }
     }
 }

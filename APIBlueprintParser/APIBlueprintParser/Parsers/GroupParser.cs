@@ -51,9 +51,9 @@ namespace APIBlueprintParser.Parsers {
 
         private GroupNode ParseDeclaration() {
 
-            var words = this._declaration.Words().Where(x => x.Trim() != "#" && x.Length != 0).ToArray();
+            var words = this._declaration.Words().Where(x => x.Trim() != "#" && x.Length != 0).ToList();
 
-            if (words.Length != 2) {
+            if (words.Count() < 2) {
                 throw new FormatException("Group declaration must contains 2 sections");
             }
 
@@ -61,8 +61,10 @@ namespace APIBlueprintParser.Parsers {
                 throw new FormatException("Group declaration doesnt contain Group keyword");
             }
 
+            words.RemoveAt(0);
+
             var result = new GroupNode();
-            result.Name = words[1];
+            result.Name = words.Aggregate((x,y) => x + " "+ y);
 
             return result;
         }

@@ -57,19 +57,21 @@ namespace APIBlueprintParser.Parsers {
 
         private ResourceNode ParseDeclaration() {
 
-            var words = this._declaration.Words().Where(x => x.Length != 0 && x != "##").ToArray();
+            var words = this._declaration.Words().Where(x => x.Length != 0 && x != "##").ToList();
 
-            if (words.Length != 2) {
+            if (words.Count() < 2) {
                 throw new FormatException("Resource declaration doesnt contains 2 sections");
             }
 
-            var identifier = words[0];
-
-            var templ = words[1];
+            var templ = words.Last();
 
             if (!Support.IsURI(templ)) {
                 throw new FormatException("Resource parser cant parse url template");
             }
+
+			words.Remove(words.Last());
+
+			var identifier = words.Aggregate((x, y) => x + " " + y);
 
             var result = new ResourceNode();
             result.Identifier = identifier;

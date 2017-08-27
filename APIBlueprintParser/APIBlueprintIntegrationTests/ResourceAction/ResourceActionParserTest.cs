@@ -27,5 +27,15 @@ namespace APIBlueprintIntegrationTests.ResourceAction {
 
             Assert.IsNull(null);
         }
+
+		[Test]
+		public void MultiWordsIdentifierTest(){
+
+			var stream = File.OpenRead("/Users/aleksandrkravcenkov/Repo/APIBlueprintParser/APIBlueprintParser/APIBlueprintIntegrationTests/ResourceAction/valid.apib");
+
+			var result = new ResourceActionParser(new StreamReader(stream), "### sample fucking name [get, /name]").Parse();
+
+            Assert.AreEqual(result.resourceAction.Identifier.Trim(), "sample fucking name");
+		}
     }
 }
