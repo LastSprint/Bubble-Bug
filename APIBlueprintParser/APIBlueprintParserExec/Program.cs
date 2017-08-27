@@ -9,28 +9,47 @@ using System;
 using System.IO;
 using APIBlueprintParser.Parsers;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 
 namespace APIBlueprintParserExec {
     
     class MainClass {
         
         public static void Main(string[] args) {
-            var stream = File.OpenRead("/Users/aleksandrkravcenkov/Repo/APIBlueprintParser/APIBlueprintParser/APIBlueprintIntegrationTests/ApiDescription/valid.apib");
 
-            var parser = new MainParser(new StreamReader(stream)).Parse();
+            try {
+                IntitPoint();
+            } catch (Exception e) {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Has error occured");
+                Console.ResetColor();
+                Console.WriteLine(e);
+            }
 
-			Console.WriteLine(parser.ToString());
+        }
 
+        private static void IntitPoint() {
+			Console.WriteLine("Input path to *.apib file");
+
+			var path = Console.ReadLine();
+
+			var stream = File.OpenRead(path);
+
+			Console.WriteLine("Start parsing");
+
+			var parser = new MainParser(new StreamReader(stream)).Parse();
 			var str = JsonConvert.SerializeObject(parser);
 
-            Console.WriteLine();
-            Console.WriteLine(str);
+			Console.WriteLine("Pasing end");
+			Console.WriteLine("Input path to output file");
 
-            File.WriteAllText("/Users/aleksandrkravcenkov/test.json", str);
+			var outPath = Console.ReadLine();
 
-            Console.ReadKey();
+			File.WriteAllText(outPath, str);
+
+			Console.WriteLine("Writing succesfully ended");
+
+			Console.ReadKey();
         }
     }
 }
