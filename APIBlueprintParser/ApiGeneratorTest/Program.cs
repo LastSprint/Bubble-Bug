@@ -111,19 +111,12 @@ namespace ApiGeneratorTest {
 
 			proc = new Process();
 			proc.StartInfo = new ProcessStartInfo("dotnet");
+			proc.StartInfo.CreateNoWindow = false;
 			proc.StartInfo.WorkingDirectory = descriptor.ProjectDirectory + "/bin/Debug/netcoreapp2.0";
-			proc.StartInfo.CreateNoWindow = true;
-			proc.StartInfo.UseShellExecute = false;
-			proc.StartInfo.RedirectStandardInput = true;
 			proc.StartInfo.Arguments = $"{descriptor.ProjectName}.dll";
 			proc.Start();
-			Console.SetOut(proc.StandardInput);
 
-			proc.WaitForExit();
-
-			Console.SetOut(consoleStandartOut);
-
-			Console.WriteLine("END AHA");
+			Console.WriteLine("API service was deployed.");
 
 			Console.ReadKey();
         }
