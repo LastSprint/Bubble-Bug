@@ -9,6 +9,7 @@ using System;
 using APIBlueprintParser.Models;
 using System.IO;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ApiGeneratorTest.Generators.SourceGenerators {
     
@@ -61,12 +62,12 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
 		private string CodeGeneration() {
 			var parameters = this.GenerateParametersCode();
-			var body = this.GenerateBodyCode();
+			//var body = this.GenerateBodyCode();
 
-			var code = parameters + Environment.NewLine + body;
-			code += $"if (paramResult == null) return bodyResult; {Environment.NewLine}";
-			code += $"if (paramResult != null) return paramResult; {Environment.NewLine}";
-			code += $" throw new ArgumentOutOfRangeException(\"Bad requet\"); {Environment.NewLine}";
+			var code = $"HttpContext.Response.ContentType = \"Application/json\";{Environment.NewLine}";
+			code += parameters + Environment.NewLine;
+			code += $"if (paramResult != null) return paramResult as object; {Environment.NewLine}";
+			code += $" return new ArgumentOutOfRangeException(\"Bad requet\"); {Environment.NewLine}";
 
 			return code;
 
@@ -100,7 +101,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
                 code += expressions;
 
-                code += $"if (flag) paramResult = {pair.Response.Body ?? "null"}; {Environment.NewLine}";
+                code += $"if (flag) paramResult = {JsonConvert.SerializeObject(pair.Response.Body ?? "null").ToString()}; {Environment.NewLine}";
 
             }
 
@@ -115,9 +116,9 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 			var bodyResult = "bodyResult";
 
 			var code = $"bool {flag} = false; {Environment.NewLine}";
-			code += $"string {requestBody} = \"\";{Environment.NewLine}";
-			code += $"string {responseBody} = \"\";{Environment.NewLine}";
-			code += $"string {bodyResult} = \"\";{Environment.NewLine}";
+			code += $"object {requestBody} = \"\";{Environment.NewLine}";
+			code += $"object {responseBody} = \"\";{Environment.NewLine}";
+			code += $"object {bodyResult} = \"\";{Environment.NewLine}";
 
             foreach (var pair in this._node.RequestPairs) {
 
@@ -127,8 +128,8 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 				code += $"{requestBody} = {reqBody}; {Environment.NewLine}";
 				code += $"{responseBody} = {respBody}; {Environment.NewLine}";
 
-				code += $"{flag} = value?.ToString() == {requestBody}; {Environment.NewLine}";
-				code += $"if ({flag} && flag) {bodyResult} = {responseBody}; {Environment.NewLine}";
+				code += $"{flag} = value?.ToString() == \"{JsonConvert.SerializeObject(requestBody).ToString()}\"; {Environment.NewLine}";
+				code += $"if ({flag} && flag) {bodyResult} = \"{JsonConvert.SerializeObject(responseBody).ToString()}\"; {Environment.NewLine}";
 				 
             }
 			return code;
