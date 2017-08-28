@@ -53,13 +53,13 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             str = str.Replace(Tokens.HttpMethod, httpMethod);
             str = str.Replace(Tokens.ReturnType, returnType);
             str = str.Replace(Tokens.MethodName, name);
-            str = str.Replace(Tokens.Code, this.GenerateCode());
+            str = str.Replace(Tokens.Code, this.GenerateParametersCode());
             str = str.Replace(Tokens.Parameters, parameters);
 
             return str;
         }
 
-        private string GenerateCode() {
+        private string GenerateParametersCode() {
 
             if (this._node.Parameters == null) {
                 return "";
@@ -70,6 +70,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             foreach (var pair in this._node.RequestPairs) {
 
                 if (pair.Request.Parameters == null) {
+                    code += $"return {pair.Response.Body ?? "null"}; {Environment.NewLine}";
                     continue;
                 }
 
@@ -85,7 +86,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
                 code += expressions;
 
-                code += $"if (flag) return {pair.Response.Body}; {Environment.NewLine}";
+                code += $"if (flag) return {pair.Response.Body ?? "null"}; {Environment.NewLine}";
 
             }
 
@@ -99,6 +100,15 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             //code += $"return {requsetDictionary}[value];";
             code += $" throw new ArgumentOutOfRangeException(\"Bad requet\"); {Environment.NewLine}";
             return code;
+        }
+
+        public string GenerateBodyCode() {
+            var code = "";
+
+            foreach (var pair in this._node.RequestPairs) {
+
+
+            }
         }
     }
 }

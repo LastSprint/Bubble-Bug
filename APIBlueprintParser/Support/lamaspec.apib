@@ -1,0 +1,53 @@
+
+FORMAT: 1A
+HOST: http://lama.apiary.io/
+
+# Users
+
+Api for users
+
+# Group Users
+
+## User Resource [/user]
+
+### Get User [GET, /user]
+
++ Attributes
+
+    + firstName (required, string)
+    + lastName (required, string)
+    + email (required, string)
+    + phone (required, string)
+
++ Parameters
+    + firstName (required, string)
+    + lastName (required, string)
+    + email (required, string)
+    + phone (required, string)
+
++ Request (application/json)
+    + Parameters
+        firstName: "FirstName"
+        lastName: "LastName"
+        email: "email"
+        phone: "phone"
++ Response 204 (application/json)
+    + Body
+        "test1"
++ Request (application/json)
+    + Parameters
+        firstName: "Vitochka"
+        lastName: "Programmist"
+        email: "email"
+        phone: "phone"
++ Response 204 (application/json)
+    + Body
+        "success"
+
++ Request (application/json)
++ Response 200 (application/json) 
+    + Body
+        "Lol";
+
++ Request (application/json)
++ Response 200 (application/json) 
