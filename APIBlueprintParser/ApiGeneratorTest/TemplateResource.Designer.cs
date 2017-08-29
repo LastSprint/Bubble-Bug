@@ -188,11 +188,12 @@ namespace ApiGeneratorTest {
         ///		Bool = 3
         ///	}
         ///
-        ///	public struct RequestParameter {
-        ///		public ParameterType Type { get; private set; }
-        ///		public ValueType ValueType { get; private set; }
+        ///	public class RequestParameter {
+        ///		public ParameterType Type { get; set; }
+        ///		public ValueType ValueType { get; set; }
         ///
-        ///		public object Value { get; pr [остаток строки не уместился]&quot;;.
+        ///		public object Value { get; set; }
+        ///		public str [остаток строки не уместился]&quot;;.
         /// </summary>
         internal static string Model {
             get {
@@ -299,6 +300,29 @@ namespace ApiGeneratorTest {
         internal static string Startups {
             get {
                 return ResourceManager.GetString("Startups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на using System.Collections.Generic;
+        ///
+        ///namespace $projectname$ {   
+        ///    public static class Support {
+        ///        public static ICollection&lt;EquatableRequaest&gt; ReadAllMocks(string methodName) {
+        ///            var resultPath = &quot;$PathToController$&quot; + &quot;/&quot; + methodName;
+        ///
+        ///            var files = System.IO.Directory.GetFiles(resultPath);
+        ///
+        ///            var result = new List&lt;EquatableRequaest&gt;();
+        ///
+        ///            foreach (var file in files) {
+        ///                var readed = System.IO.File.ReadAllText(file);
+        ///
+        ///                result.Add [остаток строки не уместился]&quot;;.
+        /// </summary>
+        internal static string Support {
+            get {
+                return ResourceManager.GetString("Support", resourceCulture);
             }
         }
         

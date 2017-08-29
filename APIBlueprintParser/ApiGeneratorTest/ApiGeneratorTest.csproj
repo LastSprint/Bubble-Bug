@@ -69,13 +69,16 @@
   <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Templates\.DS_Store" />
     <None Include="Templates\MainTemplates\appsettings.Development.json" />
     <None Include="Templates\MainTemplates\appsettings.json" />
     <None Include="Templates\MainTemplates\launchSettings.json" />
     <None Include="Templates\MainTemplates\Model.template" />
     <None Include="Templates\MainTemplates\project.template" />
     <None Include="Templates\MainTemplates\Solution.template" />
+    <None Include="Templates\MainTemplates\Support.template" />
     <None Include="Templates\MainTemplates\userprefs.template" />
+    <None Include="Templates\SourceTemplates\.DS_Store" />
     <None Include="Templates\SourceTemplates\Controller.template" />
     <None Include="Templates\SourceTemplates\Method.template" />
   </ItemGroup>

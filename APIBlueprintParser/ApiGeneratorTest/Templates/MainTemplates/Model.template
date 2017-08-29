@@ -23,12 +23,12 @@ namespace $projectname$ {
 		Bool = 3
 	}
 
-	public struct RequestParameter {
-		public ParameterType Type { get; private set; }
-		public ValueType ValueType { get; private set; }
+	public class RequestParameter {
+		public ParameterType Type { get; set; }
+		public ValueType ValueType { get; set; }
 
-		public object Value { get; private set; }
-		public string Name { get; private set; }
+		public object Value { get; set; }
+		public string Name { get; set; }
 
 		public RequestParameter(ParameterType paramType, ValueType valueType, object value, string name) {
 			this.ValueType = valueType;
@@ -43,6 +43,8 @@ namespace $projectname$ {
 			this.Value = value;
 			this.Name = name;
 		}
+
+		public RequestParameter() { }
 
 		private ValueType GetType(object obj) {
 			if (obj is bool) {
@@ -86,15 +88,15 @@ namespace $projectname$ {
 	public class EquatableRequaest {
 
 		// Response
-		public object ResponseBody { get; }
-		public int ResponseCode { get; }
-		public IReadOnlyDictionary<string, string> ResponseHeaders { get; }
+		public object ResponseBody { get; set; }
+		public int ResponseCode { get; set; }
+		public IReadOnlyDictionary<string, string> ResponseHeaders { get; set; }
 
 		// Request
 
-		public IList<RequestParameter> Parameters { get; }
-		public IReadOnlyDictionary<string, string> RequestHeaders { get; }
-		public object RequestBody { get; }
+		public IList<RequestParameter> Parameters { get; set; }
+		public IReadOnlyDictionary<string, string> RequestHeaders { get; set; }
+		public object RequestBody { get; set; }
 
 		public EquatableRequaest(object responseBody, int responseCode, IReadOnlyDictionary<string, string> responseHeaders, IList<RequestParameter> parameters, IReadOnlyDictionary<string, string> requestHeaders, object body) {
 			this.ResponseBody = responseBody;
@@ -110,6 +112,7 @@ namespace $projectname$ {
 			this.Parameters = parameters;
 		}
 
+		public EquatableRequaest() { }
 
 		public override bool Equals(object obj) {
 			if (obj == null) {
@@ -128,6 +131,18 @@ namespace $projectname$ {
 					return false;
 				}
 			}
+
+			if (casted.RequestBody == null && this.RequestBody == null) {
+                return true;
+            }
+
+            if (casted.RequestBody != null && this.RequestBody == null) {
+                return false;
+            }
+
+            if (casted.RequestBody == null && this.RequestBody != null) {
+                return false;
+            }
 
 			return casted.RequestBody.Equals(this.RequestBody);
 		}

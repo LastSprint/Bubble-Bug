@@ -61,7 +61,7 @@ namespace ApiGeneratorTest.Generators {
                 this.ReadFromFileAndWriteInAnotherFile(pair.Key, pair.Value, Tokens.ProjectName, this._descriptor.ProjectName);
             }
 
-            string content = File.ReadAllText(Pathes.Support);
+            string content = TemplateResource.Support;
 			
 			content = content.Replace(Tokens.ProjectName, this._descriptor.ProjectName);
             content = content.Replace("$PathToController$", this._descriptor.ControllerDirectory);
