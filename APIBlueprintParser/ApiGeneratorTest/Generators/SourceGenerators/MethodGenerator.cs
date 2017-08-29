@@ -84,7 +84,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             throw new ArgumentOutOfRangeException("Cant find mock for current request :(");
             */
             code += $"var mocks = Support.ReadAllMocks(\"{this._methodName}\");";
-            code += "foreach(var mock in mocks) {\n                if (mock.Equals(convertedRequest)) {\n                    return mock.RequestBody;\n                }\n            }";
+            code += "foreach(var mock in mocks) {\n                if (mock.Equals(convertedRequest)) {\n                    return mock.ResponseBody;\n                }\n            }";
             code += "throw new ArgumentOutOfRangeException(\"Cant find mock for current request :(\");";
             return code;
 
