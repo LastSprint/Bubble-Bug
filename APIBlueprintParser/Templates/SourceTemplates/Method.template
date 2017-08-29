@@ -1,5 +1,0 @@
-[Route("$uri$")]
-[$HttpMethod$]
-public $ReturnType$ $MethodName$($Params$[FromBody]object value) {
-    $Code$
-}

@@ -10,6 +10,8 @@ using APIBlueprintParser.Models;
 using System.IO;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using ApiGeneratorTest.ThirdParty;
+using System.Linq;
 
 namespace ApiGeneratorTest.Generators.SourceGenerators {
     
@@ -25,16 +27,19 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
         }
 
         private ResourceActionNode _node;
+        private FolderStructureGenerator.FolderStrucureDescriptior _descriptor;
+        private string _methodName;
 
-        public MethodGenerator(ResourceActionNode node) {
+
+        public MethodGenerator(ResourceActionNode node, FolderStructureGenerator.FolderStrucureDescriptior descriptor) {
             this._node = node;
+            this._descriptor = descriptor;
+            this._methodName = this._node.Identifier.Replace(" ", "").Trim();
         }
 
         public string Generate() {
 
             var httpMethod = this._node.HttpMethod.MethodToString();
-
-            var name = this._node.Identifier.Replace(" ", "").Trim();
 
             var returnType = "object";
 
@@ -53,10 +58,11 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             str = str.Replace(Tokens.RoutPath, route);
             str = str.Replace(Tokens.HttpMethod, httpMethod);
             str = str.Replace(Tokens.ReturnType, returnType);
-            str = str.Replace(Tokens.MethodName, name);
+            str = str.Replace(Tokens.MethodName, this._methodName);
             str = str.Replace(Tokens.Code, this.CodeGeneration());
             str = str.Replace(Tokens.Parameters, parameters);
 
+            this.GenerateMockJSON();
             return str;
         }
 
@@ -66,10 +72,21 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
 			var code = $"HttpContext.Response.ContentType = \"Application/json\";{Environment.NewLine}";
 			code += parameters + Environment.NewLine;
-			code += $"if (paramResult != null) return paramResult as object; {Environment.NewLine}";
-			code += $" return new ArgumentOutOfRangeException(\"Bad requet\"); {Environment.NewLine}";
+            /*
+                var mocks = Support.ReadAllMocks("");
 
-			return code;
+            foreach(var mock in mocks) {
+                if (mock.Equals(convertedRequest)) {
+                    return mock.RequestBody;
+                }
+            }
+
+            throw new ArgumentOutOfRangeException("Cant find mock for current request :(");
+            */
+            code += $"var mocks = Support.ReadAllMocks(\"{this._methodName}\");";
+            code += "foreach(var mock in mocks) {\n                if (mock.Equals(convertedRequest)) {\n                    return mock.RequestBody;\n                }\n            }";
+            code += "throw new ArgumentOutOfRangeException(\"Cant find mock for current request :(\");";
+            return code;
 
 		}
 
@@ -121,6 +138,19 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 				 
             }
 			return code;
+        }
+
+        private void GenerateMockJSON() {
+            var dirName = this._methodName;
+            var pathToMock = $"{this._descriptor.ControllerDirectory}/{dirName}";
+            Directory.CreateDirectory(pathToMock);
+            var list = this._node.RequestPairs.ToList();
+            for (var i = 0; i < this._node.RequestPairs.Count(); i++) {
+                var pair = list[i];
+                var req = new EquatableRequaest(pair, this._node.Parameters.ToList());
+                var str = JsonConvert.SerializeObject(req);
+                File.WriteAllText($"{pathToMock}/{i}mock.json", str);
+            }
         }
     }
 }

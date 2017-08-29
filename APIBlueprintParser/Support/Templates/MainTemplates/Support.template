@@ -1,0 +1,22 @@
+using System.Collections.Generic;
+
+namespace $projectname$ {   
+    public static class Support {
+        public static ICollection<EquatableRequaest> ReadAllMocks(string methodName) {
+            var resultPath = "$PathToController$" + "/" + methodName;
+
+            var files = System.IO.Directory.GetFiles(resultPath);
+
+            var result = new List<EquatableRequaest>();
+
+            foreach (var file in files) {
+                var readed = System.IO.File.ReadAllText(file);
+
+                result.Add(Newtonsoft.Json.JsonConvert.DeserializeObject<EquatableRequaest>(readed));
+            }
+
+            return result;
+
+        }
+    }
+}

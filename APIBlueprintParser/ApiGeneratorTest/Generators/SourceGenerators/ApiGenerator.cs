@@ -27,7 +27,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
             foreach (var group in this._apiDescription.Groups) {
                 foreach (var resource in group.Resources) {
-                    var code = new ControllerGenerator(resource, this._folderDescriptor.ProjectName).Generate();
+                    var code = new ControllerGenerator(resource, this._folderDescriptor.ProjectName, this._folderDescriptor).Generate();
                     File.WriteAllText(pathToControllersFolser + "/" + code.controllerName + ".cs", code.code);
                 }
             }
