@@ -22,11 +22,12 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
         private ResourceNode _node;
         private string _projectName;
+        private FolderStructureGenerator.FolderStrucureDescriptior _descriptor;
 
-
-        public ControllerGenerator(ResourceNode node, string projectName) {
+        public ControllerGenerator(ResourceNode node, string projectName, FolderStructureGenerator.FolderStrucureDescriptior descriptor) {
             this._node = node;
             this._projectName = projectName;
+            this._descriptor = descriptor;
         }
 
         public (string code, string controllerName) Generate() {
@@ -36,7 +37,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             var code = "";
 
             foreach (var action in this._node.Actions) {
-                code += new MethodGenerator(action).Generate() + Environment.NewLine;
+                code += new MethodGenerator(action, this._descriptor).Generate() + Environment.NewLine;
             }
 
             var str = SourceTemplatesPathes.PathToControllerTemplate;

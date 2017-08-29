@@ -56,6 +56,23 @@ namespace APIBlueprintParser.Parsers.Action.Request {
                     value += pair[i];
                 }
 
+                value = value.Trim();
+
+                if (value.Length != 0)
+                {
+
+                    if (value.First() == '\"' || value.First() == '\'')
+                    {
+                        value = value.Substring(1);
+                    }
+
+                    if (value.Last() == '\"' || value.Last() == '\'')
+                    {
+                        value = value.Substring(0, value.Length - 1);
+                    }
+
+                }
+
                 dict.Add(key.Trim(), value.Trim());
             }
 

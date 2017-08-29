@@ -42,7 +42,9 @@ namespace ApiGeneratorTest.Generators {
             var propertiesPath = $"{this._descriptor.PropertiesDirectory}/launchSettings.json";
 
 			var modelPath = $"{this._descriptor.ProjectDirectory}/EquatableRequaest.cs";
- 
+
+            var supportPath = $"{this._descriptor.ProjectDirectory}/Support.cs";
+
             Dictionary<string, string> pathes = new Dictionary<string, string>() {
                 {TemplateResource.Solution, solutionPath},
                 {TemplateResource.project, projectPath},
@@ -58,6 +60,13 @@ namespace ApiGeneratorTest.Generators {
             foreach (var pair in pathes) {
                 this.ReadFromFileAndWriteInAnotherFile(pair.Key, pair.Value, Tokens.ProjectName, this._descriptor.ProjectName);
             }
+
+            string content = File.ReadAllText(Pathes.Support);
+			
+			content = content.Replace(Tokens.ProjectName, this._descriptor.ProjectName);
+            content = content.Replace("$PathToController$", this._descriptor.ControllerDirectory);
+
+			File.WriteAllText(supportPath, content);
         }
 
 
