@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace APIBlueprintParser.Parsers.Action.Request {
     public class ParametersParser: BaseParser {
@@ -29,19 +30,19 @@ namespace APIBlueprintParser.Parsers.Action.Request {
         public IDictionary<string, string> Parse() {
 			var sectionCharArr = new List<char>();
 
-			while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection && streamReader.Peek() != '#')
+			while (!this.streamReader.EndOfStream && this.streamReader.Peek() != Tokens.EndOfSection && this.streamReader.Peek() != '#')
 			{
-				sectionCharArr.Add((char)streamReader.Read());
+				sectionCharArr.Add((char) this.streamReader.Read());
 			}
 
             var dict = new Dictionary<string, string>();
 
 			var stringView = new String(sectionCharArr.ToArray());
 
-            var pairs = stringView.Split(Tokens.PairSeparator.ToArray());
+            var pairs = stringView.Split(Tokens.PairSeparator.ToArray()).Where( x=> x.Length != 0);
 
             foreach (var pair in pairs) {
-                var sepIndex = pair.IndexOf(Tokens.KeyValueSeparator);
+                var sepIndex = pair.IndexOf(Tokens.KeyValueSeparator) ;
 
                 var key = "";
 
