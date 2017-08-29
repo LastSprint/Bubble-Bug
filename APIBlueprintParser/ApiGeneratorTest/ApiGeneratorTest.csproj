@@ -50,6 +50,8 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Generators\SourceGenerators\ControllerGenerator.cs" />
     <Compile Include="Generators\SourceGenerators\ApiGenerator.cs" />
+    <Compile Include="EquatableRequaest.cs" />
+    <Compile Include="Support.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\APIBlueprintParser\APIBlueprintParser.csproj">

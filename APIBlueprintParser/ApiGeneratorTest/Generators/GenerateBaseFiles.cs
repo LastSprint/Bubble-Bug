@@ -24,6 +24,7 @@ namespace ApiGeneratorTest.Generators {
             public static string Stratups = TemplatesPath + "StartupsTemplate.cs";
             public static string Userprefs = TemplatesPath + "userprefs.template";
             public static string LaunchSettings = TemplatesPath + "launchSettings.json";
+			public static string Model = TemplatesPath + "Model.template";
         }
 
         private struct Tokens {
@@ -51,6 +52,8 @@ namespace ApiGeneratorTest.Generators {
 
             var propertiesPath = $"{this._descriptor.PropertiesDirectory}/launchSettings.json";
 
+			var modelPath = $"{this._descriptor.ProjectDirectory}/EquatableRequaest.cs";
+
             Dictionary<string, string> pathes = new Dictionary<string, string>() {
                 {Pathes.Solution, solutionPath},
                 {Pathes.Project, projectPath},
@@ -59,7 +62,8 @@ namespace ApiGeneratorTest.Generators {
                 {Pathes.Stratups, startupPath},
                 {Pathes.Program, programPath},
                 {Pathes.Userprefs, userprefsPath},
-                {Pathes.LaunchSettings, propertiesPath}
+                {Pathes.LaunchSettings, propertiesPath},
+				{Pathes.Model, modelPath}
             };
 
             foreach (var pair in pathes) {

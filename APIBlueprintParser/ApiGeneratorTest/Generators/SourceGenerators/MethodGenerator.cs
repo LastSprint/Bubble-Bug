@@ -74,36 +74,24 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 		}
 
         private string GenerateParametersCode() {
-			
-            var code = $"bool flag = false;{Environment.NewLine}";
-			code += $"string paramResult = \"\";{Environment.NewLine}";
 
 			if (this._node.Parameters == null) {
-				return code;
+				return "";
 			}
 
-            foreach (var pair in this._node.RequestPairs) {
+			// create EquatableRequestParameter
+			// public RequestParameter(object value, string name, ParameterType type)
+			//EquatableRequaest(object requestBody, IList < RequestParameter > parameters)
 
-                if (pair.Request.Parameters == null) {
-                    code += $"paramResult = {pair.Response.Body ?? "null"}; {Environment.NewLine}";
-                    continue;
-                }
+			var code = $"var list = new List<RequestParameter>(); {Environment.NewLine}";
+			foreach (var param in this._node.Parameters) {
 
-                var expressions = "";
+				var paramtype = param.NeededType == NeededType.Optional ? "ParameterType.Optional" : "ParameterType.Required";
 
-                foreach (var param in this._node.Parameters) {
-                    expressions += $" && {param.Name} == {pair.Request.Parameters[param.Name]}";
-                }
+				code += $"list.Add(new RequestParameter({param.Name}, \"{param.Name}\", {paramtype})); {Environment.NewLine}";
+			}
 
-                expressions = expressions.Remove(0, " &&".Length);
-
-                expressions = $"flag = {expressions};{Environment.NewLine}";
-
-                code += expressions;
-
-                code += $"if (flag) paramResult = {JsonConvert.SerializeObject(pair.Response.Body ?? "null").ToString()}; {Environment.NewLine}";
-
-            }
+			code += $"var convertedRequest = new EquatableRequaest(value, list); {Environment.NewLine}";
 
 			return code;
         }
