@@ -35,9 +35,9 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 
 			var sectionCharArr = new List<char>();
 
-            while (!streamReader.EndOfStream && streamReader.Peek() != Tokens.EndOfSection && streamReader.Peek() != '#')
+            while (!this.streamReader.EndOfStream && this.streamReader.Peek() != Tokens.EndOfSection && this.streamReader.Peek() != '#')
 			{
-				sectionCharArr.Add((char)streamReader.Read());
+				sectionCharArr.Add((char) this.streamReader.Read());
 			}
 
 			var stringView = new String(sectionCharArr.ToArray());
@@ -47,7 +47,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
                 throw new FormatException("If header section declared then it cant be empty");
             }
 
-            var pairs = stringView.Split(Tokens.PairSeparator.ToCharArray());
+            var pairs = stringView.Split(Tokens.PairSeparator.ToCharArray()).Where( x => x.Length != 0);
             var result = new Dictionary<string, string>();
             foreach (var pair in pairs) {
 
