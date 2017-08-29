@@ -12,7 +12,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
     public static class SourceTemplatesPathes {
         public static string PathToTemplates = Constants.RootDirectory + "/Templates/SourceTemplates";
 
-        public static string PathToMethodTemplate = PathToTemplates + "/Method.template";
-        public static string PathToControllerTemplate = PathToTemplates + "/Controller.template";
+        public static string PathToMethodTemplate = TemplateResource.Method;
+        public static string PathToControllerTemplate =TemplateResource.Controller;
     }
 }

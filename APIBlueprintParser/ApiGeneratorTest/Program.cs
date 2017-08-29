@@ -29,6 +29,7 @@ namespace ApiGeneratorTest {
 				Console.ResetColor();
 				Console.WriteLine(e);
 			}
+		    Console.ReadKey();
 
 		}
 

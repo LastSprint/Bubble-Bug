@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -52,6 +52,13 @@
     <Compile Include="Generators\SourceGenerators\ApiGenerator.cs" />
     <Compile Include="EquatableRequaest.cs" />
     <Compile Include="Support.cs" />
+    <Compile Include="TemplateResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TemplateResource.resx</DependentUpon>
+    </Compile>
+    <None Include="Templates\MainTemplates\Program.template" />
+    <None Include="Templates\MainTemplates\Startups.template" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\APIBlueprintParser\APIBlueprintParser.csproj">
@@ -59,12 +66,24 @@
       <Name>APIBlueprintParser</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Generators\" />
-    <Folder Include="Generators\SourceGenerators\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Templates\MainTemplates\appsettings.Development.json" />
+    <None Include="Templates\MainTemplates\appsettings.json" />
+    <None Include="Templates\MainTemplates\launchSettings.json" />
+    <None Include="Templates\MainTemplates\Model.template" />
+    <None Include="Templates\MainTemplates\project.template" />
+    <None Include="Templates\MainTemplates\Solution.template" />
+    <None Include="Templates\MainTemplates\userprefs.template" />
+    <None Include="Templates\SourceTemplates\Controller.template" />
+    <None Include="Templates\SourceTemplates\Method.template" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="TemplateResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TemplateResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -39,7 +39,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
                 code += new MethodGenerator(action).Generate() + Environment.NewLine;
             }
 
-            var str = File.ReadAllText(SourceTemplatesPathes.PathToControllerTemplate);
+            var str = SourceTemplatesPathes.PathToControllerTemplate;
 
             str = str.Replace(Tokens.ProjectName, this._projectName);
             str = str.Replace(Tokens.ControllerName, controllerName);

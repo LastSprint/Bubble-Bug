@@ -40,7 +40,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
             var route = this._node.Template.Template;
 
-            var str = File.ReadAllText(SourceTemplatesPathes.PathToMethodTemplate);
+            var str = SourceTemplatesPathes.PathToMethodTemplate;
 
             var parameters = "";
 

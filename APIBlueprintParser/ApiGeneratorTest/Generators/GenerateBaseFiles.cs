@@ -14,18 +14,7 @@ namespace ApiGeneratorTest.Generators {
     
     public class GenerateBaseFiles {
 
-        private struct Pathes {
-            public static string TemplatesPath = Constants.RootDirectory + "/Templates/MainTemplates/";
-            public static string AppsettingsDotDevelopes = TemplatesPath + "appsettings.Development.json";
-            public static string Appsettings = TemplatesPath + "appsettings.json";
-            public static string Program = TemplatesPath + "ProgramTeplate.cs";
-            public static string Project = TemplatesPath + "project.template";
-            public static string Solution = TemplatesPath + "Solution.template";
-            public static string Stratups = TemplatesPath + "StartupsTemplate.cs";
-            public static string Userprefs = TemplatesPath + "userprefs.template";
-            public static string LaunchSettings = TemplatesPath + "launchSettings.json";
-			public static string Model = TemplatesPath + "Model.template";
-        }
+
 
         private struct Tokens {
             public const string ProjectName = "$projectname$";
@@ -53,17 +42,17 @@ namespace ApiGeneratorTest.Generators {
             var propertiesPath = $"{this._descriptor.PropertiesDirectory}/launchSettings.json";
 
 			var modelPath = $"{this._descriptor.ProjectDirectory}/EquatableRequaest.cs";
-
+ 
             Dictionary<string, string> pathes = new Dictionary<string, string>() {
-                {Pathes.Solution, solutionPath},
-                {Pathes.Project, projectPath},
-                {Pathes.Appsettings, appsetPath},
-                {Pathes.AppsettingsDotDevelopes, appsetDevPath},
-                {Pathes.Stratups, startupPath},
-                {Pathes.Program, programPath},
-                {Pathes.Userprefs, userprefsPath},
-                {Pathes.LaunchSettings, propertiesPath},
-				{Pathes.Model, modelPath}
+                {TemplateResource.Solution, solutionPath},
+                {TemplateResource.project, projectPath},
+                {TemplateResource.appsettings, appsetPath},
+                {TemplateResource.appsettings_Development, appsetDevPath},
+                {TemplateResource.Startups, startupPath},
+                {TemplateResource.Program, programPath},
+                {TemplateResource.userprefs, userprefsPath},
+                {TemplateResource.launchSettings, propertiesPath},
+				{TemplateResource.Model, modelPath}
             };
 
             foreach (var pair in pathes) {
@@ -72,8 +61,7 @@ namespace ApiGeneratorTest.Generators {
         }
 
 
-        private void ReadFromFileAndWriteInAnotherFile(string readFrom, string writeTo, string replacePattern = null, string stringForReplace = null) {
-            string content = File.ReadAllText(readFrom);
+        private void ReadFromFileAndWriteInAnotherFile(string content, string writeTo, string replacePattern = null, string stringForReplace = null) {
 
             if (replacePattern != null) {
                 content = content.Replace(replacePattern, stringForReplace);

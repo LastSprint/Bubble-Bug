@@ -78,12 +78,13 @@ namespace ApiGeneratorTest.Generators {
             var propertiesDir = projectFolder + Consts.PropertiesDirectoryName;
             var wwwrootDir = projectFolder + Consts.WwwRootDirectoryName;
 
+            Directory.CreateDirectory(Constants.RootDirectory + Constants.ServersProjectDir);
             Directory.CreateDirectory(mainFolder);
             Directory.CreateDirectory(projectFolder);
-
             Directory.CreateDirectory(controllerDir);
             Directory.CreateDirectory(propertiesDir);
             Directory.CreateDirectory(wwwrootDir);
+            
 
             return new FolderStrucureDescriptior(
                 this._projectName,
