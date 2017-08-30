@@ -29,8 +29,6 @@ namespace ApiGeneratorTest {
 				Console.ResetColor();
 				Console.WriteLine(e);
 			}
-		    Console.ReadKey();
-
 		}
 
 		private static void IntitPoint()
@@ -113,8 +111,8 @@ namespace ApiGeneratorTest {
 			proc = new Process();
 			proc.StartInfo = new ProcessStartInfo("dotnet");
 			proc.StartInfo.CreateNoWindow = false;
-			proc.StartInfo.WorkingDirectory = descriptor.ProjectDirectory + "/bin/Debug/netcoreapp2.0";
-			proc.StartInfo.Arguments = $"{descriptor.ProjectName}.dll";
+			proc.StartInfo.WorkingDirectory = descriptor.ProjectDirectory;
+			proc.StartInfo.Arguments = $"run --urls http://192.168.0.221:50012/";
 			proc.Start();
 
 			Console.WriteLine("API service was deployed.");

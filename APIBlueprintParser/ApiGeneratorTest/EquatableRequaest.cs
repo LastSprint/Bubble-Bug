@@ -207,7 +207,37 @@ namespace ApiGeneratorTest.ThirdParty
                 }
             }
 
-            return casted.RequestBody.Equals(this.RequestBody);
+			if(!casted.RequestBody.Equals(this.RequestBody)) {
+				return false;
+			}
+
+			var castedHeaders = casted.RequestHeaders;
+
+
+			if (castedHeaders == null && this.RequestHeaders == null) {
+				return true;
+			}
+
+			if (castedHeaders == null && this.RequestHeaders != null) {
+				return false;
+			}
+
+			if (castedHeaders != null && this.RequestHeaders == null) {
+				return false;
+			}
+
+			foreach (var header in castedHeaders) {
+
+				if (!this.RequestHeaders.TryGetValue(header.Key, out string value)) {
+					continue;
+				}
+
+				if (value != header.Value) {
+					return false;
+				}
+			}
+
+			return true;
         }
 
         public override int GetHashCode()

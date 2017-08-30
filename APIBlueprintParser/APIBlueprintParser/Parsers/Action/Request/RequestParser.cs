@@ -69,6 +69,11 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 
             do {
                 lastReadedString = this.streamReader.ReadLine();
+
+				if (lastReadedString == "") {
+					continue;
+				}
+
                 var current = lastReadedString.Replace(Tokens.EndOfSection.ToString(), "").Trim();
 
                 if (!Tokens.NestedKeywords.Contains(current)) {

@@ -113,6 +113,14 @@ namespace $projectname$ {
 		}
 
 		public EquatableRequaest() { }
+        
+        public void AddParameter(RequestParameter param) {
+            if (param.Type == ParameterType.Optional && param.Value == null) {
+                return;
+            }
+
+            this.Parameters.Add(param);
+        }
 
 		public override bool Equals(object obj) {
 			if (obj == null) {
@@ -125,14 +133,26 @@ namespace $projectname$ {
 				return false;
 			}
 
-			for (int i = 0; i < this.Parameters.Count; i++) {
-				
-				if (!this.Parameters[i].Equals(casted.Parameters[i])) {
-					return false;
-				}
-			}
+            return this.EqualParameters(casted) && this.EqualBody(casted);
+		}
 
-			if (casted.RequestBody == null && this.RequestBody == null) {
+        public bool EqualParameters(EquatableRequaest req) {
+            if (this.Parameters.Count != req.Parameters.Count) {
+                return false;
+            }
+
+            for (int i = 0; i < this.Parameters.Count; i++) {
+
+                if (!this.Parameters[i].Equals(req.Parameters[i])) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool EqualBody(EquatableRequaest casted) {
+            if (casted.RequestBody == null && this.RequestBody == null) {
                 return true;
             }
 
@@ -144,8 +164,8 @@ namespace $projectname$ {
                 return false;
             }
 
-			return casted.RequestBody.Equals(this.RequestBody);
-		}
+            return casted.RequestBody.Equals(this.RequestBody);
+        }
 
 		public override int GetHashCode() {
 			return this.Parameters.ToArray().GetHashCode();

@@ -39,7 +39,7 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 
 			var stringView = new String(sectionCharArr.ToArray());
 
-            var pairs = stringView.Split(Tokens.PairSeparator.ToArray()).Where( x=> x.Length != 0);
+			var pairs = stringView.Split(Tokens.PairSeparator.ToArray()).Where( x=> x.Trim().Length != 0);
 
             foreach (var pair in pairs) {
                 var sepIndex = pair.IndexOf(Tokens.KeyValueSeparator) ;

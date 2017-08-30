@@ -84,7 +84,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             throw new ArgumentOutOfRangeException("Cant find mock for current request :(");
             */
             code += $"var mocks = Support.ReadAllMocks(\"{this._methodName}\");";
-            code += "foreach(var mock in mocks) {\n                if (mock.Equals(convertedRequest)) {\n                    HttpContext.Response.StatusCode = mock.ResponseCode;return mock.ResponseBody;\n                }\n            }";
+            code += "foreach(var mock in mocks) {\n                if (mock.Equals(convertedRequest)) {\n                    HttpContext.Response.StatusCode = mock.ResponseCode;if (mock.ResponseHeaders != null) {\n\t\t\t\t\t\tforeach (var header in mock.ResponseHeaders) {\n\t\t\t\t\t\t\tHttpContext.Response.Headers.Add(header.Key, header.Value);\n\t\t\t\t\t\t}\n\t\t\t\t\t}return mock.ResponseBody;\n                }\n            }";
             code += "throw new ArgumentOutOfRangeException(\"Cant find mock for current request :(\");";
             return code;
 
@@ -100,15 +100,13 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 			// public RequestParameter(object value, string name, ParameterType type)
 			//EquatableRequaest(object requestBody, IList < RequestParameter > parameters)
 
-			var code = $"var list = new List<RequestParameter>(); {Environment.NewLine}";
+			var code = $"var convertedRequest = new EquatableRequaest(value, new List<RequestParameter>()); {Environment.NewLine}";
 			foreach (var param in this._node.Parameters) {
 
 				var paramtype = param.NeededType == NeededType.Optional ? "ParameterType.Optional" : "ParameterType.Required";
 
-				code += $"list.Add(new RequestParameter({param.Name}, \"{param.Name}\", {paramtype})); {Environment.NewLine}";
+				code += $"convertedRequest.AddParameter(new RequestParameter({param.Name}, \"{param.Name}\", {paramtype})); {Environment.NewLine}";
 			}
-
-			code += $"var convertedRequest = new EquatableRequaest(value, list); {Environment.NewLine}";
 
 			return code;
         }
