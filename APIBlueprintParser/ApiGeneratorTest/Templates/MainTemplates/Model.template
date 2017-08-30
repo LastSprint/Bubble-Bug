@@ -164,7 +164,7 @@ namespace $projectname$ {
                 return false;
             }
 
-            return casted.RequestBody.Equals(this.RequestBody);
+            return casted.RequestBody.ToString().Equals(this.RequestBody.ToString());
         }
 
 		public override int GetHashCode() {

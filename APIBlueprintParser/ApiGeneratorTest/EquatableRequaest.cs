@@ -173,6 +173,10 @@ namespace ApiGeneratorTest.ThirdParty
 
             this.RequestHeaders = pair.Request.Headers;
 
+			if (pair.Request.Body != null) {
+				this.RequestBody = JObject.Parse(pair.Request.Body);
+			}
+
             this.Parameters = new List<RequestParameter>();
             if (pair.Request.Parameters != null)
             {

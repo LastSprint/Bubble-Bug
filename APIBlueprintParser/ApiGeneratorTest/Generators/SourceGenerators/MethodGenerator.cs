@@ -92,15 +92,16 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
         private string GenerateParametersCode() {
 
+			var code = $"var convertedRequest = new EquatableRequaest(value, new List<RequestParameter>()); {Environment.NewLine}";
+
 			if (this._node.Parameters == null) {
-				return "";
+				return code;
 			}
 
 			// create EquatableRequestParameter
 			// public RequestParameter(object value, string name, ParameterType type)
 			//EquatableRequaest(object requestBody, IList < RequestParameter > parameters)
 
-			var code = $"var convertedRequest = new EquatableRequaest(value, new List<RequestParameter>()); {Environment.NewLine}";
 			foreach (var param in this._node.Parameters) {
 
 				var paramtype = param.NeededType == NeededType.Optional ? "ParameterType.Optional" : "ParameterType.Required";
@@ -145,7 +146,10 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             var list = this._node.RequestPairs.ToList();
             for (var i = 0; i < this._node.RequestPairs.Count(); i++) {
                 var pair = list[i];
-                var req = new EquatableRequaest(pair, this._node.Parameters.ToList());
+
+				var lstr = this._node.Parameters != null ? this._node.Parameters.ToList() : new List<AttributeNode>();
+
+                var req = new EquatableRequaest(pair, lstr);
                 var str = JsonConvert.SerializeObject(req);
                 File.WriteAllText($"{pathToMock}/{i}mock.json", str);
             }
