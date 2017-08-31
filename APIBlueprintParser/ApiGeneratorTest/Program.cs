@@ -61,11 +61,11 @@ namespace ApiGeneratorTest {
 
             var generator = new FolderStructureGenerator(projectName);
             var descriptor = generator.Generate();
-
+            var port = new Manager().AddNewServer(projectName);
             Console.WriteLine("Folder structure generation finished");
             Console.WriteLine("File strcture generation starting");
 
-            new GenerateBaseFiles(descriptor).Generate();
+            new GenerateBaseFiles(descriptor, port).Generate();
 
             Console.WriteLine("File strcture generation finished");
 

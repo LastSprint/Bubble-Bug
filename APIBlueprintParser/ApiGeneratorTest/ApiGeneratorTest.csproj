@@ -59,6 +59,7 @@
     </Compile>
     <None Include="Templates\MainTemplates\Program.template" />
     <None Include="Templates\MainTemplates\Startups.template" />
+    <Compile Include="Manager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\APIBlueprintParser\APIBlueprintParser.csproj">

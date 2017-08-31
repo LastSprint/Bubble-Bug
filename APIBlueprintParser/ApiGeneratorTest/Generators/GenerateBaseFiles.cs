@@ -18,12 +18,15 @@ namespace ApiGeneratorTest.Generators {
         private struct Tokens {
             public const string ProjectName = "$projectname$";
             public const string Ip = "$ip$";
+            public const string Port = "$port$";
         }
 
         private FolderStructureGenerator.FolderStrucureDescriptior _descriptor;
+        private int Port;
 
-        public GenerateBaseFiles(FolderStructureGenerator.FolderStrucureDescriptior descriptor) {
+        public GenerateBaseFiles(FolderStructureGenerator.FolderStrucureDescriptior descriptor, int port) {
             this._descriptor = descriptor;
+            this.Port = port;
         }
 
         public void Generate() {
@@ -69,6 +72,7 @@ namespace ApiGeneratorTest.Generators {
 
             content = TemplateResource.launchSettings;
             content = content.Replace(Tokens.Ip, "192.168.0.100");
+            content = content.Replace(Tokens.Port, this.Port.ToString());
 
             File.WriteAllText(propertiesPath, content);
         }
