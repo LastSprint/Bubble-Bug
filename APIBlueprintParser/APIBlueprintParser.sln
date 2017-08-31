@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIBlueprintParserExec", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGeneratorTest", "ApiGeneratorTest\ApiGeneratorTest.csproj", "{1F0B0EDB-0770-47D5-9DA1-CC90B45C6042}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebInterface", "WebInterface\WebInterface.csproj", "{2DF8ABA4-0596-4E6D-93D6-6C82236BA447}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebInterface", "WebInterface\WebInterface.csproj", "{C800CB1B-8076-4A2A-A442-6A035D876DBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +39,9 @@ Global
 		{1F0B0EDB-0770-47D5-9DA1-CC90B45C6042}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F0B0EDB-0770-47D5-9DA1-CC90B45C6042}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F0B0EDB-0770-47D5-9DA1-CC90B45C6042}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2DF8ABA4-0596-4E6D-93D6-6C82236BA447}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2DF8ABA4-0596-4E6D-93D6-6C82236BA447}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2DF8ABA4-0596-4E6D-93D6-6C82236BA447}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2DF8ABA4-0596-4E6D-93D6-6C82236BA447}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C800CB1B-8076-4A2A-A442-6A035D876DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C800CB1B-8076-4A2A-A442-6A035D876DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C800CB1B-8076-4A2A-A442-6A035D876DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C800CB1B-8076-4A2A-A442-6A035D876DBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,29 @@
+﻿@page
+@using System.Collections.Generic;
+@using WebInterface.Models;
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Service Name</th>
+        <th>Port</th>
+      </tr>
+    </thead>
+    <tbody>
+	@{
+		List<ServiceDataSet> list = ViewBag.Data as List<ServiceDataSet>;
+     }
+		@for (int i=0; i < list.Count; i++) {
+            @: <tr>
+				@:<td>
+					@list[i].ProjectName
+				@:</td>
+				@:<td>
+                    @list[i].Port.ToString() 
+                @:</td>
+			@: </tr>
+		}
+    </tbody>
+  </table>
+</div>
