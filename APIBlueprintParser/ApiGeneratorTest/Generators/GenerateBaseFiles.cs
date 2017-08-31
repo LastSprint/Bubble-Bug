@@ -8,16 +8,16 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 
 namespace ApiGeneratorTest.Generators {
     
     public class GenerateBaseFiles {
 
-
-
         private struct Tokens {
             public const string ProjectName = "$projectname$";
+            public const string Ip = "$ip$";
         }
 
         private FolderStructureGenerator.FolderStrucureDescriptior _descriptor;
@@ -53,7 +53,6 @@ namespace ApiGeneratorTest.Generators {
                 {TemplateResource.Startups, startupPath},
                 {TemplateResource.Program, programPath},
                 {TemplateResource.userprefs, userprefsPath},
-                {TemplateResource.launchSettings, propertiesPath},
 				{TemplateResource.Model, modelPath}
             };
 
@@ -67,6 +66,11 @@ namespace ApiGeneratorTest.Generators {
             content = content.Replace("$PathToController$", this._descriptor.ControllerDirectory);
 
 			File.WriteAllText(supportPath, content);
+
+            content = TemplateResource.launchSettings;
+            content = content.Replace(Tokens.Ip, "192.168.0.100");
+
+            File.WriteAllText(propertiesPath, content);
         }
 
 

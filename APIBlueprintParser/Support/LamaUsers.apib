@@ -1,0 +1,746 @@
+
+FORMAT: 1A
+HOST: http://lama.apiary.io/
+
+# Users
+
+Api for users
+
+# Group Users
+
+## User Resource [/user]
+
+### Create User [POST, /user]
+    + Attributes
+        + firstName (optional, string)
+        + lastName (optional, string)
+        + email (optional, string)
+        + phone (required, string)
+
+    + Parameters
+        + phone (required, string)
+
+    + Request (application/json)
+        + Body
+            {
+                "phone": "89805430844"
+            }
+    + Response 200 (application/json)
+        + Body
+            {
+                "token": "supasecretauthtoken",
+                "expires": "20170718T085635Z"
+            }
++ Request (application/json)
+    + Body
+        {
+            "phone": "89103468893"
+        }
++ Response 400 (application/json)
+    + Body
+        {
+            error: "Bad phone"
+        }
++ Request (application/json)
++ Response 400 (application/json)
+    + Body
+        {
+            error: "Bad request"
+        }
+
+### Add Address [POST, /user/profile/address]
+
++ Request (application/json)
+    + Body
+        {
+            "address": "Южнобутовская ул. вл66",
+            "entrance": "",
+            "floor": "",
+            "apartment": "келья дьякона Данунахова",
+            "doorPhone": "1488",
+            "recipientFirstName": "Иннокентий",
+            "recipientLastName": "Данунахов",
+            "recipientPhone": "55503523355",
+            "latitude": 37.526525,
+            "longitude": 55.535164,
+            "note": "не кричите громко",
+            "isMain": false
+        }
++ Response 200 (application/json) 
+    + Body
+        {
+            "id": "zzxcvbnm",
+            "address": "Южнобутовская ул. вл66",
+            "entrance": "",
+            "floor": "",
+            "apartment": "келья дьякона Данунахова",
+            "doorPhone": "1488",
+            "recipientFirstName": "Иннокентий",
+            "recipientLastName": "Данунахов",
+            "recipientPhone": "55503523355",
+            "latitude": 37.526525,
+            "longitude": 55.535164,
+            "note": "не кричите громко",
+            "isMain": false
+        }
++ Request (application/json)
++ Response 400 (application/json)
+    + Body
+        {"error" : "bad request"}
+
+### Update Address [PUT, /user/profile/address]
+
+    + Attributes
+        + address_id (required, string)
+    + Parameters
+        + address_id (required, string)
+
++ Request (application/json)
+
+    + Parameters
+        address_id: "zxcvb"
+
+    + Body
+        {
+            "address": "Южнобутовская ул. вл66",
+            "entrance": "",
+            "floor": "",
+            "apartment": "келья дьякона Данунахова",
+            "doorPhone": "1488",
+            "recipientFirstName": "Иннокентий",
+            "recipientLastName": "Данунахов",
+            "recipientPhone": "55503523355",
+            "latitude": 37.526525,
+            "longitude": 55.535164,
+            "note": "не кричите громко",
+            "isMain": false
+        }
++ Response 200 (application/json) 
+    + Body
+        {
+            "id": "zxcvb",
+            "address": "Южнобутовская ул. вл66",
+            "entrance": "",
+            "floor": "",
+            "apartment": "келья дьякона Данунахова",
+            "doorPhone": "1488",
+            "recipientFirstName": "Иннокентий",
+            "recipientLastName": "Данунахов",
+            "recipientPhone": "55503523355",
+            "latitude": 37.526525,
+            "longitude": 55.535164,
+            "note": "не кричите громко",
+            "isMain": false
+        }
++ Request (application/json)
++ Response 400 (application/json)
+    + Body
+        {"error" : "bad request"}
+
+### Remove Address [DELETE, /user/profile/address]
+    + Attributes
+        + address_id (required, string)
+    + Parameters
+        + address_id (required, string)
+        
+    + Request (application/json)
+        + Parameters
+            address_id: "zxcvb"
+    + Response 204 (application/json)
+    + Request (application/json)
+        + Parameters
+            address_id: "ewq"
+    + Response 400 (application/json)
+        + Body
+            {
+                "error": "This address doesnt exist"
+            }
+### Confirm Regastration [POST, /users/registration]
+    + Attributes
+        + token (required, string)
+    + Parameters
+        + token (required, string)
+
+    + Request (application/json)
+        + Parameters
+            token: "qwertyuiop"
+        + Body
+            {
+                "code": "7364",
+            }
+    + Response 200 (application/json)
+            + Body
+                {
+                    auth_token: "zxcvbnmasdfghjkl"
+                }
+    + Request (application/json)
+        + Parameters
+            token: "qwertyuiop"
+        + Body
+            {
+                "code": "0000",
+            }
+    + Response 400 (application/json)
+            + Body
+                {
+                    "error" : "Bad code"
+                }
+
+# Group Shops
+
+## Shops [/shops]
+
+### Shop Gorups [GET, /shopgroups]
+
++ Request (application/json)
++ Response 200 (application/json)
+    + Body
+        [
+            {
+            "id": "XXYYZZ",
+            "name": "Name",
+            "photo": "Photo"
+            }
+        ]
+
+### Shops [GET, /shops]
+    
+    + Attributes
+        + location (optional, string)
+        + group (optional, string)
+    + Parameters
+        + location (optional, string)
+        + group (optional, string)
+    
+    + Request (application/json)
+        + Parameters
+            location: "55.123123,45.234242"
+            group: "group"
+    + Response 200 (application/json)
+        + Body
+            [
+                {
+                    "id": "XXYYZZ",
+                    "groupId": "metro",
+                    "name": "",
+                    "address": "проспект Мира, 211к1",
+                    "distance": 0.2,
+                    "photo": "sdfsdf",
+                    "pinIcon": "sdfsdf",
+                    "price": 200.1,
+                    "eta": "00:40",
+                    "location": {
+                        "latitude": 11.22,
+                        "longuitude": 33.44
+                    }
+                }
+            ]
+
+# Group Orders
+
+## Orders [/orders]
+
+### Order list [GET, /orders]
+    + Attributes
+        + skip (optional, number)
+        + n (optional, number)
+        + userid (optional, number)
+
+    + Parameters
+        + skip (optional, number)
+        + n (optional, number)
+
+    + Request (application/json)
+        + Parameters
+            skip: 10
+            n: 10
+    + Response 200 (application/json)
+        + Body
+                {
+                    "n": 10,
+                    "skip": 10,
+                    "count": 2,
+                    "orders": [
+                        {
+                            "id": "ZZXX",
+                            "qty": 5,
+                            "total": 1500,
+                            "date": "",
+                            "status": "active",
+                            "address": "Южнобутовская ул. вл66",
+                            "shop": {
+                                "id": "shopIdXXD",
+                                "groupId": "groupId",
+                                "photo": "sdfsdf"
+                            }
+                        },
+                        {
+                            "id": "ZZXX",
+                            "qty": 5,
+                            "total": 1500,
+                            "date": "",
+                            "status": "completed",
+                            "address": "Южнобутовская ул. вл66",
+                             "shop": {
+                                "id": "shopIdXXD",
+                                "groupId": "groupId",
+                                "photo": "sdfsdf"
+                            }
+                        }
+                    ]
+                }
+
+### Create Order [POST, /orders]
+
++ Request (application/json)
++ Resource 200 (application/json)
+    + Body
+
+    "shopId" : "shopIdXXZZ",
+    "items" : [
+        {
+            "itemId": "XXYYWW",
+            "qty": 2,
+        }
+    ],
+    "address" : {
+        "address" : "Южнобутовская ул. вл66",
+        "entrance" : "",
+        "floor": "",
+        "apartment": "келья дьякона Данунахова",
+        "doorPhone": "1488",
+        "recipientFirstName" : "Иннокентий",
+        "recipientLastName" : "Данунахов",
+        "recipientPhone" : "55503523355",
+        "latitude" : 37.526525,
+        "longitude": 55.535164,
+        "note": "не кричите громко"
+    },
+    "dueTime" : "",
+}
+
+### Get Order Info [GET, /orders]
+    + Attributes
+        + id (required, string)
+    + Parameters
+        + id (required, string)
+
+    + Request (application/json)
+        + Parameters
+            id: "aaa"
+
+    + Response 200 (application/json)
+        + Body
+            {
+        "id": "orderXZZVV",
+        "shopId" : "shopIdSDSD",
+        "items": [
+            {
+                "id": "XXYYZZ",
+                "name": "Водка \"Путинка\"",
+                "qty": 2,
+                "price": 75.0,
+                "total": 150.0,
+                "added": "",
+                "status": {
+                    "id": "confirmWeightRequest",
+                    "qty": 1,
+                    "weight": 2.530
+                }
+            },
+            {
+                "id": "XXYYWW",
+                "name": "Килька в томатном соусе 200г",
+                "qty": 1,
+                "price": 60.0,
+                "total": 60.0,
+                "added": "",
+                "status": {
+                    "id": "packed"
+                }
+            }                
+        ],
+        "address" : {
+            "address" : "Южнобутовская ул. вл66",
+            "entrance" : "",
+            "floor": "",
+            "apartment": "келья дьякона Данунахова",
+            "doorPhone": "1488",
+            "recipientFirstName" : "Иннокентий",
+            "recipientLastName" : "Данунахов",
+            "recipientPhone" : "55503523355",
+            "latitude" : 37.526525,
+            "longitude": 55.535164,
+            "note": "не кричите громко"
+        },
+        "dueTime" : "",
+        "price": {
+            "items": 210,
+            "delivery": 200,
+            "discount": 10,
+            "total": 400
+        },
+        "status": "InProgress",
+        "tasks" : [
+            {
+                "taskId": "azsxdcfv",
+                "type": "pack",
+                "status": "RequiresAproval",
+                "assignee": null
+            },
+            {
+                "taskId": "azsxdcfv",
+                "type": "deliver",
+                "status": "New",
+                "assignee": {
+                    "id": "userIDZXX",
+                    "firstName": "Курьер",
+                    "lastName": "Курьеров",
+                    "photo": "",
+                    "phone": 495654795,
+                    "latitude" : 37.526525,
+                    "longitude": 55.535164
+                }
+            }
+        ]
+    }
+
+### Short Order Status [GET, /orders/{id}/status]
+
++ Attributes
+    + id (required, string)
++ Parameters
+    + id (required, string)
++ Request (application/json)
+    + Parameters
+        id: "ololol"
++ Response 200 (application/json)
+    + Body
+        {
+  "status": "new",
+  "tasks": [
+    {
+      "type": "pack",
+      "status": "RequiresAproval"
+    },
+    {
+      "type": "deliver",
+      "status": "New",
+      "latitude": 37.526525,
+      "longitude": 55.535164
+    }
+  ]
+}
+
+### Change Order Status [POST, /orders/{id}/status]
+
+    + Attributes
+        + id (required, string)
+    + Parameters
+        + id (required, string)
+    + Request (application/json)
+        + Parameters
+            id: "ololol"
+        + Body 
+            {
+  "status": "InProgress",
+  "rating": {
+    "value": 1,
+    "comment": "да норм, чо"
+  }
+}
++ Response 204 (application/json)
+
+### Swap Items [POST, /orders/{id}/swap]
++ Attributes
+    + id (required, string)
++ Parameters
+    + id (required, string)
++ Request (application/json)
+    + Parameters
+        id: "ololol"
+    + Body 
+        {
+    "oldItem" : {
+        "id": "XXYYWW",
+        "qty": 2
+    },
+    "newItem" : {
+        "id": "ZZZWWW",
+        "qty": 1
+    }
+}
++ Response 204 (application/json)
+
+# Group Carts
+
+## Card Resources [/cart]
+
+### Get Contents [GET, /cart]
+
++ Request (application/json)
++ Response 200 (application/json)
+    + Body
+        [
+    {
+        "count": 3,
+        "shop": {
+            "id": "shopZYX",
+            "groupId": "metro",
+            "name": "",
+            "address": "проспект Мира, 211к1",
+            "photo": ""
+        },
+        "delivery" : {
+            "address" : "Южнобутовская ул. вл66",
+            "entrance" : "",
+            "floor": "",
+            "apartment": "келья дьякона Данунахова",
+            "doorPhone": "1488",
+            "recipientFirstName" : "Иннокентий",
+            "recipientLastName" : "Данунахов",
+            "recipientPhone" : "55503523355",
+            "latitude" : 37.526525,
+            "longitude": 55.535164,
+            "note": "не кричите громко"
+        },
+        "items": [
+            {
+                "id": "XXYYZZ",
+                "name": "Водка \"Путинка\"",
+                "qty": 2,
+                "price": 75.0,
+                "total": 150.0,
+                "added": "",
+                "avail": true
+            },
+            {
+                "id": "XXYYWW",
+                "name": "Килька в томатном соусе 200г",
+                "qty": 1,
+                "price": 60.0,
+                "total": 60.0,
+                "added": "",
+                "avail": false
+            },
+            {
+                "id": "XXYYWW",
+                "name": "Помидор красивый",
+                "qty": 1,
+                "price": 60.0,
+                "total": 30.0,
+                "weight": 0.500,
+                "added": "",
+                "avail": false
+            }
+        ],
+        "price": {
+            "items": 210,
+            "delivery": 200,
+            "discount": 10,
+            "total": 400
+        }
+    },
+    {
+        "count": 1,
+        "shop": {
+            "id": "shopYXZ",
+            "groupId": "lenta",
+            "name": "",
+            "address": "1я Останкинская улица, 55",
+            "photo": ""
+        },
+        "items": [
+            {
+                "id": "XXYYZZ",
+                "name": "Водка \"Тракториста\"",
+                "qty": 1,
+                "price": 300.0,
+                "total": 300.0,
+                "added": "",
+                "avail": true
+            }
+        ],
+        "price": {
+            "items": 210,
+            "delivery": 200,
+            "discount": 10,
+            "total": 400
+        }
+    }
+]
+
+### Get Content [GET, /cart/{shopId}]
+    + Attributes
+        + shopId (required, string)
+    + Parameters
+        + shopId (required, string)
+    + Request (application/json)
+        + Parameters
+            shopId: "ololol"
+    + Response 200 (application/json)
+        + Body
+
+{
+    "count": 3,
+    "shop": {
+        "id": "shopZYX",
+        "groupId": "metro",
+        "name": "",
+        "address": "проспект Мира, 211к1",
+        "photo": "",
+    },
+    "delivery" : {
+        "address" : "Южнобутовская ул. вл66",
+        "entrance" : "",
+        "floor": "",
+        "apartment": "келья дьякона Данунахова",
+        "doorPhone": "1488",
+        "recipientFirstName" : "Иннокентий",
+        "recipientLastName" : "Данунахов",
+        "recipientPhone" : "55503523355",
+        "latitude" : 37.526525,
+        "longitude": 55.535164,
+        "note": "не кричите громко"
+    },
+    "items": [
+        {
+            "id": "XXYYZZ",
+            "name": "Водка \"Путинка\"",
+            "qty": 2,
+            "price": 75.0,
+            "total": 150.0,
+            "added": "",
+            "avail": true
+        },
+        {
+            "id": "XXYYWW",
+            "name": "Килька в томатном соусе 200г",
+            "qty": 1,
+            "price": 60.0,
+            "total": 60.0,
+            "added": "",
+            "avail": false
+        },
+        {
+            "id": "XXYYWW",
+            "name": "Помидор красивый",
+            "qty": 1,
+            "price": 60.0,
+            "total": 30.0,
+            "weight": 0.500,
+            "added": "",
+            "avail": false
+        }
+    ],
+    "price": {
+        "items": 210,
+        "delivery": 200,
+        "discount": 10,
+        "total": 400
+    }
+}
+
+### Set Address [POST,/cart/{shopId}/delivery]
+    + Attributes
+        + shopId (required, string)
+    + Parameters
+        + shopId (required, string)
+    + Request (Application/json)
+        + Parameters
+            shopId: "ololol"
+        + Body
+            {
+                "address": "Южнобутовская ул. вл66",
+                "entrance": "",
+                "floor": "",
+                "apartment": "келья дьякона Данунахова",
+                "doorPhone": "1488",
+                "recipientFirstName": "Иннокентий",
+                "recipientLastName": "Данунахов",
+                "recipientPhone": "55503523355",
+                "latitude": 37.526525,
+                "longitude": 55.535164,
+                "note": "не кричите громко"
+            }
+    + Response 204 (Application/json)
+
+### Add Item [POST,/cart/{shopId}/items]
+    + Attributes
+        + shopId (required, string)
+    + Parameters
+        + shopId (required, string)
+    + Request (Application/json)
+        + Parameters
+            shopId: "ololol"
+        + Body
+            {
+                "itemId": "XXYYZZ",
+                "qty": 2,
+                "weight": 0.4
+            }
+
+### Clear Cart For Shop [DELETE,/cart/{shopId}]
+    + Attributes
+        + shopId (required, string)
+    + Parameters
+        + shopId (required, string)
+    + Request (Application/json)
+        + Parameters
+            shopId: "ololol"
+    + Response 204 (Application/json)
+
+### Modify Item [PUT,/cart/{shopId}/items/{itemId}]
+    + Attributes
+        + shopId (required, string)
+        + itemId (required, string)
+    + Parameters
+        + shopId (required, string)
+        + itemId (required, string)
+
+    + Request (Application/json)
+        + Parameters
+            shopId: "ololol"
+            itemId: "ololol"
+        + Body
+            {
+                "qty": 2,
+                "weight": 0.2
+            }
+    + Response 200 (Application/json)
+        + Body
+            {
+  "item": {
+    "qty": 1,
+    "price": 300,
+    "total": 300,
+    "weight": 0.2
+  },
+  "cart": {
+    "items": 210,
+    "delivery": 200,
+    "discount": 10,
+    "total": 400
+  }
+}
+
+### Remove Item [DELETE,/cart/{shopId}/items/{itemId}]
++ Attributes
+        + shopId (required, string)
+        + itemId (required, string)
+    + Parameters
+        + shopId (required, string)
+        + itemId (required, string)
+
+    + Request (Application/json)
+        + Parameters
+            shopId: "ololol"
+            itemId: "ololol"
+    + Response 200 (Application/json)
+        + Body
+            {
+  "items": 210,
+  "delivery": 200,
+  "discount": 10,
+  "total": 400
+}

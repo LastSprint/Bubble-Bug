@@ -182,6 +182,7 @@ namespace ApiGeneratorTest.ThirdParty
 			}
 
             this.Parameters = new List<RequestParameter>();
+
             if (pair.Request.Parameters != null)
             {
                 foreach (var smth in attributes)
