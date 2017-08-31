@@ -34,5 +34,17 @@ namespace APIBlueprintTests {
 
 			Assert.Throws<FormatException>(() => new HeadersParser(stream).Parse());
         }
+
+        [Test]
+        public void TestBodyWithSpecialCharacters() {
+
+            var str = "{\"name\": \"Килька: в- тома+тном соу$се #00г\"}";
+
+			var stream = Extensions.CreatFromString(str);
+
+			var result = new BodyParser(stream).Parse();
+
+			Assert.AreEqual(str, result);
+		}
     }
 }

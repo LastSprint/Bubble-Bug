@@ -15,7 +15,9 @@ using System.Collections.Generic;
 namespace APIBlueprintParser.Parsers {
     
     public class MainParser: BaseParser {
-        
+
+		public const string ProjectNameKey = "NAME";
+
         public MainParser(StreamReader reader): base(reader) { }
 
         public ApiDescription Parse() {
@@ -24,6 +26,10 @@ namespace APIBlueprintParser.Parsers {
             var overview = new OverviewParser(base.streamReader).Parse();
 
             var result = new ApiDescription();
+
+            if (metadata.TryGetValue(ProjectNameKey, out string projectname)) {
+                result.Projectname = projectname;
+            }
 
             result.Metadata = new MetadataNode(metadata);
             result.Overview = overview;

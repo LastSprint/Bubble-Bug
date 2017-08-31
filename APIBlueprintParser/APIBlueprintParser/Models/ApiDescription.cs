@@ -15,6 +15,7 @@ namespace APIBlueprintParser.Models
     {
         public MetadataNode Metadata { get; internal set; }
         public OverviewNode Overview { get; internal set; }
+        public string Projectname { get; internal set; }
 
         public IReadOnlyCollection<GroupNode> Groups { get; internal set; }
 

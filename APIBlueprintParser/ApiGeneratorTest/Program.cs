@@ -15,6 +15,7 @@ using System.Diagnostics;
 namespace ApiGeneratorTest {
 
     class MainClass {
+
 		public static void Main(string[] args) {
 
 			try
@@ -47,7 +48,18 @@ namespace ApiGeneratorTest {
 
             Console.WriteLine("Start generation of folder structure");
 
-            var generator = new FolderStructureGenerator("exapleProject");
+
+            var projectName = parser.Projectname;
+
+            if (parser.Projectname == null) {
+                do {
+
+                    projectName = Console.ReadLine().Trim();
+
+                } while (projectName.Length == 0);
+            }
+
+            var generator = new FolderStructureGenerator(projectName);
             var descriptor = generator.Generate();
 
             Console.WriteLine("Folder structure generation finished");
