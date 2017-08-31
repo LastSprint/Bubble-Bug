@@ -166,7 +166,11 @@ namespace ApiGeneratorTest.ThirdParty
             this.ResponseBody = pair.Response.Body;
             if (pair.Response.Body != null)
             {
-                this.ResponseBody = JObject.Parse(pair.Response.Body);
+				try {
+					this.ResponseBody = JObject.Parse(pair.Response.Body);
+				} catch (Exception e) {
+					this.ResponseBody = JArray.Parse(pair.Response.Body);
+				}
             }
             this.ResponseCode = pair.Response.Code;
             this.ResponseHeaders = pair.Response.Headers;

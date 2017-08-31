@@ -53,7 +53,7 @@ namespace APIBlueprintParser.Parsers.Action.Attributes {
 				throw new FormatException($"Doesnt contains \'{Tokens.EndOfTypeSection}\'");
 			}
 
-            var words = stringView.Words().Where(x => x.Trim().Length != 0 && x.Trim().Length != 1).ToArray();
+            var words = stringView.Words().Where(x => x.Trim().Length != 0).ToArray();
 
             if (words.Length < 3) {
                 throw new FormatException("Attrbite contains less then 2 sections");
