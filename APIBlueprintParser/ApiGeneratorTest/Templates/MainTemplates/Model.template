@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace $projectname$ {
 
@@ -164,11 +165,36 @@ namespace $projectname$ {
                 return false;
             }
 
-            return casted.RequestBody.ToString().Equals(this.RequestBody.ToString());
+            var t = new SortedJObject(JObject.Parse(casted.RequestBody.ToString()));
+            var p = new SortedJObject(JObject.Parse(this.RequestBody.ToString()));
+            return t.ToString().Equals(p.ToString());
         }
 
-		public override int GetHashCode() {
-			return this.Parameters.ToArray().GetHashCode();
-		}
-	}
+        public override int GetHashCode() {
+            return this.Parameters.ToArray().GetHashCode();
+        }
+
+    }
+
+    public class SortedJObject : JObject
+    {
+        public SortedJObject(JObject other)
+        {
+            var pairs = new List<KeyValuePair<string, JToken>>();
+            foreach (var pair in other) {
+                pairs.Add(pair);
+            }
+            pairs.OrderBy(p => p.Key).ForEach(pair => this[pair.Key] = pair.Value);
+        }
+    }
+}
+
+
+public static class EnumerableExtension {
+    public static void ForEach<T>(this IEnumerable<T> enumeration, Action<T> action)
+    {
+        foreach (T item in enumeration) {
+            action(item);
+        }
+    }
 }

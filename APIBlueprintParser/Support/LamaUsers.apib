@@ -11,14 +11,11 @@ Api for users
 
 ## User Resource [/user]
 
-### Create User [POST, /user]
+### Create User [POST, /users]
     + Attributes
         + firstName (optional, string)
         + lastName (optional, string)
         + email (optional, string)
-        + phone (required, string)
-
-    + Parameters
         + phone (required, string)
 
     + Request (application/json)
@@ -67,7 +64,7 @@ Api for users
             "note": "не кричите громко",
             "isMain": false
         }
-+ Response 200 (application/json) 
++ Response 201 (application/json) 
     + Body
         {
             "id": "zzxcvbnm",
