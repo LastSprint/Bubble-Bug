@@ -71,6 +71,8 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 			//var body = this.GenerateBodyCode();
 
 			var code = $"HttpContext.Response.ContentType = \"Application/json\";{Environment.NewLine}";
+            code += "object result;" + Environment.NewLine;
+            code += "try { " + Environment.NewLine;
 			code += parameters + Environment.NewLine;
             /*
                 var mocks = Support.ReadAllMocks("");
@@ -86,6 +88,10 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             code += $"var mocks = Support.ReadAllMocks(\"{this._methodName}\");";
             code += "foreach(var mock in mocks) {\n                if (mock.Equals(convertedRequest)) {\n                    HttpContext.Response.StatusCode = mock.ResponseCode;if (mock.ResponseHeaders != null) {\n\t\t\t\t\t\tforeach (var header in mock.ResponseHeaders) {\n\t\t\t\t\t\t\tHttpContext.Response.Headers.Add(header.Key, header.Value);\n\t\t\t\t\t\t}\n\t\t\t\t\t}return mock.ResponseBody;\n                }\n            }";
             code += "throw new ArgumentOutOfRangeException(\"Cant find mock for current request :(\");";
+            code += Environment.NewLine + "} catch (Exception e) {" + Environment.NewLine;
+            code += "HttpContext.Response.StatusCode = 500;" + Environment.NewLine;
+            code += "result = e;}" + Environment.NewLine;
+            code += "return result;" + Environment.NewLine;
             return code;
 
 		}

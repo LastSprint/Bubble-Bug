@@ -45,7 +45,7 @@ namespace ApiGeneratorTest.Generators {
             var propertiesPath = $"{this._descriptor.PropertiesDirectory}/launchSettings.json";
 
 			var modelPath = $"{this._descriptor.ProjectDirectory}/EquatableRequaest.cs";
-
+            var jsonComparerPath = $"{this._descriptor.ProjectDirectory}/JsonCommparer.cs";
             var supportPath = $"{this._descriptor.ProjectDirectory}/Support.cs";
 
             Dictionary<string, string> pathes = new Dictionary<string, string>() {
@@ -56,7 +56,8 @@ namespace ApiGeneratorTest.Generators {
                 {TemplateResource.Startups, startupPath},
                 {TemplateResource.Program, programPath},
                 {TemplateResource.userprefs, userprefsPath},
-				{TemplateResource.Model, modelPath}
+                {TemplateResource.Model, modelPath},
+                {TemplateResource.JsonComparer, jsonComparerPath}
             };
 
             foreach (var pair in pathes) {
@@ -71,7 +72,7 @@ namespace ApiGeneratorTest.Generators {
 			File.WriteAllText(supportPath, content);
 
             content = TemplateResource.launchSettings;
-            content = content.Replace(Tokens.Ip, "192.168.0.221");
+            content = content.Replace(Tokens.Ip, "192.168.0.100");
             content = content.Replace(Tokens.Port, this.Port.ToString());
 
             File.WriteAllText(propertiesPath, content);

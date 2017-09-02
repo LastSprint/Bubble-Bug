@@ -127,6 +127,9 @@
   <data name="Controller" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>templates\sourcetemplates\controller.template;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>
+  <data name="JsonComparer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>templates\maintemplates\JsonComparer.template;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="launchSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>templates\maintemplates\launchsettings.json;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
   </data>

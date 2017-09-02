@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using JsonComparation;
 
 namespace $projectname$ {
 
@@ -165,9 +166,9 @@ namespace $projectname$ {
                 return false;
             }
 
-            var t = new SortedJObject(JObject.Parse(casted.RequestBody.ToString()));
-            var p = new SortedJObject(JObject.Parse(this.RequestBody.ToString()));
-            return t.ToString().Equals(p.ToString());
+            var t = JToken.Parse(casted.RequestBody.ToString());
+            var p = JToken.Parse(this.RequestBody.ToString());
+            return JsonComparer.CompareTokens(t,p);
         }
 
         public override int GetHashCode() {
