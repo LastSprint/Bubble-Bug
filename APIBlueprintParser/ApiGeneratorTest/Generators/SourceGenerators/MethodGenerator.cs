@@ -111,8 +111,8 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 			foreach (var param in this._node.Parameters) {
 
 				var paramtype = param.NeededType == NeededType.Optional ? "ParameterType.Optional" : "ParameterType.Required";
-
-				code += $"convertedRequest.AddParameter(new RequestParameter({param.Name}, \"{param.Name}\", {paramtype})); {Environment.NewLine}";
+                var paramString = param.ValueType == APIBlueprintParser.Models.ValueType.String ? $"{param.Name} != null ? Uri.UnescapeDataString({param.Name}) : null" : param.Name;
+                code += $"convertedRequest.AddParameter(new RequestParameter({paramString}, \"{param.Name}\", {paramtype})); {Environment.NewLine}";
 			}
 
 			return code;

@@ -185,10 +185,10 @@ namespace ApiGeneratorTest.ThirdParty
 
             if (pair.Request.Parameters != null)
             {
-                foreach (var smth in attributes)
+                foreach (var smth in pair.Request.Parameters)
                 {
-                    var val = pair.Request.Parameters[smth.Name];
-                    this.Parameters.Add(new RequestParameter(smth, val));
+                    var attr = attributes.First( x => x.Name.Equals(smth.Key));
+                    this.Parameters.Add(new RequestParameter(attr, smth.Value));
                 }
             }
         }
