@@ -23,7 +23,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://$ip$:11111/"
+      "applicationUrl": "http://$ip$:$port$/"
     }
   }
 }

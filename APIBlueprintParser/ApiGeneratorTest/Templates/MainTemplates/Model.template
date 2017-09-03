@@ -8,6 +8,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
+using JsonComparation;
 
 namespace $projectname$ {
 
@@ -164,11 +166,13 @@ namespace $projectname$ {
                 return false;
             }
 
-            return casted.RequestBody.ToString().Equals(this.RequestBody.ToString());
+            var t = JToken.Parse(casted.RequestBody.ToString());
+            var p = JToken.Parse(this.RequestBody.ToString());
+            return JsonComparer.CompareTokens(t,p);
         }
 
-		public override int GetHashCode() {
-			return this.Parameters.ToArray().GetHashCode();
-		}
-	}
+        public override int GetHashCode() {
+            return this.Parameters.ToArray().GetHashCode();
+        }
+    }
 }

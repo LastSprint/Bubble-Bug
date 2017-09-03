@@ -11,31 +11,22 @@ Api for users
 
 ## User Resource [/user]
 
-### Create User [POST, /user]
-    + Attributes
-        + firstName (optional, string)
-        + lastName (optional, string)
-        + email (optional, string)
-        + phone (required, string)
-
-    + Parameters
-        + phone (required, string)
+### Create User [POST, /users]
 
     + Request (application/json)
         + Body
             {
-                "phone": "89805430844"
+                "phone": "+79192444804"
             }
     + Response 200 (application/json)
         + Body
             {
-                "token": "supasecretauthtoken",
-                "expires": "20170718T085635Z"
+                "key": "secretKey"
             }
 + Request (application/json)
     + Body
         {
-            "phone": "89103468893"
+            "phone": "+79103468893"
         }
 + Response 400 (application/json)
     + Body
@@ -48,6 +39,74 @@ Api for users
         {
             error: "Bad request"
         }
+### Connection [POST, /connect/token]
+
+    + Attributes
+        + client_id (required, string)
+        + refresh_token (optional, string)
+        + grant_type (required, string)
+        + code (optional, string)
+    + Parameters
+        + client_id (required, string)
+        + refresh_token (optional, string)
+        + grant_type (required, string)
+        + code (optional, string)
+
+    + Request (Application/json)
+        + Parameters
+            client_id: "lama.client.ios"
+            grant_type: "authorization_code"
+            code: "secretKey:0000"
+    + Response 200 (Application/json)
+        + Body
+            {
+                "access_token": "access_token",
+                "refresh_token": "refresh_token"
+            }
+    + Request (Application/json)
+        + Parameters
+            client_id: "lama.client.android"
+            grant_type: "authorization_code"
+            code: "secretKey:0000"
+    + Response 200 (Application/json)
+        + Body
+            {
+                "access_token": "access_token",
+                "refresh_token": "refresh_token"
+            }
+    + Request (Application/json)
+        + Parameters
+            client_id: "lama.client.ios"
+            grant_type: "authorization_code"
+            code: "secretKey:1111"
+    + Response 200 (Application/json)
+        + Body
+            {
+                error: "bad code"
+            }
+    + Request (Application/json)
+        + Parameters
+            client_id: "lama.client.android"
+            grant_type: "authorization_code"
+            code: "secretKey:1111"
+    + Response 200 (Application/json)
+        + Body
+            {
+                error: "bad code"
+            }
+
+    + Request (Application/json)
+        + Parameters
+            client_id: "lama.client.ios"
+            grant_type: "refresh_token"
+            refresh_token: "refresh_token"
+    + Response 200 (Application/json)
+        + Body
+            {
+                "access_token": "access_token",
+                "refresh_token": "refresh_token"
+            }
+
 
 ### Add Address [POST, /user/profile/address]
 
@@ -67,7 +126,7 @@ Api for users
             "note": "не кричите громко",
             "isMain": false
         }
-+ Response 200 (application/json) 
++ Response 201 (application/json) 
     + Body
         {
             "id": "zzxcvbnm",

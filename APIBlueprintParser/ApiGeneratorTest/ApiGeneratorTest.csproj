@@ -59,6 +59,8 @@
     </Compile>
     <None Include="Templates\MainTemplates\Program.template" />
     <None Include="Templates\MainTemplates\Startups.template" />
+    <Compile Include="Manager.cs" />
+    <None Include="Templates\MainTemplates\JsonComparer.template" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\APIBlueprintParser\APIBlueprintParser.csproj">

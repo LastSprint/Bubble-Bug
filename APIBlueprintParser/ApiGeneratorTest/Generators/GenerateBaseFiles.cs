@@ -18,12 +18,15 @@ namespace ApiGeneratorTest.Generators {
         private struct Tokens {
             public const string ProjectName = "$projectname$";
             public const string Ip = "$ip$";
+            public const string Port = "$port$";
         }
 
         private FolderStructureGenerator.FolderStrucureDescriptior _descriptor;
+        private int Port;
 
-        public GenerateBaseFiles(FolderStructureGenerator.FolderStrucureDescriptior descriptor) {
+        public GenerateBaseFiles(FolderStructureGenerator.FolderStrucureDescriptior descriptor, int port) {
             this._descriptor = descriptor;
+            this.Port = port;
         }
 
         public void Generate() {
@@ -42,7 +45,7 @@ namespace ApiGeneratorTest.Generators {
             var propertiesPath = $"{this._descriptor.PropertiesDirectory}/launchSettings.json";
 
 			var modelPath = $"{this._descriptor.ProjectDirectory}/EquatableRequaest.cs";
-
+            var jsonComparerPath = $"{this._descriptor.ProjectDirectory}/JsonCommparer.cs";
             var supportPath = $"{this._descriptor.ProjectDirectory}/Support.cs";
 
             Dictionary<string, string> pathes = new Dictionary<string, string>() {
@@ -53,7 +56,8 @@ namespace ApiGeneratorTest.Generators {
                 {TemplateResource.Startups, startupPath},
                 {TemplateResource.Program, programPath},
                 {TemplateResource.userprefs, userprefsPath},
-				{TemplateResource.Model, modelPath}
+                {TemplateResource.Model, modelPath},
+                {TemplateResource.JsonComparer, jsonComparerPath}
             };
 
             foreach (var pair in pathes) {
@@ -69,6 +73,7 @@ namespace ApiGeneratorTest.Generators {
 
             content = TemplateResource.launchSettings;
             content = content.Replace(Tokens.Ip, "192.168.0.100");
+            content = content.Replace(Tokens.Port, this.Port.ToString());
 
             File.WriteAllText(propertiesPath, content);
         }
