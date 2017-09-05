@@ -14,13 +14,13 @@ namespace ApiGeneratorTest {
     
     public class Manager {
 
-        public struct DataSet {
+        public class DataSet {
             public string ProjectName { get; set; }
             public int Port { get; set; }
         }
 
         private static string PathToRoot = Constants.RootDirectory + Constants.ServersProjectDir + "/.store.json";
-        private const int FirstPort = 11111;
+        private const int FirstPort = 11114;
         /// <summary>
         /// Adds the new server.
         /// </summary>
@@ -32,14 +32,18 @@ namespace ApiGeneratorTest {
             }
 
             var readed = JsonConvert.DeserializeObject<DataSet[]>(File.ReadAllText(PathToRoot)).ToList();
-
             var port = FirstPort;
+            DataSet readedProject = readed.Find(dataSet => dataSet.ProjectName.Equals(projectName));
 
-            if (readed.Count != 0) {
-                port = readed.Select(arg => arg.Port).Max() + 1;
+            if (readedProject != null)
+            {
+                return readedProject.Port;
             }
 
             var res = new DataSet();
+            if (readed.Count != 0) {
+                port = readed.Select(x => x.Port).Max() + 1;
+            }
             res.Port = port;
             res.ProjectName = projectName;
             readed.Add(res);
