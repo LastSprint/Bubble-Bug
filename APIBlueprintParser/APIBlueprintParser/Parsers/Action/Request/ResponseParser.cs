@@ -111,15 +111,11 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 
 			var bodyType = Support.StringToBodyType(words.Last().Trim());
 
-			if (!bodyType.HasValue) {
-				throw new FormatException($"Response parser cant parse media type");
-			}
-
             if (!int.TryParse(words[1], out int code)) {
                 throw new FormatException("Response parser cant parse statuc code");
             }
 
-			return (code, bodyType.Value);
+			return (code, bodyType);
 
 		}
 	}

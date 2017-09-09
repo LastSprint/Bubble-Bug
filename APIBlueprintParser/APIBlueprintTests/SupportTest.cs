@@ -46,7 +46,7 @@ namespace APIBlueprintTests {
 			string[] jsons = { "276t3igyh", "asda", "2893kj", "xml" };
 
 			// when
-			var results = new List<BodyType?>();
+			var results = new List<BodyType>();
 
 			foreach (var json in jsons) {
 				results.Add(Support.StringToBodyType(json));
@@ -54,7 +54,7 @@ namespace APIBlueprintTests {
 
 			// then
 			foreach (var result in results) {
-				Assert.IsFalse(result.HasValue);
+                Assert.IsTrue(result == BodyType.Empty);
 			}
 		}
 

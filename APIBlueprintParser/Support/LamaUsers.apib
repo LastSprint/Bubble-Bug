@@ -13,16 +13,16 @@ Api for users
 
 ### Create User [POST, /users]
 
-    + Request (application/json)
-        + Body
-            {
-                "phone": "+79192444804"
-            }
-    + Response 200 (application/json)
-        + Body
-            {
-                "key": "secretKey"
-            }
++ Request (application/json)
+    + Body
+        {
+            "phone": "+79192444804"
+        }
++ Response 200 (application/json)
+    + Body
+        {
+            "key": "secretKey"
+        }
 + Request (application/json)
     + Body
         {
@@ -52,7 +52,7 @@ Api for users
         + grant_type (required, string)
         + code (optional, string)
 
-    + Request (Application/json)
+    + Request
         + Parameters
             client_id: "lama.client.ios"
             grant_type: "authorization_code"
@@ -63,7 +63,7 @@ Api for users
                 "access_token": "access_token",
                 "refresh_token": "refresh_token"
             }
-    + Request (Application/json)
+    + Request
         + Parameters
             client_id: "lama.client.android"
             grant_type: "authorization_code"
@@ -74,7 +74,7 @@ Api for users
                 "access_token": "access_token",
                 "refresh_token": "refresh_token"
             }
-    + Request (Application/json)
+    + Request
         + Parameters
             client_id: "lama.client.ios"
             grant_type: "authorization_code"
@@ -84,7 +84,7 @@ Api for users
             {
                 error: "bad code"
             }
-    + Request (Application/json)
+    + Request
         + Parameters
             client_id: "lama.client.android"
             grant_type: "authorization_code"
@@ -95,7 +95,7 @@ Api for users
                 error: "bad code"
             }
 
-    + Request (Application/json)
+    + Request
         + Parameters
             client_id: "lama.client.ios"
             grant_type: "refresh_token"
@@ -353,9 +353,9 @@ Api for users
 ### Create Order [POST, /orders]
 
 + Request (application/json)
-+ Resource 200 (application/json)
++ Response 200 (application/json)
     + Body
-
+{
     "shopId" : "shopIdXXZZ",
     "items" : [
         {
@@ -739,6 +739,7 @@ Api for users
                 "qty": 2,
                 "weight": 0.4
             }
+    + Response 204 (Application/json)
 
 ### Clear Cart For Shop [DELETE,/cart/{shopId}]
     + Attributes

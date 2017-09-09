@@ -72,7 +72,7 @@ namespace ApiGeneratorTest.Generators {
 			File.WriteAllText(supportPath, content);
 
             content = TemplateResource.launchSettings;
-            content = content.Replace(Tokens.Ip, "192.168.0.221");
+            content = content.Replace(Tokens.Ip, "192.168.0.100");
             content = content.Replace(Tokens.Port, this.Port.ToString());
 
             File.WriteAllText(propertiesPath, content);

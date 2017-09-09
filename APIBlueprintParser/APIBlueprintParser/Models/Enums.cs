@@ -29,7 +29,8 @@ namespace APIBlueprintParser.Models {
     /// Type of content that contains in the request/response body
     /// </summary>
 	public enum BodyType {
-		Json
+		Json,
+        Empty
 	}
 
 	/// <summary>
