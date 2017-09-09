@@ -3,7 +3,7 @@
 ![Build Status](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser.svg)
 ![Conda](https://img.shields.io/conda/pn/conda-forge/python.svg)
 
-# Bubble-Bag -  Tools for generating mock server from Apiary specification.
+# Bubble-Bug -  Tools for generating mock server from Apiary specification.
 # Утилита для генерации мокового сервера из специйикации ApiBlueprint.
 ## В данный момент сервер поддерживает:
 + POST/PUT/DELETE/GET - запросы
