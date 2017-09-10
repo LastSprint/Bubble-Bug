@@ -15,7 +15,7 @@ namespace APIBlueprintParser.Parsers.Action.Attributes {
     public class AttributesParser : BaseParser{
 
         public struct Tokens {
-            public static string[] EndKeyNodes = { "Parameters", "Request", "Response", "Attributes" };
+            public static string[] EndKeyNodes = { "Parameters", "Request", "Response", "Attributes", "Options" };
             public const char EndOfSection = '+';
         }
 

@@ -41,12 +41,14 @@ namespace APIBlueprintParser.Parsers.Action {
 
             public const int HttpMethodTypeIndex = 0;
             public const int URITemplateTypeIndex = 1;
+        }
 
+        public struct NestedSections {
             public const string Attributes = "Attributes";
             public const string Parameters = "Parameters";
-
-            public const string Request = "Request";
-            public const string Response = "Response";
+			public const string Request = "Request";
+			public const string Response = "Response";
+            public const string Options = "Options";
         }
 
         #endregion
@@ -150,39 +152,56 @@ namespace APIBlueprintParser.Parsers.Action {
                     line = base.streamReader.ReadLine().Replace(Tokens.StartOfSubsection.ToString(), "").Trim();
                 } while (line == "");
 
-                if (line.Contains("Attributes")) {
+                if (line.Contains(NestedSections.Attributes)) {
 					var res = new AttributesParser(base.streamReader).Parse();
 					line = res.lastReadedLine;
 					result.Attributes = res.attributes.ToList();
                 }
 
+				if (line == null) {
+					return (result, line);
+				}
+
                 while (line.Trim() == "") {
                     line = base.streamReader.ReadLine().Replace(Tokens.StartOfSubsection.ToString(), "").Trim();
                 }
 
-                if (line.Contains("Parameters")) {
+				if (line.Contains(NestedSections.Options)) {
+                    var res = new OptionsParser(base.streamReader).Parse();
+					line = res.lastReadedLine;
+                    result.Options = res.options.ToList();
+				}
+
+				if (line == null) {
+					return (result, line);
+				}
+
+				while (line.Trim() == "") {
+					line = base.streamReader.ReadLine()?.Replace(Tokens.StartOfSubsection.ToString(), "").Trim();
+				}
+
+                if (line.Contains(NestedSections.Parameters)) {
 					var res = new AttributesParser(base.streamReader).Parse();
 					line = res.lastReadedLine;
                     result.Parameters = res.attributes.ToList();
                 }
 
-                while (true)
-                {
 
-					if (line == null)
-					{
+                while (true) {
+
+					if (line == null) {
 						result.RequestPairs = requesrPairs;
 						return (result, line);
 					}
 
-                    if (line.Contains("Request"))
+                    if (line.Contains(NestedSections.Request))
                     {
                         var res = new RequestParser(base.streamReader, line).Parse();
                         currentRequest = res.request;
                         line = res.lastReaded;
                     }
 
-                    if (line.Contains("Response"))
+                    if (line.Contains(NestedSections.Response))
                     {
                         var res = new ResponseParser(base.streamReader, line).Parse();
                         var response = res.response;
@@ -199,7 +218,7 @@ namespace APIBlueprintParser.Parsers.Action {
 					{
 						result.RequestPairs = requesrPairs.ToList();
                         return (result, line);
-                    } else if (!line.Contains("Response") && !line.Contains("Request")){
+                    } else if (!line.Contains(NestedSections.Response) && !line.Contains(NestedSections.Request)) {
                         line = streamReader.ReadLine();
                     }
                 }

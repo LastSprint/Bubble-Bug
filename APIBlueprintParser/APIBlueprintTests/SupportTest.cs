@@ -14,210 +14,254 @@ using ValueType = APIBlueprintParser.Models.ValueType;
 
 namespace APIBlueprintTests {
 
-	[TestFixture]
-	public class SupportTest {
+    [TestFixture]
+    public class SupportTest
+    {
 
-		#region StringToBodyType Tests
+        #region StringToBodyType Tests
 
-		[Test]
-		public void StringToBodyTypeJsonTest() {
+        [Test]
+        public void StringToBodyTypeJsonTest()
+        {
 
-			// given
-			string[] jsons = { "application/json", "AppLicatiOn/Json", "APPLICatioN/JSoN", "APPLICATION/JSON" };
+            // given
+            string[] jsons = { "application/json", "AppLicatiOn/Json", "APPLICatioN/JSoN", "APPLICATION/JSON" };
 
-			// when
-			var results = new List<BodyType?>();
+            // when
+            var results = new List<BodyType?>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToBodyType(json));
-			}
+            foreach (var json in jsons)
+            {
+                results.Add(Support.StringToBodyType(json));
+            }
 
-			// then
-			foreach (var result in results) {
-				Assert.IsTrue(result.HasValue);
-				Assert.AreEqual(result.Value, BodyType.Json);
-			}
-		}
+            // then
+            foreach (var result in results)
+            {
+                Assert.IsTrue(result.HasValue);
+                Assert.AreEqual(result.Value, BodyType.Json);
+            }
+        }
 
-		[Test]
-		public void StringToBodyTypeIvalidTest() {
+        [Test]
+        public void StringToBodyTypeIvalidTest()
+        {
 
-			// given
-			string[] jsons = { "276t3igyh", "asda", "2893kj", "xml" };
+            // given
+            string[] jsons = { "276t3igyh", "asda", "2893kj", "xml" };
 
-			// when
-			var results = new List<BodyType>();
+            // when
+            var results = new List<BodyType>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToBodyType(json));
-			}
+            foreach (var json in jsons)
+            {
+                results.Add(Support.StringToBodyType(json));
+            }
 
-			// then
-			foreach (var result in results) {
+            // then
+            foreach (var result in results)
+            {
                 Assert.IsTrue(result == BodyType.Empty);
-			}
-		}
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region StringToValueType Tests
+        #region StringToValueType Tests
 
-		[Test]
-		public void StringToValueTypeObjectTest() {
-			// given
-			string[] jsons = { "Object", "object", "OBJeCt", "OBJECT" };
+        [Test]
+        public void StringToValueTypeObjectTest()
+        {
+            // given
+            string[] jsons = { "Object", "object", "OBJeCt", "OBJECT" };
 
-			// when
-			var results = new List<ValueType?>();
+            // when
+            var results = new List<ValueType?>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToValueType(json));
-			}
+            foreach (var json in jsons)
+            {
+                results.Add(Support.StringToValueType(json));
+            }
 
-			// then
-			foreach (var result in results) {
-				Assert.IsTrue(result.HasValue);
-				Assert.AreEqual(result.Value, ValueType.Object);
-			}
-		}
+            // then
+            foreach (var result in results)
+            {
+                Assert.IsTrue(result.HasValue);
+                Assert.AreEqual(result.Value, ValueType.Object);
+            }
+        }
 
-		[Test]
-		public void StringToValueTypeStringTest() {
-			// given
-			string[] jsons = { "String", "string", "StrInG", "STRING" };
+        [Test]
+        public void StringToValueTypeStringTest()
+        {
+            // given
+            string[] jsons = { "String", "string", "StrInG", "STRING" };
 
-			// when
-			var results = new List<ValueType?>();
+            // when
+            var results = new List<ValueType?>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToValueType(json));
-			}
+            foreach (var json in jsons)
+            {
+                results.Add(Support.StringToValueType(json));
+            }
 
-			// then
-			foreach (var result in results) {
-				Assert.IsTrue(result.HasValue);
-				Assert.AreEqual(result.Value, ValueType.String);
-			}
-		}
+            // then
+            foreach (var result in results)
+            {
+                Assert.IsTrue(result.HasValue);
+                Assert.AreEqual(result.Value, ValueType.String);
+            }
+        }
 
-		[Test]
-		public void StringToValueTypeNumberTest() {
-			// given
-			string[] jsons = { "Number", "number", "NuMbeR", "NUMBER" };
+        [Test]
+        public void StringToValueTypeNumberTest()
+        {
+            // given
+            string[] jsons = { "Number", "number", "NuMbeR", "NUMBER" };
 
-			// when
-			var results = new List<ValueType?>();
+            // when
+            var results = new List<ValueType?>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToValueType(json));
-			}
+            foreach (var json in jsons)
+            {
+                results.Add(Support.StringToValueType(json));
+            }
 
-			// then
-			foreach (var result in results) {
-				Assert.IsTrue(result.HasValue);
-				Assert.AreEqual(result.Value, ValueType.Number);
-			}
-		}
+            // then
+            foreach (var result in results)
+            {
+                Assert.IsTrue(result.HasValue);
+                Assert.AreEqual(result.Value, ValueType.Number);
+            }
+        }
 
-		[Test]
-		public void StringToValueTypeBoolTest() {
-			// given
-			string[] jsons = { "Bool", "bool", "bOoL", "BOOL" };
+        [Test]
+        public void StringToValueTypeBoolTest()
+        {
+            // given
+            string[] jsons = { "Bool", "bool", "bOoL", "BOOL" };
 
-			// when
-			var results = new List<ValueType?>();
+            // when
+            var results = new List<ValueType?>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToValueType(json));
-			}
+            foreach (var json in jsons)
+            {
+                results.Add(Support.StringToValueType(json));
+            }
 
-			// then
-			foreach (var result in results) {
-				Assert.IsTrue(result.HasValue);
-				Assert.AreEqual(result.Value, ValueType.Bool);
-			}
-		}
+            // then
+            foreach (var result in results)
+            {
+                Assert.IsTrue(result.HasValue);
+                Assert.AreEqual(result.Value, ValueType.Bool);
+            }
+        }
 
-		[Test]
-		public void StringToValueTypeInvalidTest() {
-			// given
-			string[] jsons = { "67tyghn", "sihreib", "GR Ds", "OBJe T" };
+        [Test]
+        public void StringToValueTypeInvalidTest()
+        {
+            // given
+            string[] jsons = { "67tyghn", "sihreib", "GR Ds", "OBJe T" };
 
-			// when
-			var results = new List<ValueType?>();
+            // when
+            var results = new List<ValueType?>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToValueType(json));
-			}
+            foreach (var json in jsons)
+            {
+                results.Add(Support.StringToValueType(json));
+            }
 
-			// then
-			foreach (var result in results) {
-				Assert.IsFalse(result.HasValue);
-			}
-		}
+            // then
+            foreach (var result in results)
+            {
+                Assert.IsFalse(result.HasValue);
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region StringToNeededType Tests
+        #region StringToNeededType Tests
 
-		[Test]
-		public void StringToNeededTypeRequiredTest() {
-			// given
-			string[] jsons = { "Required", "required", "reQuIReD", "REQUIRED" };
+        [Test]
+        public void StringToNeededTypeRequiredTest()
+        {
+            // given
+            string[] jsons = { "Required", "required", "reQuIReD", "REQUIRED" };
 
-			// when
-			var results = new List<NeededType?>();
+            // when
+            var results = new List<NeededType?>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToNeededType(json));
-			}
+            foreach (var json in jsons)
+            {
+                results.Add(Support.StringToNeededType(json));
+            }
 
-			// then
-			foreach (var result in results) {
-				Assert.IsTrue(result.HasValue);
-				Assert.AreEqual(result.Value, NeededType.Required);
-			}
-		}
+            // then
+            foreach (var result in results)
+            {
+                Assert.IsTrue(result.HasValue);
+                Assert.AreEqual(result.Value, NeededType.Required);
+            }
+        }
 
-		[Test]
-		public void StringToNeededTypeOptionalTest() {
-			// given
-			string[] jsons = { "Optional", "optional", "OptIoNal", "OPTIONAL" };
+        [Test]
+        public void StringToNeededTypeOptionalTest()
+        {
+            // given
+            string[] jsons = { "Optional", "optional", "OptIoNal", "OPTIONAL" };
 
-			// when
-			var results = new List<NeededType?>();
+            // when
+            var results = new List<NeededType?>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToNeededType(json));
-			}
+            foreach (var json in jsons)
+            {
+                results.Add(Support.StringToNeededType(json));
+            }
 
-			// then
-			foreach (var result in results) {
-				Assert.IsTrue(result.HasValue);
-				Assert.AreEqual(result.Value, NeededType.Optional);
-			}
-		}
+            // then
+            foreach (var result in results)
+            {
+                Assert.IsTrue(result.HasValue);
+                Assert.AreEqual(result.Value, NeededType.Optional);
+            }
+        }
 
-		[Test]
-		public void StringToNeededTypeInvalidTest()
-		{
-			// given
-			string[] jsons = { "Optio nal", "optiodnal", "OptIo3Nal", "OPTIqONAL" };
+        [Test]
+        public void StringToNeededTypeInvalidTest() {
+            // given
+            string[] jsons = { "Optio nal", "optiodnal", "OptIo3Nal", "OPTIqONAL" };
 
-			// when
-			var results = new List<NeededType?>();
+            // when
+            var results = new List<NeededType?>();
 
-			foreach (var json in jsons) {
-				results.Add(Support.StringToNeededType(json));
-			}
+            foreach (var json in jsons) {
+                results.Add(Support.StringToNeededType(json));
+            }
 
-			// then
-			foreach (var result in results) {
-				Assert.IsFalse(result.HasValue);
-			}
-		}
+            // then
+            foreach (var result in results) {
+                Assert.IsFalse(result.HasValue);
+            }
+        }
 
-		#endregion
+        #endregion
 
-	}
+        #region StringToactionOption
+
+        [Test]
+        public void ParseIterativeOPtionTest() {
+            // given
+            var str = "Iterative";
+
+            // when
+            var res = Support.StringToActionOption(str);
+
+            // then
+
+            Assert.AreEqual(res.Value, ActionOption.Iterative);
+        }
+
+        #endregion
+
+    }
 }

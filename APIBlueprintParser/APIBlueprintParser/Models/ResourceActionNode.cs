@@ -21,10 +21,13 @@ namespace APIBlueprintParser.Models {
 
         public IReadOnlyCollection<RequestPair> RequestPairs { get; internal set; }
 
+        public IReadOnlyCollection<ActionOption> Options { get; internal set; }
+
 		internal ResourceActionNode(string identifier, UriTemplate.Core.UriTemplate template, HttpMethod httpMethod) {
 			this.Identifier = identifier;
 			this.Template = template;
 			this.HttpMethod = httpMethod;
+            this.Options = new List<ActionOption>();
 		}
 
 		public ResourceActionNode(string identifier, UriTemplate.Core.UriTemplate template, 

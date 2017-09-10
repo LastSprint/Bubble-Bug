@@ -77,6 +77,14 @@ namespace APIBlueprintParser.Parsers {
 			}
 		}
 
+        public static ActionOption? StringToActionOption(string str) {
+            switch(str.Trim().ToLower()) {
+                case "iterative":
+                    return ActionOption.Iterative;
+                default: return null;
+            }
+        }
+
 		public static bool IsURI(string str) {
 			if (str[0] != '/') {
 				return false;

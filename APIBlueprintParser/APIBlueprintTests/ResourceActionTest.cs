@@ -10,6 +10,7 @@ using NUnit.Framework;
 using APIBlueprintParser.Parsers.Action;
 using APIBlueprintParser.Models;
 using UriTemplate.Core;
+using System.Linq;
 
 namespace APIBlueprintTests {
 
@@ -39,6 +40,29 @@ namespace APIBlueprintTests {
 			Assert.AreEqual(result.Template.Template, template);
 
 		}
+
+        [Test]
+        public void ActionWithOptionsTest() {
+			// given
+			var httpMethod = HttpMethod.Get;
+			var template = "/samplePath/method";
+			var identifier = "SampleResourceAction";
+            var options = $"+ Options {Environment.NewLine} + Iterative";
+			var action =
+				$"+ Attributes {Environment.NewLine}\t" +
+                $"+ lalala (required, object){Environment.NewLine} {options}";
+			var stream = Extensions.CreatFromString(action);
+
+            // when
+            var result = new ResourceActionParser(stream, $"{identifier} [GET, {template}]").Parse().resourceAction;
+
+			// then
+
+			Assert.AreEqual(result.Identifier, identifier);
+			Assert.AreEqual(result.HttpMethod, httpMethod);
+			Assert.AreEqual(result.Template.Template, template);
+            Assert.AreEqual(result.Options.First(), ActionOption.Iterative);
+        }
 
 		[Test]
 		public void IvalidHttpMethodTest() {
