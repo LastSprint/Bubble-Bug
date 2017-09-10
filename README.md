@@ -57,7 +57,7 @@
     "RequestBody": null
 }
 ```
-Где 
+### Где 
 + `ResponseBody` - Тело ответа. Именно этот объект вернется в качестве ответа сервера.
 + `ResponseCode` - Код ответа.
 + `ResponseHeaders` - **Пока не работает**
@@ -70,3 +70,47 @@
   - Bool - 3
 + `Value` - Значение параметра
 + `Name` - Имя параметра
+
+## Спецификация
+### Metadata secttion
+
+`Key`: `Value`
+`Key`: `Value`
+
+### About section
+```
+# <identifier>
+<Text>
+```
+### Group section
+```
+# Group <Identifier>
+```
+#### Resource Section
+```
+## <Identifier> [<url pattern>]
+```
+##### Action section
+```
+### <Identifier> [<Http method>, <url pattern>]
+    + Attrbutes
+        + <sampleAttr> (optinal, object) - <summary>
+        + <sampleAttr2> (required, stirng)
+    + Parameters
+        + <sampleAttr> (optinal, object)
+        + <sampleAttr2> (required, stirng)
+    + Request <Identifier> (<Content-Type>)
+        + Parameters
+            + <sampleAttr> (optinal, object)
+        + Headers
+            <Key> : <Value>
+        + Body <Json body>
+    + Response <Http code> (<Content-Type>)
+        + Headers
+            <Key> : <Value>
+        + Body <Json Body>
+     + Request <Identifier>
+        + Parameters
+            + <sampleAttr2> (required, stirng)
+     + Response <Http code> (<Content-Type>)
+            
