@@ -73,10 +73,10 @@
 
 ## Спецификация
 ### Metadata secttion
-
-`Key`: `Value`
-`Key`: `Value`
-
+```
+Key: Value
+Key: Value
+```
 ### About section
 ```
 # <identifier>
