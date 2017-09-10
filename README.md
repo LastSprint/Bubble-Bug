@@ -111,6 +111,6 @@ Key: Value
         + Body <Json Body>
      + Request <Identifier>
         + Parameters
-            + <sampleAttr2> (required, stirng)
+            <Parameter name>: Value
      + Response <Http code> (<Content-Type>)
             
