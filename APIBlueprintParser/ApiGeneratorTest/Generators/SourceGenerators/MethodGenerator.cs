@@ -47,7 +47,9 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
             var route = this._node.Template.Template;
 
-            var str = SourceTemplatesPathes.PathToMethodTemplate;
+            var isIterative = this._node.Options.Contains(ActionOption.Iterative);
+
+            var str = isIterative ? SourceTemplatesPathes.PathToIterativeMethodTemplate : SourceTemplatesPathes.PathToMethodTemplate;
 
             var parameters = "";
 
@@ -55,10 +57,10 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
             switch (this._node.RequestPairs.First().Request.BodyType) {
                 case BodyType.Json:
-                    body = "[FromBody]object value";
+                    body = isIterative ? "[FromBody]object value," : "[FromBody]object value";
                     break;
                 case BodyType.Empty:
-                    body = "";
+                    body = isIterative ? "," : "";
                     this.isEmptyRequestContent = true;
                     break;
             }
@@ -69,7 +71,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 				}
             }
 
-            if (body.Length == 0) {
+            if (body.Length == 0 && !isIterative) {
                 parameters = parameters.Substring(0, parameters.Length - 1);
             }
 
@@ -77,7 +79,9 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             str = str.Replace(Tokens.HttpMethod, httpMethod);
             str = str.Replace(Tokens.ReturnType, returnType);
             str = str.Replace(Tokens.MethodName, this._methodName);
-            str = str.Replace(Tokens.Code, this.CodeGeneration());
+            if (!isIterative) {
+                str = str.Replace(Tokens.Code, this.CodeGeneration());
+            }
             str = str.Replace(Tokens.Parameters, parameters);
             str = str.Replace(Tokens.Body, body);
 

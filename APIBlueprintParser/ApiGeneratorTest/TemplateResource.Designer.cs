@@ -65,6 +65,12 @@ namespace ApiGeneratorTest {
             }
         }
         
+        internal static string JsonComparer {
+            get {
+                return ResourceManager.GetString("JsonComparer", resourceCulture);
+            }
+        }
+        
         internal static string launchSettings {
             get {
                 return ResourceManager.GetString("launchSettings", resourceCulture);
@@ -118,12 +124,11 @@ namespace ApiGeneratorTest {
                 return ResourceManager.GetString("userprefs", resourceCulture);
             }
         }
-
-		internal static string JsonComparer {
-			get
-			{
-				return ResourceManager.GetString("JsonComparer", resourceCulture);
-			}
-		}
+        
+        internal static string IterativeMethod {
+            get {
+                return ResourceManager.GetString("IterativeMethod", resourceCulture);
+            }
+        }
     }
 }
