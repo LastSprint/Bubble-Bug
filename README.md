@@ -111,6 +111,6 @@ Key: Value
         + Body <Json Body>
      + Request <Identifier>
         + Parameters
-            <Parameter name>: Value
+            <Parameter name>: <Value>
      + Response <Http code> (<Content-Type>)
             
