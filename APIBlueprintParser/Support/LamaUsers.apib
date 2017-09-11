@@ -396,11 +396,95 @@ Api for users
 
 ### Create Order [POST, /orders]
 
++ Options
+    + Iterative
+
 + Request (application/json)
 + Response 200 (application/json)
     + Body
 {
     "shopId" : "shopIdXXZZ",
+    "items" : [
+        {
+            "itemId": "XXYYWW",
+            "qty": 2,
+        }
+    ],
+    "address" : {
+        "address" : "Южнобутовская ул. вл66",
+        "entrance" : "",
+        "floor": "",
+        "apartment": "келья дьякона Данунахова",
+        "doorPhone": "1488",
+        "recipientFirstName" : "Иннокентий",
+        "recipientLastName" : "Данунахов",
+        "recipientPhone" : "55503523355",
+        "latitude" : 37.526525,
+        "longitude": 55.535164,
+        "note": "не кричите громко"
+    },
+    "dueTime" : "",
+}
+
++ Request (application/json)
++ Response 200 (application/json)
+    + Body
+{
+    "shopId" : "123",
+    "items" : [
+        {
+            "itemId": "XXYYWW",
+            "qty": 2,
+        }
+    ],
+    "address" : {
+        "address" : "Южнобутовская ул. вл66",
+        "entrance" : "",
+        "floor": "",
+        "apartment": "келья дьякона Данунахова",
+        "doorPhone": "1488",
+        "recipientFirstName" : "Иннокентий",
+        "recipientLastName" : "Данунахов",
+        "recipientPhone" : "55503523355",
+        "latitude" : 37.526525,
+        "longitude": 55.535164,
+        "note": "не кричите громко"
+    },
+    "dueTime" : "",
+}
+
++ Request (application/json)
++ Response 200 (application/json)
+    + Body
+{
+    "shopId" : "098",
+    "items" : [
+        {
+            "itemId": "XXYYWW",
+            "qty": 2,
+        }
+    ],
+    "address" : {
+        "address" : "Южнобутовская ул. вл66",
+        "entrance" : "",
+        "floor": "",
+        "apartment": "келья дьякона Данунахова",
+        "doorPhone": "1488",
+        "recipientFirstName" : "Иннокентий",
+        "recipientLastName" : "Данунахов",
+        "recipientPhone" : "55503523355",
+        "latitude" : 37.526525,
+        "longitude": 55.535164,
+        "note": "не кричите громко"
+    },
+    "dueTime" : "",
+}
+
++ Request (application/json)
++ Response 200 (application/json)
+    + Body
+{
+    "shopId" : "lllllllll",
     "items" : [
         {
             "itemId": "XXYYWW",
@@ -581,7 +665,8 @@ Api for users
 ## Card Resources [/cart]
 
 ### Get Contents [GET, /cart]
-
++ Options
+    + Iterative
 + Request (application/json)
 + Response 200 (application/json)
     + Body

@@ -61,6 +61,7 @@
     <None Include="Templates\MainTemplates\Startups.template" />
     <Compile Include="Manager.cs" />
     <None Include="Templates\MainTemplates\JsonComparer.template" />
+    <None Include="Templates\SourceTemplates\IterativeMethod.template" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\APIBlueprintParser\APIBlueprintParser.csproj">

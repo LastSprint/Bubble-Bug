@@ -14,5 +14,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
         public static string PathToMethodTemplate = TemplateResource.Method;
         public static string PathToControllerTemplate =TemplateResource.Controller;
+
+        public static string PathToIterativeMethodTemplate = TemplateResource.IterativeMethod;
     }
 }

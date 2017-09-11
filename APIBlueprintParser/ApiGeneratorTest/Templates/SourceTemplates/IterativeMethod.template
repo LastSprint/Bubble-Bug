@@ -1,0 +1,31 @@
+﻿
+        private static IEnumerator<EquatableRequaest> _$MethodName$Enumerator;
+        private EquatableRequaest $MethodName$Current {
+            get
+            {
+                if (_$MethodName$Enumerator == null)
+                {
+                    _$MethodName$Enumerator = Support.ReadAllMocks(nameof($MethodName$)).GetEnumerator();
+                }
+
+                if (!_$MethodName$Enumerator.MoveNext())
+                {
+                    _$MethodName$Enumerator = Support.ReadAllMocks(nameof($MethodName$)).GetEnumerator();
+                    _$MethodName$Enumerator.MoveNext();
+                }
+                return _$MethodName$Enumerator.Current;
+            }
+        }
+
+        [Route("$uri$")]
+        [$HttpMethod$]
+        public $ReturnType$ $MethodName$($Params$ $Body$ int? _options) {
+            if (_options.HasValue) {
+                switch (_options.Value) {
+                    case IterativeOptions.ResetIterator:
+                        Support.ResetEnumerator(_$MethodName$Enumerator);
+                        break;
+                }
+            }
+            return this.$MethodName$Current;
+        }

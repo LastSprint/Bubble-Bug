@@ -1,7 +1,21 @@
 using System.Collections.Generic;
 
-namespace $projectname$ {   
+namespace $projectname$ {
+
+    public struct IterativeOptions {
+        public const int ResetIterator = 0;
+    }
+
     public static class Support {
+
+        public static void ResetEnumerator(IEnumerator<EquatableRequaest> enumer) {
+            if (enumer == null) {
+                return;
+            }
+
+            enumer.Reset();
+        }
+
         public static ICollection<EquatableRequaest> ReadAllMocks(string methodName) {
             var resultPath = "$PathToController$" + "/" + methodName;
 
