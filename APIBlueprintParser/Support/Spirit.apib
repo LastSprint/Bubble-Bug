@@ -1,0 +1,245 @@
+FORMAT: 1A
+NAME: Spirit
+
+# Spirit
+
+# Group Profile
+
+## Profile [/profile]
+
+### Get Profile [GET, /profile]
+
++ Request(application/json)
++ Response 200 (application/json)
++ Body
+{
+            "result": {
+                "name": "Name",
+                "secondName": "Second",
+                "photo": "https://i01.fotocdn.net/s24/24/gallery_m/333/2590198807.jpg",
+                "backgroundImage": "http://copypast.ru/fotografii/foto_prikoli/prikolnullnaa-fotopodborka-327-/prikolnullnaa-fotopodborka-327-30.jpg",
+                "gender": 1,
+                "phone": "9876543210",
+                "email": "thisIsMyFinalState@gmail.com",
+                "isClubMember": true,
+                "bankCard": {
+                    "type": "Visa",
+                    "lastNumbers": "8977"
+                }
+            },
+            "errorCode": 0,
+            "userMessage": ""
+        }
+### Update Profile [PUT, /profile]
+
++ Request (application/json)
++ Body
+{
+    "name": "Name",
+    "secondName": "Second",
+    "gender": "Gender",
+    "email": "some@gmail.com"
+}
+
++ Response 200 (Application/json)
++ Body
+        {
+            "errorCode": 0,
+            "userMessage": ""
+        }
+
+### Set Photo [POST, /profile]
+
++ Request (Application/json)
++ Response 200 (Application/json)
++ Body
+       {
+            "result": {
+                "profile": {
+                    "photo": "http://url.com/to/image"
+                }
+            },
+            "errorCode":0,
+            "userMessage": ""
+        }
+
+## User Subscription [/profile/subscription]
+
+### Get Subscription [GET, /profile/subscription]
++ Request (Application/json)
++ Response 200 (Application/json)
++ Body
+{
+        "result": {
+            "subscription": {
+                "id": "{sbscr_id}",
+                "status": {
+                        "statusId": 0,
+                        "description": "Оплачен",
+                        "fireDate": 1499262559
+                },
+                "club": {
+                    "id": 0,
+                    "title": "Club 1"
+                },
+                "costCurrentMonth": {
+                    "value": 1500,
+                    "currency": "RUB"
+                }, 
+                "costNextMonth": {
+                    "value": 1350,
+                    "currency": "RUB"
+                },
+                "paidServices": [
+                    {
+                        "id": "{srvs_id}",
+                        "name": "Содоступ",
+                        "price": {
+                            "value": 1750,
+                            "currency": "RUB"
+                        },
+                        "description": "Blablabla",
+                        "actionTitle": "Активировать",
+                        "enabled": true
+                    },
+                    {
+                        "id": "{srvs_id}",
+                        "name": "Приостановка абонемента",
+                        "enabled": false,
+                        "fireDate": 1499262559,
+                        "price": {
+                            "value": 550,
+                            "currency": "RUB"
+                        },
+                        "actionTitle": "Приостановить",
+                        "description": "Услуга предоставляет возможность приостановить действие договора на срок до 30 календарных дней с момента покупки услуги."
+                    }
+                ],
+                "subscriptionFees": [
+                    {
+                        "price": {
+                            "value": 1750,
+                            "fullValue": 3000,
+                            "currency": "RUB"
+                        },
+                        "description": "Скидка 40% на 1-й месяц посещения клуба. Акция действует до 1.12.2017" 
+                    },
+                    {
+                        "price": {
+                            "value": 1550,
+                            "currency": "RUB"
+                        },
+                    "description": "2-4-ый месяц"
+                    },
+                    {
+                        "price": {
+                            "value": 1350,
+                            "currency": "RUB"
+                        },
+                        "description": "c 5-го месяца"
+                    }
+                ],
+                "baseServices": [
+                    {
+                        "title": "Посещение всех клубов",
+                        "description": "Описание услуги"
+                    }
+                ]
+            }
+        },
+        "errorCode": 0,
+        "userMessage": ""
+    }
+
+### Club Subcription [GET, /clubs/{id}/subscription]
++ Attributes
+    + id (required, number)
++ Parameters
+    + id (required, number)
++ Request (Application/json)
+    + Parameters
+        id: 1
++ Response 200 (Application/json)
++ Body
+ {
+        "result": {
+            "subscription": {
+                "id": "sbscn_id",
+                "status": "Оплачен",
+                "statusId": 0,
+                "price": {
+                    "value": 550,
+                    "currency": "RUB"
+                },
+                "club": {
+                    "id": 0,
+                    "title": "Club 1"
+                },
+                "costCurrentMonth": {
+                    "value": 1500,
+                    "currency": "RUB"
+                }, 
+                "costNextMonth": {
+                    "value": 1350,
+                    "currency": "RUB"
+                },
+                "paidServices": [
+                    {
+                        "id": "srvs_id",
+                        "name": "Содоступ",
+                        "price": {
+                            "value": 1750,
+                            "currency": "RUB"
+                        },
+                        "actionTitle": "Активировать",
+                        "description": "Blablabla",
+                        "enabled": true
+                    },
+                    {
+                        "id": "srvs_id",
+                        "name": "Приостановка абонемента",
+                        "enabled": false,
+                        "fireDate": 1499262559,
+                        "price": {
+                            "value": 550,
+                            "currency": "RUB"
+                        },
+                        "actionTitle": "Приостановить",
+                        "description": "Услуга предоставляет возможность приостановить действие договора на срок до 30 календарных дней с момента покупки услуги."
+                    }
+                ],
+                "subscriptionFees": [
+                    {
+                        "price": {
+                            "value": 1750,
+                            "fullValue": 3000,
+                            "currency": "RUB"
+                        },
+                        "description": "Скидка 40% на 1-й месяц посещения клуба. Акция действует до 1.12.2017" 
+                    },
+                    {
+                        "price": {
+                            "value": 1550,
+                            "currency": "RUB"
+                        },
+                    "description": "2-4-ый месяц"
+                    },
+                    {
+                        "price": {
+                            "value": 1350,
+                            "currency": "RUB"
+                        },
+                        "description": "c 5-го месяца"
+                    }
+                ],
+                "baseServices": [
+                    {
+                        "title": "Посещение всех клубов",
+                        "description": "Описание услуги"
+                    }
+                ]
+            }
+        },
+        "errorCode": 0,
+        "userMessage": ""
+    }
