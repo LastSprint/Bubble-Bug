@@ -99,10 +99,6 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 
         private (string indentifier, BodyType bodyType) ParseDeclaration() {
 
-			if (!this._declaration.Contains(Tokens.StartOfTypeSection) && !this._declaration.Contains(Tokens.EndOfTypeSection)) {
-				throw new FormatException($"Request parser cant find media type section");
-			}
-
             var words = this._declaration.Words().Where(x => x.Length != 0 && x.Length != 1).ToArray();
 
             if (words[0].Trim() != Tokens.KeyWord) {
@@ -111,17 +107,13 @@ namespace APIBlueprintParser.Parsers.Action.Request {
 
             var bodyType = Support.StringToBodyType(words.Last().Trim());
 
-            if (!bodyType.HasValue) {
-                throw new FormatException($"Request parser cant parse media type");
-            }
-
             var identifier = "";
 
-            if (words.Length == 3) {
-                identifier = words[1];
+            for (int i = 1; i < (bodyType == BodyType.Empty ? words.Length : words.Length - 1); i++) {
+                identifier += words[i];
             }
 
-            return (identifier, bodyType.Value);
+            return (identifier, bodyType);
 
         }
     }

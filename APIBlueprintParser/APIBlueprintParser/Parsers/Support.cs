@@ -21,11 +21,11 @@ namespace APIBlueprintParser.Parsers {
         /// </summary>
         /// <returns>Type of the body content or null if parse failed.</returns>
         /// <param name="content">String view of content type.</param>
-        public static BodyType? StringToBodyType(string content) {
+        public static BodyType StringToBodyType(string content) {
             if (String.Compare(content, Constants.JsonContentType, true) == 0 ) {
                 return BodyType.Json;
             }
-            return null;
+            return BodyType.Empty;
         }
 
 		/// <summary>

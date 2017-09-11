@@ -24,17 +24,19 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             public const string MethodName = "$MethodName$";
             public const string Code = "$Code$";
             public const string Parameters = "$Params$";
+            public const string Body = "$Body$";
         }
 
         private ResourceActionNode _node;
         private FolderStructureGenerator.FolderStrucureDescriptior _descriptor;
         private string _methodName;
-
+        private bool isEmptyRequestContent;
 
         public MethodGenerator(ResourceActionNode node, FolderStructureGenerator.FolderStrucureDescriptior descriptor) {
             this._node = node;
             this._descriptor = descriptor;
             this._methodName = this._node.Identifier.Replace(" ", "").Trim();
+            this.isEmptyRequestContent = false;
         }
 
         public string Generate() {
@@ -49,10 +51,26 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
             var parameters = "";
 
+            var body = "";
+
+            switch (this._node.RequestPairs.First().Request.BodyType) {
+                case BodyType.Json:
+                    body = "[FromBody]object value";
+                    break;
+                case BodyType.Empty:
+                    body = "";
+                    this.isEmptyRequestContent = true;
+                    break;
+            }
+
             if (this._node.Parameters != null) {
 				foreach (var param in this._node.Parameters) {
 					parameters += $"{param.ValueType.TypeToString()} {param.Name},";
 				}
+            }
+
+            if (body.Length == 0) {
+                parameters = parameters.Substring(0, parameters.Length - 1);
             }
 
             str = str.Replace(Tokens.RoutPath, route);
@@ -61,6 +79,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             str = str.Replace(Tokens.MethodName, this._methodName);
             str = str.Replace(Tokens.Code, this.CodeGeneration());
             str = str.Replace(Tokens.Parameters, parameters);
+            str = str.Replace(Tokens.Body, body);
 
             this.GenerateMockJSON();
             return str;
@@ -98,7 +117,9 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
         private string GenerateParametersCode() {
 
-			var code = $"var convertedRequest = new EquatableRequaest(value, new List<RequestParameter>()); {Environment.NewLine}";
+            var bodyValue = this.isEmptyRequestContent ? "null" : "value";
+
+            var code = $"var convertedRequest = new EquatableRequaest({bodyValue}, new List<RequestParameter>()); {Environment.NewLine}";
 
 			if (this._node.Parameters == null) {
 				return code;
