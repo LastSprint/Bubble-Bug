@@ -215,40 +215,113 @@ Api for users
             {
                 "error": "This address doesnt exist"
             }
-### Confirm Regastration [POST, /users/registration]
-    + Attributes
-        + token (required, string)
-    + Parameters
-        + token (required, string)
+### Get Profile [GET, /user/profile]
+    + Request
+    + Response 200 (Application/json)
+        + Body
+            {
+    "id": "XXYYZZ",
+    "firstName": "Виточка",
+    "lastName": "Программист",
+    "email": "email@user.com",
+    "phone": "+79992223344",
+    "birthDate": "2017-07-18T08:56:35Z",
+    "addresses": [
+        {
+            "id": "ZXCC",                
+            "address" : "Южнобутовская ул. вл66",
+            "entrance" : "",
+            "floor": "",
+            "apartment": "келья дьякона Данунахова",
+            "doorPhone": "1488",
+            "recipientFirstName" : "Иннокентий",
+            "recipientLastName" : "Данунахов",
+            "recipientPhone" : "55503523355",
+            "latitude" : 37.526525,
+            "longitude": 55.535164,
+            "note": "не кричите громко",
+            "isMain": false
+        }
+    ],
+    "cards": [
+        {
+            "id": "card094234dgf",
+            "pan": "411111******1111"
+        },
+        {
+            "id": "card0942334dgf",
+            "pan": "311111******1111"
+        }
+    ]
+}
 
-    + Request (application/json)
-        + Parameters
-            token: "qwertyuiop"
+ + Request
+    + Response 200 (Application/json)
         + Body
             {
-                "code": "7364",
-            }
-    + Response 200 (application/json)
-            + Body
-                {
-                    auth_token: "zxcvbnmasdfghjkl"
-                }
-    + Request (application/json)
-        + Parameters
-            token: "qwertyuiop"
-        + Body
-            {
-                "code": "0000",
-            }
-    + Response 400 (application/json)
-            + Body
-                {
-                    "error" : "Bad code"
-                }
+    "id": "XXYYZZ",
+    "firstName": "FirstName",
+    "lastName": "LastName",
+    "email": "email@user.com",
+    "phone": "+79992223344",
+    "birthDate": "2017-07-18T08:56:35Z",
+    "addresses": [
+        {
+            "id": "ZXCC",                
+            "address" : "Южнобутовская ул. вл66",
+            "entrance" : "",
+            "floor": "",
+            "apartment": "келья дьякона Данунахова",
+            "doorPhone": "1488",
+            "recipientFirstName" : "Иннокентий",
+            "recipientLastName" : "Данунахов",
+            "recipientPhone" : "55503523355",
+            "latitude" : 37.526525,
+            "longitude": 55.535164,
+            "note": "не кричите громко",
+            "isMain": false
+        }
+    ],
+    "cards": [
+        {
+            "id": "card094234dgf",
+            "pan": "411111******1111"
+        }
+    ]
+}
 
 # Group Shops
 
 ## Shops [/shops]
+
+### Shop Tags [GET, /shoptags]
+
++ Request
++ Response 200 (application/json)
+
+    + Body
+        [
+            {
+                "name": "Товары для животных",
+                "tag": "0"
+            },
+            {
+                "name": "Продукты питания",
+                "tag": "1"
+            },
+            {
+                "name": "Вкусняхи",
+                "tag": "2"
+            },
+            {
+                "name": "Бытовые товары",
+                "tag": "3"
+            },
+            {
+                "name": "Товары для детей",
+                "tag": "4"
+            }
+        ]
 
 ### Shop Gorups [GET, /shopgroups]
 
@@ -257,9 +330,28 @@ Api for users
     + Body
         [
             {
-            "id": "XXYYZZ",
-            "name": "Name",
-            "photo": "Photo"
+                "id": "0",
+                "name": "Metro"
+            },
+            {
+                "id": "1",
+                "name": "Лента"
+            },
+            {
+                "id": "2",
+                "name": "Billa"
+            },
+            {
+                "id": "3",
+                "name": "Перекресток"
+            },
+            {
+                "id": "4",
+                "name": "Ашан"
+            },
+            {
+                "id": "5",
+                "name": "АвтоСеть"
             }
         ]
 
@@ -268,83 +360,226 @@ Api for users
     + Attributes
         + location (optional, string)
         + group (optional, string)
+        + type (required, string)
     + Parameters
         + location (optional, string)
         + group (optional, string)
+        + type (required, string)
     
     + Request (application/json)
         + Parameters
             location: "55.0,55.0"
+            type: selfpickup
+    + Response 200 (application/json)
+       + Body
+         [
+        {
+            "id": "0",
+            "groupId": "5",
+            "name": "Свежая выпечка и кондитерские изделия",
+            "address": "0",
+            "distance": 200,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/AoPs2il36jk2guk/avtoset_logo.png",
+            "pinIcon": "0",
+            "price": 10,
+            "eta": 60,
+            "tags": ["2"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "1",
+            "groupId": "2",
+            "name": "Продукты питания и хоз товары",
+            "address": "0",
+            "distance": 300,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/ExjqC9QCaesoAN4/billa_logo.png",
+            "pinIcon": "0",
+            "price": 10,
+            "eta": 220,
+            "tags": ["1", "2"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "2",
+            "groupId": "1",
+            "name": "Товары для животных",
+            "address": "0",
+            "distance": 400,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/RKEjv2TPHpBkJxL/lenta_logo.png",
+            "pinIcon": "0",
+            "price": 120,
+            "eta": 60,
+            "tags": ["0"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "3",
+            "groupId": "2",
+            "name": "Гипермаркет",
+            "address": "0",
+            "distance": 300,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/dkpAJM6lcf5d8h7/metro_logo.png",
+            "pinIcon": "0",
+            "price": 1,
+            "eta": 5,
+            "tags": ["0","1", "2", "3", "4"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "3",
+            "groupId": "2",
+            "name": "Супермаркет",
+            "address": "0",
+            "distance": 300,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/50VjYRhtARzYTNT/perekrestok_logo.png",
+            "pinIcon": "0",
+            "price": 1,
+            "eta": 5,
+            "tags": ["0","1", "2"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "3",
+            "groupId": "2",
+            "name": "Гипермаркет",
+            "address": "0",
+            "distance": 300,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/1FSP7phC6mtuKP6/ashan_logo.png",
+            "pinIcon": "0",
+            "price": 1,
+            "eta": 5,
+            "tags": ["0","1", "2"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        }
+    ]
+    + Request (application/json)
+        + Parameters
+            location: "55.0,55.0"
+            type: delivery
     + Response 200 (application/json)
         + Body
-            [
-                {
-                    "id": "0",
-                    "groupId": "0",
-                    "name": "0",
-                    "address": "0",
-                    "distance": 0,
-                    "photo": "0",
-                    "pinIcon": "0",
-                    "price": 0,
-                    "eta": 0,
-                    "location": {
-                        "lat": 0,
-                        "long": 0
-                    }
-                },
-                {
-                    "id": "1",
-                    "groupId": "1",
-                    "name": "1",
-                    "address": "1",
-                    "distance": 1,
-                    "photo": "1",
-                    "pinIcon": "1",
-                    "price": 1,
-                    "eta": 1,
-                    "location": {
-                        "lat": 1,
-                        "long": 1
-                    }
-                },
-                {
-                    "id": "2",
-                    "groupId": "2",
-                    "name": "2",
-                    "address": "2",
-                    "distance": 2,
-                    "photo": "2",
-                    "pinIcon": "2",
-                    "price": 2,
-                    "eta": 2,
-                    "location": {
-                        "lat": 2,
-                        "long": 2
-                    }
-                },
-                {
-                    "id": "3",
-                    "groupId": "3",
-                    "name": "3",
-                    "address": "3",
-                    "distance": 3,
-                    "photo": "3",
-                    "pinIcon": "3",
-                    "price": 3,
-                    "eta": 3,
-                    "location": {
-                        "lat": 3,
-                        "long": 3
-                    }
-                }
-            ]
+         [
+        {
+            "id": "0",
+            "groupId": "5",
+            "name": "Свежая выпечка и кондитерские изделия",
+            "address": "0",
+            "distance": 200,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/AoPs2il36jk2guk/avtoset_logo.png",
+            "pinIcon": "0",
+            "price": 10,
+            "eta": 60,
+            "tags": ["2"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "1",
+            "groupId": "2",
+            "name": "Продукты питания и хоз товары",
+            "address": "0",
+            "distance": 300,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/ExjqC9QCaesoAN4/billa_logo.png",
+            "pinIcon": "0",
+            "price": 10,
+            "eta": 220,
+            "tags": ["1", "2"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "2",
+            "groupId": "1",
+            "name": "Товары для животных",
+            "address": "0",
+            "distance": 400,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/RKEjv2TPHpBkJxL/lenta_logo.png",
+            "pinIcon": "0",
+            "price": 120,
+            "eta": 60,
+            "tags": ["0"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "3",
+            "groupId": "2",
+            "name": "Гипермаркет",
+            "address": "0",
+            "distance": 300,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/dkpAJM6lcf5d8h7/metro_logo.png",
+            "pinIcon": "0",
+            "price": 1,
+            "eta": 5,
+            "tags": ["0","1", "2", "3", "4"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "3",
+            "groupId": "2",
+            "name": "Супермаркет",
+            "address": "0",
+            "distance": 300,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/50VjYRhtARzYTNT/perekrestok_logo.png",
+            "pinIcon": "0",
+            "price": 1,
+            "eta": 5,
+            "tags": ["0","1", "2"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        },
+        {
+            "id": "3",
+            "groupId": "2",
+            "name": "Гипермаркет",
+            "address": "0",
+            "distance": 300,
+            "photo": "https://s3.amazonaws.com/uploads.hipchat.com/18933/4501153/1FSP7phC6mtuKP6/ashan_logo.png",
+            "pinIcon": "0",
+            "price": 1,
+            "eta": 5,
+            "tags": ["0","1", "2"],
+            "location": {
+                "latitude": 0,
+                "longitude": 0
+            }
+        }
+    ]
 
 # Group Orders
 
 ## Orders [/orders]
 
-### Order list [GET, /orders]
+### Order list [GET, /orders/{id}]
     + Attributes
         + skip (optional, number)
         + n (optional, number)
@@ -434,7 +669,7 @@ Api for users
     "items" : [
         {
             "itemId": "XXYYWW",
-            "qty": 2,
+            "qty": 2
         }
     ],
     "address" : {
@@ -450,7 +685,7 @@ Api for users
         "longitude": 55.535164,
         "note": "не кричите громко"
     },
-    "dueTime" : "",
+    "dueTime" : ""
 }
 
 + Request (application/json)
@@ -461,7 +696,7 @@ Api for users
     "items" : [
         {
             "itemId": "XXYYWW",
-            "qty": 2,
+            "qty": 2
         }
     ],
     "address" : {
@@ -477,7 +712,7 @@ Api for users
         "longitude": 55.535164,
         "note": "не кричите громко"
     },
-    "dueTime" : "",
+    "dueTime" : ""
 }
 
 + Request (application/json)
@@ -488,7 +723,7 @@ Api for users
     "items" : [
         {
             "itemId": "XXYYWW",
-            "qty": 2,
+            "qty": 2
         }
     ],
     "address" : {
@@ -504,7 +739,7 @@ Api for users
         "longitude": 55.535164,
         "note": "не кричите громко"
     },
-    "dueTime" : "",
+    "dueTime" : ""
 }
 
 ### Get Order Info [GET, /orders]
@@ -777,7 +1012,7 @@ Api for users
         "groupId": "metro",
         "name": "",
         "address": "проспект Мира, 211к1",
-        "photo": "",
+        "photo": ""
     },
     "delivery" : {
         "address" : "Южнобутовская ул. вл66",
@@ -914,7 +1149,7 @@ Api for users
   }
 }
 
-### Remove Item [DELETE,/cart/{shopId}/items/{itemId}]
+### Remove Item [DELETE, /cart/{shopId}/items/{itemId}]
 + Attributes
         + shopId (required, string)
         + itemId (required, string)

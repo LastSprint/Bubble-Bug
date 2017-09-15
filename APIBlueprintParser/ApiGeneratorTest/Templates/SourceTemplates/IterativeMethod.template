@@ -19,13 +19,7 @@
 
         [Route("$uri$")]
         [$HttpMethod$]
-        public $ReturnType$ $MethodName$($Params$ $Body$ int? _options) {
-            if (_options.HasValue) {
-                switch (_options.Value) {
-                    case IterativeOptions.ResetIterator:
-                        Support.ResetEnumerator(_$MethodName$Enumerator);
-                        break;
-                }
-            }
-            return this.$MethodName$Current;
+        public $ReturnType$ $MethodName$($Params$ $Body$) {
+            HttpContext.Response.ContentType = "Application/json";
+            return this.$MethodName$Current.ResponseBody;
         }

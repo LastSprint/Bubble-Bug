@@ -57,10 +57,10 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 
             switch (this._node.RequestPairs.First().Request.BodyType) {
                 case BodyType.Json:
-                    body = isIterative ? "[FromBody]object value," : "[FromBody]object value";
+                    body = "[FromBody]object value";
                     break;
                 case BodyType.Empty:
-                    body = isIterative ? "," : "";
+					body = "";
                     this.isEmptyRequestContent = true;
                     break;
             }
@@ -71,7 +71,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 				}
             }
 
-            if (body.Length == 0 && !isIterative) {
+			if (body.Length == 0 && parameters.Length != 0) {
                 parameters = parameters.Substring(0, parameters.Length - 1);
             }
 
