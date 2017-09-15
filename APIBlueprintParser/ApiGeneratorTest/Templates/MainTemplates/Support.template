@@ -2,6 +2,11 @@ using System.Collections.Generic;
 
 namespace $projectname$ {
 
+	public class MockNotFoundException : Exception
+    {
+        public MockNotFoundException(): base ("В папке нет мока с нужными параметрами ну или баги при сравнении. Простете((") { }
+    }
+
     public struct IterativeOptions {
         public const int ResetIterator = 0;
     }

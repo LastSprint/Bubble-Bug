@@ -143,12 +143,22 @@ namespace $projectname$ {
                 return false;
             }
 
-            for (int i = 0; i < this.Parameters.Count; i++) {
+			for (int k = 0; k < req.Parameters.Count; k++) {
 
-                if (!this.Parameters[i].Equals(req.Parameters[i])) {
-                    return false;
-                }
-            }
+				var flag = false;
+
+				for (int i = 0; i < this.Parameters.Count; i++) {
+
+					if (this.Parameters[i].Equals(req.Parameters[k])) {
+						flag = true;
+						break;
+					}
+				}
+
+				if (!flag) {
+					return false;
+				}
+			}
 
             return true;
         }
