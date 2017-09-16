@@ -13,7 +13,6 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 
 namespace ApiGeneratorTest.Generators {
-
     public class GenerateBaseFiles {
 
         private struct Tokens {
