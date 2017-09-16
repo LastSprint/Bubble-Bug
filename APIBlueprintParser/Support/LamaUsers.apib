@@ -108,47 +108,47 @@ Api for users
             }
 
 
+### Update User [POST, /user]
+    + Request (application/json)
+        + Body 
+            {
+                "firstName": "0",
+                "lastName": "0",
+                "email": "0",
+                "phone": "0"
+            }
+    + Response 204 (application/json)
+
 ### Add Address [POST, /user/profile/address]
 
 + Request (application/json)
     + Body
         {
-            "address": "Южнобутовская ул. вл66",
-            "entrance": "",
-            "floor": "",
-            "apartment": "келья дьякона Данунахова",
-            "doorPhone": "1488",
-            "recipientFirstName": "Иннокентий",
-            "recipientLastName": "Данунахов",
-            "recipientPhone": "55503523355",
-            "latitude": 37.526525,
-            "longitude": 55.535164,
-            "note": "не кричите громко",
-            "isMain": false
+            "address": "1",
+            "entrance": "1",
+            "floor": "1",
+            "apartment": "1",
+            "doorPhone": "1",
+            "recipientFirstName": "1",
+            "recipientLastName": "1",
+            "recipientPhone": "1",
+            "location": {
+                "latitude": 1,
+                "longitude": 1
+            },
+            "note": "не кричите громко"
         }
 + Response 201 (application/json) 
     + Body
         {
-            "id": "zzxcvbnm",
-            "address": "Южнобутовская ул. вл66",
-            "entrance": "",
-            "floor": "",
-            "apartment": "келья дьякона Данунахова",
-            "doorPhone": "1488",
-            "recipientFirstName": "Иннокентий",
-            "recipientLastName": "Данунахов",
-            "recipientPhone": "55503523355",
-            "latitude": 37.526525,
-            "longitude": 55.535164,
-            "note": "не кричите громко",
-            "isMain": false
+            "id": "1",
         }
 + Request (application/json)
 + Response 400 (application/json)
     + Body
         {"error" : "bad request"}
 
-### Update Address [PUT, /user/profile/address]
+### Update Address [PUT, /user/profile/address/{address_id}]
 
     + Attributes
         + address_id (required, string)
@@ -158,46 +158,28 @@ Api for users
 + Request (application/json)
 
     + Parameters
-        address_id: "zxcvb"
+        address_id: "1"
 
     + Body
         {
-            "address": "Южнобутовская ул. вл66",
-            "entrance": "",
-            "floor": "",
-            "apartment": "келья дьякона Данунахова",
-            "doorPhone": "1488",
-            "recipientFirstName": "Иннокентий",
-            "recipientLastName": "Данунахов",
-            "recipientPhone": "55503523355",
-            "latitude": 37.526525,
-            "longitude": 55.535164,
-            "note": "не кричите громко",
-            "isMain": false
+            "id": "1",
+            "address": "1",
+            "entrance": "1",
+            "floor": "1",
+            "apartment": "1",
+            "doorPhone": "1",
+            "recipientFirstName": "1",
+            "recipientLastName": "1",
+            "recipientPhone": "1",
+            "location": {
+                "latitude": 1,
+                "longitude": 1
+            },
+            "note": "не кричите громко"
         }
-+ Response 200 (application/json) 
-    + Body
-        {
-            "id": "zxcvb",
-            "address": "Южнобутовская ул. вл66",
-            "entrance": "",
-            "floor": "",
-            "apartment": "келья дьякона Данунахова",
-            "doorPhone": "1488",
-            "recipientFirstName": "Иннокентий",
-            "recipientLastName": "Данунахов",
-            "recipientPhone": "55503523355",
-            "latitude": 37.526525,
-            "longitude": 55.535164,
-            "note": "не кричите громко",
-            "isMain": false
-        }
-+ Request (application/json)
-+ Response 400 (application/json)
-    + Body
-        {"error" : "bad request"}
++ Response 204 (application/json) 
 
-### Remove Address [DELETE, /user/profile/address]
+### Remove Address [DELETE, /user/profile/address/{address_id}]
     + Attributes
         + address_id (required, string)
     + Parameters
@@ -205,16 +187,9 @@ Api for users
         
     + Request (application/json)
         + Parameters
-            address_id: "zxcvb"
+            address_id: "1"
     + Response 204 (application/json)
-    + Request (application/json)
-        + Parameters
-            address_id: "ewq"
-    + Response 400 (application/json)
-        + Body
-            {
-                "error": "This address doesnt exist"
-            }
+
 ### Get Profile [GET, /user/profile]
     + Request
     + Response 200 (Application/json)
@@ -225,7 +200,7 @@ Api for users
     "lastName": "Программист",
     "email": "email@user.com",
     "phone": "+79992223344",
-    "birthDate": "2017-07-18T08:56:35Z",
+    "birthDate": "2017-09-16T12:38:21+0000",
     "addresses": [
         {
             "id": "ZXCC",                
