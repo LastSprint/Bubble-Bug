@@ -41,6 +41,7 @@ namespace APIBlueprintParser.Parsers {
                 case Constants.ValueTypes.Number: return ValueType.Number;
                 case Constants.ValueTypes.String: return ValueType.String;
                 case Constants.ValueTypes.Bool: return ValueType.Bool;
+                case Constants.ValueTypes.Long: return ValueType.Long;
                 default: return null;
             }
         }

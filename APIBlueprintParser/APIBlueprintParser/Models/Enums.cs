@@ -22,7 +22,8 @@ namespace APIBlueprintParser.Models {
 		Object,
 		String,
 		Number,
-		Bool
+		Bool,
+        Long
 	}
 
     /// <summary>

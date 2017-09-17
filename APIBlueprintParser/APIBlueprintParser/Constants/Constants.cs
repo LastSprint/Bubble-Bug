@@ -18,6 +18,7 @@ namespace APIBlueprintParser.Parsers {
             public const string String = "string";
             public const string Number = "number";
             public const string Bool = "bool";
+            public const string Long = "long";
         }
 
         public struct NeededTypes {

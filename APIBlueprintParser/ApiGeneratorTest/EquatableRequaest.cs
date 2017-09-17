@@ -24,7 +24,8 @@ namespace ApiGeneratorTest.ThirdParty
         Object = 0,
         Number = 1,
         String = 2,
-        Bool = 3
+        Bool = 3,
+        Long = 4
     }
 
     public struct RequestParameter
@@ -67,6 +68,7 @@ namespace ApiGeneratorTest.ThirdParty
                 case APIBlueprintParser.Models.ValueType.Number: return ValueType.Number;
                 case APIBlueprintParser.Models.ValueType.Object: return ValueType.Object;
                 case APIBlueprintParser.Models.ValueType.String: return ValueType.String;
+                case APIBlueprintParser.Models.ValueType.Long: return ValueType.Long;
             }
 
             throw new ArgumentOutOfRangeException();

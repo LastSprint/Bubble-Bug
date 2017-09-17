@@ -36,6 +36,8 @@ namespace ApiGeneratorTest {
                     return "object";
                 case ValueType.String:
                     return "string";
+                case ValueType.Long:
+                    return "long";
                 default: throw new ArgumentOutOfRangeException(nameof(valueType), "Cant convert value type to string");
             }
         }
