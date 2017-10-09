@@ -65,7 +65,7 @@ namespace ApiGeneratorTest.Generators {
             public const string ControllersDiretoryName = "/Controllers";
             public const string PropertiesDirectoryName = "/Properties";
             public const string WwwRootDirectoryName = "/wwwroot";
-			public const string 
+            public const string MocksFolder = "/Mocks";
         }
 
         private string _projectName;
@@ -81,7 +81,7 @@ namespace ApiGeneratorTest.Generators {
             var controllerDir = projectFolder + Consts.ControllersDiretoryName;
             var propertiesDir = projectFolder + Consts.PropertiesDirectoryName;
             var wwwrootDir = projectFolder + Consts.WwwRootDirectoryName;
-			var mockDir = projectFolder + Consts.ControllersDiretoryName + "/" + "Mocks";
+            var mockDir = projectFolder + Consts.ControllersDiretoryName + Consts.MocksFolder;
 
             Directory.CreateDirectory(Constants.RootDirectory + Constants.ServersProjectDir);
             Directory.CreateDirectory(mainFolder);
@@ -89,7 +89,7 @@ namespace ApiGeneratorTest.Generators {
             Directory.CreateDirectory(controllerDir);
             Directory.CreateDirectory(propertiesDir);
             Directory.CreateDirectory(wwwrootDir);
-            
+            Directory.CreateDirectory(mockDir);
 
             return new FolderStrucureDescriptior(
                 this._projectName,
@@ -97,7 +97,8 @@ namespace ApiGeneratorTest.Generators {
                 projectFolder,
                 controllerDir,
                 propertiesDir,
-                wwwrootDir
+                wwwrootDir,
+                mockDir
             );
         }
     }

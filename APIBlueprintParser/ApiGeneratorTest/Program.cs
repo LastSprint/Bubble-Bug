@@ -69,9 +69,13 @@ namespace ApiGeneratorTest {
 
             Console.WriteLine("File strcture generation finished");
 
+            Console.WriteLine("Needs to generate default mocks? y/n");
+
+            var readedFlag = Console.ReadLine().ToLower() == "y";
+
             Console.WriteLine("Start generate source code");
 
-            new ApiGenerator(parser, descriptor).Generate();
+            new ApiGenerator(parser, descriptor).Generate(readedFlag);
 
             Console.WriteLine("Source code generation finished");
 

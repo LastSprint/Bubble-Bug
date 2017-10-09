@@ -30,14 +30,14 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             this._descriptor = descriptor;
         }
 
-        public (string code, string controllerName) Generate() {
+        public (string code, string controllerName) Generate(bool generateMocks) {
 
             var controllerName = this._node.Identifier.Replace(" ", "").Trim();
 
             var code = "";
 
             foreach (var action in this._node.Actions) {
-                code += new MethodGenerator(action, this._descriptor).Generate() + Environment.NewLine;
+                code += new MethodGenerator(action, this._descriptor).Generate(generateMocks) + Environment.NewLine;
             }
 
             var str = SourceTemplatesPathes.PathToControllerTemplate;

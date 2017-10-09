@@ -21,13 +21,13 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             this._folderDescriptor = folderDescriptor;
         }
 
-        public void Generate() {
+        public void Generate(bool generateMocks) {
 
             var pathToControllersFolser = this._folderDescriptor.ControllerDirectory;
 
             foreach (var group in this._apiDescription.Groups) {
                 foreach (var resource in group.Resources) {
-                    var code = new ControllerGenerator(resource, this._folderDescriptor.ProjectName, this._folderDescriptor).Generate();
+                    var code = new ControllerGenerator(resource, this._folderDescriptor.ProjectName, this._folderDescriptor).Generate(generateMocks);
                     File.WriteAllText(pathToControllersFolser + "/" + code.controllerName + ".cs", code.code);
                 }
             }

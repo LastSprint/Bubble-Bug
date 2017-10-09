@@ -39,7 +39,7 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             this.isEmptyRequestContent = false;
         }
 
-        public string Generate() {
+        public string Generate(bool generateMocks) {
 
             var httpMethod = this._node.HttpMethod.MethodToString();
 
@@ -85,7 +85,8 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
             str = str.Replace(Tokens.Parameters, parameters);
             str = str.Replace(Tokens.Body, body);
 
-            this.GenerateMockJSON();
+            this.GenerateMockJSON(generateMocks);
+
             return str;
         }
 
@@ -159,10 +160,13 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 			return code;
         }
 
-        private void GenerateMockJSON() {
+        private void GenerateMockJSON(bool generateMocks) {
             var dirName = this._methodName;
-            var pathToMock = $"{this._descriptor.ControllerDirectory}/{dirName}";
+            var pathToMock = $"{this._descriptor.MocksDirectory}/{dirName}";
             Directory.CreateDirectory(pathToMock);
+            if (!generateMocks) {
+                return;
+            }
             var list = this._node.RequestPairs.ToList();
             for (var i = 0; i < this._node.RequestPairs.Count(); i++) {
                 var pair = list[i];
