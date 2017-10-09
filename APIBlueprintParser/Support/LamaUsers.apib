@@ -39,12 +39,16 @@ Api for users
 + Request (application/json)
     + Body
 {
-    "phone": "+79103468893"
+    "phone": "+79103468893",
+    "client_id": "lama.client.ios"
 }
 + Response 400 (application/json)
     + Body
 {
-    "error": "Bad phone"
+    "error": {
+        "code": "UserBlocked",
+        "message": "Some custom error"
+    }
 }
 + Request (application/json)
 + Response 400 (application/json)
@@ -633,7 +637,7 @@ Api for users
     ]
 }
 
-### Swap Items [POST, /orders/{id}/items/{id}]
+### Swap Items [POST, /orders/{id}/items/{itemId}]
 + Attributes
     + id (required, string)
 + Parameters

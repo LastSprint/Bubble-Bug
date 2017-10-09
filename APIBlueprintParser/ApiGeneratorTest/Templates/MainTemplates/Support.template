@@ -24,7 +24,7 @@ namespace $projectname$ {
         }
 
         public static ICollection<EquatableRequaest> ReadAllMocks(string methodName) {
-            var resultPath = "$PathToController$" + "/" + methodName;
+            var resultPath = "$PathToController$" + "/" + "Mocks/" + methodName;
 
             var files = System.IO.Directory.GetFiles(resultPath).Where(path => path.Split('/').Last().First() != '.');
 

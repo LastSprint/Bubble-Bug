@@ -21,5 +21,7 @@
         [$HttpMethod$]
         public $ReturnType$ $MethodName$($Params$ $Body$) {
             HttpContext.Response.ContentType = "Application/json";
-            return this.$MethodName$Current.ResponseBody;
+            var current = this.$MethodName$Current;
+            HttpContext.Response.StatusCode = current.ResponseCode;
+            return current.ResponseBody;
         }
