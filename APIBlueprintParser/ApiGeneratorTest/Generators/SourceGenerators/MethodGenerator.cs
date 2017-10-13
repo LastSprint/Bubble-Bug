@@ -174,6 +174,11 @@ namespace ApiGeneratorTest.Generators.SourceGenerators {
 				var lstr = this._node.Parameters != null ? this._node.Parameters.ToList() : new List<AttributeNode>();
 
                 var req = new EquatableRequaest(pair, lstr);
+
+                if (req.RequestBody == null && req.ResponseBody == null) {
+                    break;
+                }
+
                 var str = JsonConvert.SerializeObject(req);
                 File.WriteAllText($"{pathToMock}/{i}mock.json", str);
             }

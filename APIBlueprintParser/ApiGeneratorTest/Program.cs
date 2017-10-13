@@ -29,6 +29,7 @@ namespace ApiGeneratorTest {
 				Console.WriteLine("Has error occured");
 				Console.ResetColor();
 				Console.WriteLine(e);
+			    Console.ReadKey();
 			}
 		}
 
