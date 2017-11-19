@@ -3,9 +3,10 @@
 ![Build Status](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser.svg)
 ![Conda](https://img.shields.io/conda/pn/conda-forge/python.svg)
 
-# Bubble-Bug -  Tools for generating mock server from Apiary specification.
-# Утилита для генерации мокового сервера из специйикации ApiBlueprint.
-## В данный момент сервер поддерживает:
+# Bubble-Bug - Tools for generating mock server from Apiary specification.
+Bubble-Bug - Утилита для генерации мокового сервера из спецификаций ApiBlueprint.
+
+## В данный момент сервер поддерживает
 + POST/PUT/DELETE/GET - запросы
 + Горячую подмену моков
 + Сравнение по параметрам и телу запроса
@@ -72,7 +73,7 @@
 + `Name` - Имя параметра
 
 ## Спецификация
-### Metadata secttion
+### Metadata section
 ```
 Key: Value
 Key: Value
